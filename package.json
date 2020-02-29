@@ -1,0 +1,24 @@
+{
+  "name": "project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "dependencies": {
+    "bcrypt": "^3.0.7",
+    "cors": "^2.8.5",
+    "express": "^4.13.4",
+    "mongodb": "^3.5.2",
+    "nodemailer": "^6.4.3",
+    "socket.io": "^1.4.5"
+  },
+  "engines": {
+    "node": "4.1.x"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "author": "Ali Farooqi",
+  "license": "ISC"
+}
