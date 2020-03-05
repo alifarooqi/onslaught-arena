@@ -12,7 +12,26 @@
 		<button onclick="logout()" class="logout-btn">Logout</button>
 	</div>
 
-	<div id="stage"></div>
+	<div id="stage" class="hidden">
+		<section class="wrapper" id="loading">
+			<div class="spinner">
+				<i></i>
+				<i></i>
+				<i></i>
+				<i></i>
+				<i></i>
+				<i></i>
+				<i></i>
+			</div>
+			<p class="spinner-text">Finding a partner for you...</p>
+			<button class="cancel-btn" onclick="cancelLoading()">Cancel</button>
+		</section>
+		<section class="wrapper" id="startingCountdown">
+			<p class="spinner-text">You have been matched with <span id="partnerUsername"></span></p>
+			<p class="spinner-text">Game starting in <span id="gameroomCountdown">5</span> seconds</p>
+		</section>
+		</div>
+	</div>
 
 	<script src="/client2/htdocs/js/index.js"></script>
 	<script src="/client2/htdocs/js/socket.js"></script>
@@ -38,6 +57,7 @@
 	<script src="/client2/htdocs/js/spawn_point.js"></script>
 	<script src="/client2/htdocs/js/spawn_wave.js"></script>
 	<script src="/client2/htdocs/js/run_game.js"></script>
+	<script src="/client2/htdocs/js/socket-listener.js"></script>
 
 </body>
 </html>

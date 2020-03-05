@@ -22,6 +22,7 @@ o.hero = {
 	],
 	isMeatboy: false,
 	bloodTimer: null,
+	multiplayerType: 'host',
 
 	onInit: function () {
 		if (this.isMeatboy) {

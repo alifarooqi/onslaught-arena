@@ -25,6 +25,15 @@ MongoClient.connect(url, { useUnifiedTopology: true}, function(err, client) {
 const insert = function(modelpack, data, callback = _=>{}) {
     // Get the documents collection
     const collection = db.collection(modelpack.collection);
+    let now = new Date();
+    if(modelpack.create){
+        for(let i=0; i<data.length; i++)
+            data[i][modelpack.create] = now;
+    }
+    if(modelpack.update){
+        for(let i=0; i<data.length; i++)
+            data[i][modelpack.update] = now;
+    }
     // Insert some documents
     collection.insertMany(data, function(err, result) {
         if(err)

@@ -54,7 +54,6 @@ horde.sound.init = function horde_sound_init (callback) {
 };
 
 horde.sound.create = function horde_sound_create (id, url, loops, volume) {
-
 	if (disabled) return;
 
 	loops = Boolean(loops);
@@ -133,7 +132,9 @@ horde.sound.play = function horde_sound_play (id) {
 				sounds[id].pause();
 				sounds[id].currentTime = 0;
 				sounds[id].play();
-			} catch (e) {}
+			} catch (e) {
+				console.error(e);
+			}
 			break;
 	}
 };

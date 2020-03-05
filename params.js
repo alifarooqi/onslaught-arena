@@ -9,6 +9,12 @@ module.exports = {
         303: 'Signup: Username exists',
         304: 'Signup: Verification code doesn\'t match',
 
-        400: 'Bad Request!'
+        400: 'Bad Request!',
+
+    },
+
+    multiplayerType: {
+        host: 'host',
+        guest: 'guest'
     }
 };

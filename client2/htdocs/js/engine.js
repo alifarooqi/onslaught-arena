@@ -10,6 +10,7 @@ var HIGH_SCORE_KEY = "high_score";
 
 var COLOR_BLACK = "rgb(0, 0, 0)";
 var COLOR_WHITE = "rgb(241, 241, 242)";
+var COLOR_ORANGE = "#cca204";
 var TEXT_HEIGHT = 20; // Ehh, kind of a hack, because stupid ctx.measureText only gives width (why??).
 var WAVE_TEXT_HEIGHT = 40;
 
@@ -24,6 +25,8 @@ var GLOW_INCREMENT = 0.2;
 var GATE_CUTOFF_Y = 64;
 var NUM_GATES = 3;
 var SCORE_COUNT = 10;
+
+const DRAW_GRID_LINES = false;
 
 /**
  * Creates a new Engine object
@@ -129,6 +132,10 @@ horde.Engine = function horde_Engine () {
 	this.canMute = true;
 	this.canFullscreen = false;
 	this.wasdMovesArrowsAttack = true;
+
+	// Multiplayer Support
+	this.multiplayerType = 'host';
+	this.gameroomId = '';
 
 };
 
@@ -251,10 +258,10 @@ proto.togglePause = (function horde_Engine_proto_togglePause () {
  */
 proto.addObject = function horde_Engine_proto_addObject (object) {
 	this.objectIdSeed++;
-	var id = "o" + this.objectIdSeed;
-	object.id = id;
-	this.objects[id] = object;
-	return id;
+    var id = "o" + this.objectIdSeed;
+    object.id = id;
+    this.objects[id] = object;
+    return id;
 };
 
 /**
@@ -319,7 +326,10 @@ proto.objectExists = function (objectId) {
  * @return {horde.Object} Player object
  */
 proto.getPlayerObject = function horde_Engine_proto_getPlayerObject () {
-	return this.objects[this.playerObjectId];
+	if(this.multiplayerType == 'host')
+		return this.objects[this.playerObjectId];
+	else
+        return this.objects[this.playerObjectId2];
 };
 
 proto.getPlayer2Object = function horde_Engine_proto_getPlayerObject () {
@@ -349,7 +359,7 @@ proto.preloadComplete = function () {
 	this.state = "intro";
 	this.logoAlpha = 0;
 	this.logoFade = "in";
-	this.logoFadeSpeed = 0.5;
+	this.logoFadeSpeed = 1000000;
 };
 
 /**
@@ -439,6 +449,7 @@ proto.initSound = function horde_Engine_proto_initSound () {
 		s.create("gate_opens", sfxDir + "gate_opens");
 		s.create("gate_closes", sfxDir + "gate_closes");
 		s.create("spike_attack", sfxDir + "spike_attacks");
+        s.create("partner_found", sfxDir + "partner_found");
 
 		// Misc
 		s.create("immunity", sfxDir + "immunity", false, 25);
@@ -555,6 +566,7 @@ proto.initGame = function () {
 	this.initWaves();
 
 	this.initPlayer();
+    this.initPlayer2();
 
 	this.gameOverBg = null;
 
@@ -727,13 +739,13 @@ proto.initPlayer = function horde_Engine_proto_initPlayer () {
 	}
 };
 
-
 proto.initPlayer2 = function horde_Engine_proto_initPlayer () {
 	var player2 = horde.makeObject("hero");
 	// NOTE: below line shouldn't be necessary, but it fixes the weapon retention bug for now.
 	player2.weapons = [
 		{type: "h_sword", count: null}
 	];
+	player2.multiplayerType = 'guest';
 	player2.centerOn(horde.Vector2.fromSize(this.view).scale(0.5));
 	this.playerObjectId2 = this.addObject(player2);
 	if (this.touchMove) {
@@ -750,7 +762,10 @@ proto.logoFadeOut = function () {
 };
 
 proto.updateLogo = function (elapsed) {
+    this.initGame();
 
+    // Change to remove intro
+	/*
 	var kb = this.keyboard;
 	var keys = horde.Keyboard.Keys;
 
@@ -775,6 +790,7 @@ proto.updateLogo = function (elapsed) {
 			this.initGame();
 		}
 	}
+	*/
 };
 
 proto.updateIntroCinematic = function horde_Engine_proto_updateIntroCinematic (elapsed) {
@@ -1270,7 +1286,8 @@ proto.updateWaves = function horde_Engine_proto_updateWaves (elapsed) {
 			return;
 		}
 
-		// Clay.io: Achievements
+		// Clay.io: Achievements [Removed Leaderboard]
+		/*
 		var achievementId = false;
 		switch( this.currentWaveId + 1 ) {
 			case 1:
@@ -1285,6 +1302,7 @@ proto.updateWaves = function horde_Engine_proto_updateWaves (elapsed) {
 			horde.achievementsGranted[achievementId] = true; // so we don't keep sending to Clay.io
 			(new Clay.Achievement({ id: achievementId })).award();
 		}
+		*/
 
 		this.currentWaveId++;
 		var actualWave = (this.currentWaveId + 1);
@@ -1408,12 +1426,15 @@ proto.updateGameOver = function horde_Engine_proto_updateGameOver (elapsed) {
 		var highScore = Number(this.getData(HIGH_SCORE_KEY));
 		var totalScore = this.getTotalScore();
 
-		// Clay.io: Post score to clay.io
+		// Clay.io: Post score to clay.io [Removed Leaderboard]
+
+		/*
 		var _this = this;
 		this.clayLeaderboard.post({ score: totalScore }, function() {
 			// Show the leaderboard
 			_this.showLeaderboard(true);
 		});
+		*/
 
 		if (totalScore > highScore) {
 			this.putData(HIGH_SCORE_KEY, totalScore);
@@ -2421,17 +2442,17 @@ proto.handleInput = function horde_Engine_proto_handleInput () {
 		var startY = (this.pointerYStart - 22);
 
 		// Buy Now! or Continue
-		if (horde.isDemo() || this.canContinue()) {
-			if (
-				(mouseV.x >= startX && mouseV.x <= stopX)
-				&& (mouseV.y >= startY && mouseV.y < (startY + 20))
-			) {
-				if (this.mouse.hasMoved && this.pointerY !== 0) newPointerY = 0;
-				if (this.mouse.isButtonDown(buttons.LEFT)) {
-					this.keyboard.keyStates[keys.SPACE] = true;
-				}
-			}
-		}
+		// if (horde.isDemo() || this.canContinue()) {
+		// 	if (
+		// 		(mouseV.x >= startX && mouseV.x <= stopX)
+		// 		&& (mouseV.y >= startY && mouseV.y < (startY + 20))
+		// 	) {
+		// 		if (this.mouse.hasMoved && this.pointerY !== 0) newPointerY = 0;
+		// 		if (this.mouse.isButtonDown(buttons.LEFT)) {
+		// 			this.keyboard.keyStates[keys.SPACE] = true;
+		// 		}
+		// 	}
+		// }
 
 		// New game
 		startY += POINTER_HEIGHT;
@@ -2457,60 +2478,63 @@ proto.handleInput = function horde_Engine_proto_handleInput () {
 			}
 		}
 
-		// Clay.io: High Scores
-		startY = 444; // 444px from top
-		if (
-			(mouseV.x >= POINTER_X - 50 && mouseV.x <= POINTER_X + 50)
-			&& (mouseV.y >= startY && mouseV.y < (startY + 18)) // 18 = height of button
-		) {
-			this.leaderboardHover = true;
-			if (this.mouse.isButtonDown(buttons.LEFT)) {
-				if(!this.leaderboardShowFlag) {
-					this.leaderboardShowFlag = true; // So the LB only shows once (with a 1 second 'cooldown')
-					this.showLeaderboard();
-					var _this = this;
-					setTimeout(function() {
-						_this.leaderboardShowFlag = false;
-					}, 1000);
-				}
-			}
-		}
-		// Clay.io: Achievements List
-		if (
-			(mouseV.x >= POINTER_X + 50 && mouseV.x <= POINTER_X + 150)
-			&& (mouseV.y >= startY && mouseV.y < (startY + 20)) // 20 = height of button
-		) {
-			this.achievementsHover = true;
-			if (this.mouse.isButtonDown(buttons.LEFT)) {
-				if(!this.achievementsShowFlag) {
-					this.achievementsShowFlag = true; // So the LB only shows once (with a 1 second 'cooldown')
-					Clay.Achievement.showAll();
-					var _this = this;
-					setTimeout(function() {
-						_this.achievementsShowFlag = false;
-					}, 1000);
-				}
-			}
-		}
-		// Clay.io: Login
-		startY += 20;
-		if (
-			!this.loggedIn
-			&& (mouseV.x >= startX && mouseV.x <= stopX)
-			&& (mouseV.y >= startY && mouseV.y < (startY + 18)) // 18 = height of button
-		) {
-			this.loginHover = true;
-			if (this.mouse.isButtonDown(buttons.LEFT)) {
-				if(!this.loginShowFlag) {
-					this.loginShowFlag = true; // So the LB only shows once (with a 1 second 'cooldown')
-					Clay.Player.login();
-					var _this = this;
-					setTimeout(function() {
-						_this.loginShowFlag = false;
-					}, 1000);
-				}
-			}
-		}
+/*
+        // Clay.io: High Scores
+        startY = 444; // 444px from top
+        if (
+            (mouseV.x >= POINTER_X - 50 && mouseV.x <= POINTER_X + 50)
+            && (mouseV.y >= startY && mouseV.y < (startY + 18)) // 18 = height of button
+        ) {
+            this.leaderboardHover = true;
+            if (this.mouse.isButtonDown(buttons.LEFT)) {
+                if(!this.leaderboardShowFlag) {
+                    this.leaderboardShowFlag = true; // So the LB only shows once (with a 1 second 'cooldown')
+                    this.showLeaderboard();
+                    var _this = this;
+                    setTimeout(function() {
+                        _this.leaderboardShowFlag = false;
+                    }, 1000);
+                }
+            }
+        }
+        // Clay.io: Achievements List
+        if (
+            (mouseV.x >= POINTER_X + 50 && mouseV.x <= POINTER_X + 150)
+            && (mouseV.y >= startY && mouseV.y < (startY + 20)) // 20 = height of button
+        ) {
+            this.achievementsHover = true;
+            if (this.mouse.isButtonDown(buttons.LEFT)) {
+                if(!this.achievementsShowFlag) {
+                    this.achievementsShowFlag = true; // So the LB only shows once (with a 1 second 'cooldown')
+                    Clay.Achievement.showAll();
+                    var _this = this;
+                    setTimeout(function() {
+                        _this.achievementsShowFlag = false;
+                    }, 1000);
+                }
+            }
+        }
+        // Clay.io: Login
+        startY += 20;
+        if (
+            !this.loggedIn
+            && (mouseV.x >= startX && mouseV.x <= stopX)
+            && (mouseV.y >= startY && mouseV.y < (startY + 18)) // 18 = height of button
+        ) {
+            this.loginHover = true;
+            if (this.mouse.isButtonDown(buttons.LEFT)) {
+                if(!this.loginShowFlag) {
+                    this.loginShowFlag = true; // So the LB only shows once (with a 1 second 'cooldown')
+                    Clay.Player.login();
+                    var _this = this;
+                    setTimeout(function() {
+                        _this.loginShowFlag = false;
+                    }, 1000);
+                }
+            }
+        }
+*/
+
 
 		if (kb.isKeyPressed(keys.ENTER) || kb.isKeyPressed(keys.SPACE)) {
 
@@ -2530,9 +2554,10 @@ proto.handleInput = function horde_Engine_proto_handleInput () {
 					}
 					break;
 				case 1: // New game
-					this.continuing = false;
-					this.showTutorial = !this.touchMove;
-					this.state = "intro_cinematic";
+					// this.continuing = false;
+					// this.showTutorial = !this.touchMove;
+					// this.state = "intro_cinematic";
+					this.state = "finding_partner";
 					break;
 				case 2: // Credits
 					this.state = "credits";
@@ -3055,7 +3080,7 @@ proto.render = function horde_Engine_proto_render () {
 
 		// Company Logo
 		case "intro":
-			// this.drawLogo(ctx);
+			this.drawLogo(ctx);
 			break;
 
 		// Title Screen
@@ -3070,6 +3095,11 @@ proto.render = function horde_Engine_proto_render () {
 			this.drawTitle(ctx);
 			this.drawCredits(ctx);
 			break;
+
+        case "finding_partner":
+        	SOCKET.findPartner();
+        	this.drawFindPartner(ctx);
+        	break;
 
 		case "intro_cinematic":
 			this.drawIntroCinematic(ctx);
@@ -3113,6 +3143,7 @@ proto.render = function horde_Engine_proto_render () {
 		this.drawDebugInfo(ctx);
 	}
 
+    this.drawGridLines(ctx);
 };
 
 proto.drawWeaponPickup = function horde_Engine_proto_drawWeaponPickup (ctx) {
@@ -3686,6 +3717,16 @@ proto.drawObject = function horde_Engine_proto_drawObject (ctx, o) {
 		);
 	}
 
+
+    if (o.multiplayerType  && o.multiplayerType !== this.multiplayerType) {
+        this.drawImageOverlay(
+            ctx, this.images.getImage(o.spriteSheet),
+            s.x, s.y + 1, o.size.width - 1, o.size.height - 1,
+            -(o.size.width / 2), -(o.size.height / 2), o.size.width, o.size.height,
+            "rgba(191, 104, 11, 0.6)"
+        );
+    }
+
 	// Message indestructible enemy projectiles
 	if (this.isBadassWeapon(o) && o.glow) {
 		this.drawImageOverlay(
@@ -3950,6 +3991,7 @@ proto.drawTitle = function horde_Engine_proto_drawTitle (ctx) {
 	ctx.restore();
 
 	// Clay.io: High scores button
+/*
 	var highScore = ("High Scores  ");
 
 	ctx.save();
@@ -3990,6 +4032,7 @@ proto.drawTitle = function horde_Engine_proto_drawTitle (ctx) {
 	ctx.fillStyle = this.loginHover ? "rgb(180, 180, 180)" : grey;
 	ctx.fillText(highScore, 320, 474);
 	ctx.restore();
+*/
 
 	// Version
 	var version = ("v" + VERSION);
@@ -4006,6 +4049,7 @@ proto.drawTitle = function horde_Engine_proto_drawTitle (ctx) {
 	ctx.restore();
 
 	// Copyright text
+/*
 	var copyright = "Lost Decade Games";
 	ctx.save();
 	ctx.font = "Bold 14px Monospace";
@@ -4016,10 +4060,10 @@ proto.drawTitle = function horde_Engine_proto_drawTitle (ctx) {
 	ctx.fillStyle = grey;
 	ctx.fillText(copyright, 4, 460);
 	ctx.restore();
-
-	var copyrightDate = "\u00A9 2010";
+*/
+	var copyrightDate = "Ali Farooqi \u00A9 2020";
 	ctx.save();
-	ctx.font = "Bold 14px Monospace";
+	ctx.font = "14px Monospace";
 
 	ctx.fillStyle = COLOR_BLACK;
 	ctx.fillText(copyrightDate, 6, 478);
@@ -4079,6 +4123,7 @@ proto.drawTitlePointerOptions = function horde_Engine_proto_drawTitlePointerOpti
 	var startY = (this.pointerYStart - 22);
 	var spriteY;
 
+	/*
 	if (horde.isDemo()) {
 		// Buy now!!
 		spriteY = ((this.pointerY == 0) ? 638 : 430);
@@ -4100,6 +4145,7 @@ proto.drawTitlePointerOptions = function horde_Engine_proto_drawTitlePointerOpti
 			POINTER_X, startY, 116, 20
 		);
 	}
+*/
 
 	// New game
 	spriteY = ((this.pointerY == 1) ? 664 : 456);
@@ -4418,4 +4464,45 @@ proto.toggleFullscreen = function () {
 	this.resize();
 };
 
+proto.drawFindPartner = function horde_Engine_proto_drawFindPartner(ctx){
+    ctx.save();
+    ctx.globalAlpha = 0.7;
+	ctx.fillStyle = COLOR_BLACK;
+    ctx.fillRect(0, 0, this.view.width, this.view.height);
+    ctx.restore();
+    document.getElementById('loading').style.display = 'block';
+};
+
+proto.drawGridLines = function horde_Engine_proto_drawGridLines(context){
+    // Padding
+    const p = 0;
+
+    if(!DRAW_GRID_LINES)
+		return;
+	for (let x = 0; x <= SCREEN_WIDTH; x += 100) {
+		context.moveTo(0.5 + x + p, p);
+		context.lineTo(0.5 + x + p, SCREEN_HEIGHT + p);
+	}
+
+	for (let x = 0; x <= SCREEN_HEIGHT; x += 100) {
+		context.moveTo(p, 0.5 + x + p);
+		context.lineTo(SCREEN_WIDTH + p, 0.5 + x + p);
+	}
+	context.strokeStyle = "red";
+	context.stroke();
+}
+
+/**
+ * Receiving updates from the other player in multiplayer game
+ * @param objects
+ */
+proto.updateFromHost = function (objects) {
+	this.objects = objects;
+};
+
+proto.updateFromGuest = function (player) {
+	this.objects[this.playerObjectId2] = player;
+};
+
 }());
+
