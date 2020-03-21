@@ -40,7 +40,7 @@ horde.Engine = function horde_Engine () {
 	this.objects = {};
 	this.objectIdSeed = 0;
 	this.playerObjectId = null;
-    this.player2ObjectId = null;
+    this.playerObjectId2 = null;
 	this.keyboard = new horde.Keyboard();
 	this.view = new horde.Size(SCREEN_WIDTH, SCREEN_HEIGHT);
 	this.images = null;
@@ -326,15 +326,15 @@ proto.objectExists = function (objectId) {
  * @return {horde.Object} Player object
  */
 proto.getPlayerObject = function horde_Engine_proto_getPlayerObject () {
-	if(this.multiplayerType !== 'guest')
+	if(this.multiplayerType == 'host')
 		return this.objects[this.playerObjectId];
 	else
-        return this.objects[this.player2ObjectId];
+        return this.objects[this.playerObjectId2];
 };
 
-// proto.getPlayer2Object = function horde_Engine_proto_getPlayerObject () {
-// 	return this.objects[this.player2ObjectId];
-// };
+proto.getPlayer2Object = function horde_Engine_proto_getPlayerObject () {
+	return this.objects[this.playerObjectId2];
+};
 
 proto.getObjectCountByType = function horde_Engine_proto_getObjectCountByType (type) {
 	var count = 0;
@@ -382,7 +382,6 @@ proto.init = function horde_Engine_proto_init () {
 	horde.on("contextmenu", function (e) {
 		horde.stopEvent(e);
 	}, document.body, this);
-/*
 
 	horde.on("blur", function () {
 		if (this.state != "running" || this.wonGame) return;
@@ -396,7 +395,6 @@ proto.init = function horde_Engine_proto_init () {
 	horde.on("focus", function () {
 		this.start();
 	}, window, this);
-*/
 
 	// Load just the logo
 	this.preloader = new horde.ImageLoader();
@@ -552,7 +550,7 @@ proto.initSound = function horde_Engine_proto_initSound () {
 };
 
 proto.initGame = function () {
-	this.objectIdSeed = 0;
+
 	this.konamiEntered = false;
 	this.enableClouds = false;
 
@@ -725,7 +723,7 @@ proto.initWaves = function horde_Engine_proto_initWaves () {
 };
 
 /**
- * Initializes the host player
+ * Initializes the player
  * @return {void}
  */
 proto.initPlayer = function horde_Engine_proto_initPlayer () {
@@ -739,13 +737,8 @@ proto.initPlayer = function horde_Engine_proto_initPlayer () {
 	if (this.touchMove) {
 		this.targetReticle.position = player.boundingBox().center();
 	}
-	console.log('Player 1:', this.playerObjectId);
 };
 
-/**
- * Initializes the guest player
- * @return {void}
- */
 proto.initPlayer2 = function horde_Engine_proto_initPlayer () {
 	var player2 = horde.makeObject("hero");
 	// NOTE: below line shouldn't be necessary, but it fixes the weapon retention bug for now.
@@ -754,12 +747,10 @@ proto.initPlayer2 = function horde_Engine_proto_initPlayer () {
 	];
 	player2.multiplayerType = 'guest';
 	player2.centerOn(horde.Vector2.fromSize(this.view).scale(0.5));
-	player2.position.x += 50;
-	this.player2ObjectId = this.addObject(player2);
+	this.playerObjectId2 = this.addObject(player2);
 	if (this.touchMove) {
 		this.targetReticle.position = player2.boundingBox().center();
 	}
-    console.log('Player 2:', this.player2ObjectId);
 };
 
 proto.handleImagesLoaded = function horde_Engine_proto_handleImagesLoaded () {
@@ -923,6 +914,7 @@ proto.updateIntroCinematic = function horde_Engine_proto_updateIntroCinematic (e
 };
 
 proto.update = function horde_Engine_proto_update () {
+
 	var now = horde.now();
 	var elapsed = (now - this.lastUpdate);
 	this.lastUpdate = now;
@@ -967,7 +959,6 @@ proto.update = function horde_Engine_proto_update () {
 				this.handleInput();
 			}
 			if (!this.paused) {
-				this.updateMultiplayerPositions(elapsed);
 				this.updateWaves(elapsed);
 				this.updateSpawnPoints(elapsed);
 				this.updateClouds(elapsed);
@@ -1810,164 +1801,166 @@ proto.spawnLoot = function horde_Engine_proto_spawnLoot (object) {
 };
 
 proto.updateObjects = function (elapsed) {
-
 	var numMonsters = 0;
 	var numMonstersAboveGate = 0;
 
 	for (var id in this.objects) {
+		if(this.multiplayerType === 'host' || (this.multiplayerType === 'guest' && id === this.playerObjectId2)) {
 
-		var o = this.objects[id];
+            var o = this.objects[id];
 
-		if (o.isDead()) {
-			if (o.role === "hero") {
-				this.endGame();
-				return;
-			}
-			o.execute("onDelete", [this]);
-			delete(this.objects[o.id]);
-			continue;
-		}
+            if (o.isDead()) {
+                if (o.role === "hero") {
+                    this.endGame();
+                    return;
+                }
+                o.execute("onDelete", [this]);
+                delete (this.objects[o.id]);
+                continue;
+            }
 
-		if (o.role === "monster" || o.type === "pickup_arrow") {
-			numMonsters++;
-			if (o.position.y <= GATE_CUTOFF_Y) {
-				numMonstersAboveGate++;
-			}
-		}
+            if (o.role === "monster" || o.type === "pickup_arrow") {
+                numMonsters++;
+                if (o.position.y <= GATE_CUTOFF_Y) {
+                    numMonstersAboveGate++;
+                }
+            }
 
-		var action = o.update(elapsed, this);
-		switch (action) {
-			case "shoot":
-				this.objectAttack(o);
-				break;
-		}
+            var action = o.update(elapsed, this);
+            switch (action) {
+                case "shoot":
+                    this.objectAttack(o);
+                    break;
+            }
 
-		if (o.isMoving() && !o.hasState(horde.Object.states.STUNNED)) {
-			this.moveObject(o, elapsed);
-		}
+            if (o.isMoving() && !o.hasState(horde.Object.states.STUNNED)) {
+                this.moveObject(o, elapsed);
+            }
 
-		if (
-			o.role === "fluff"
-			|| o.role === "powerup_food"
-			|| o.hasState(horde.Object.states.DYING)
-			|| o.hasState(horde.Object.states.INVISIBLE)
-		) {
-			continue;
-		}
+            if (
+                o.role === "fluff"
+                || o.role === "powerup_food"
+                || o.hasState(horde.Object.states.DYING)
+                || o.hasState(horde.Object.states.INVISIBLE)
+            ) {
+                continue;
+            }
 
-		for (var x in this.objects) {
-			var o2 = this.objects[x];
-			if (
-				o2.isDead()
-				|| o2.team === o.team
-				|| o2.role === "fluff"
-				|| o2.hasState(horde.Object.states.DYING)
-				|| o2.hasState(horde.Object.states.INVISIBLE)
-			) {
-				continue;
-			}
-			// Reduce the size of the bounding boxes a tad when evaluating object => object collision
-			if (o.boundingBox().reduce(5).intersects(o2.boundingBox().reduce(5))) {
-				if (o.role == "hero") {
-					if (o2.role == "powerup_food") {
-						o2.die();
-						o.wounds -= o2.healAmount;
-						if (o.wounds < 0) o.wounds = 0;
-						o.meatEaten++;
-						horde.sound.play("eat_food");
-						for (var j = 0; j < 5; ++j) {
-							var heart = horde.makeObject("mini_heart");
-							heart.position.x = (o.position.x + (j * (o.size.width / 5)));
-							heart.position.y = (o.position.y + o.size.height - horde.randomRange(0, o.size.height));
-							this.addObject(heart);
-						}
-					} else if (o2.role == "powerup_coin") {
-						o2.die();
-						o.gold += o2.coinAmount;
-						horde.sound.play("coins");
+            for (var x in this.objects) {
+                var o2 = this.objects[x];
+                if (
+                    o2.isDead()
+                    || o2.team === o.team
+                    || o2.role === "fluff"
+                    || o2.hasState(horde.Object.states.DYING)
+                    || o2.hasState(horde.Object.states.INVISIBLE)
+                ) {
+                    continue;
+                }
+                // Reduce the size of the bounding boxes a tad when evaluating object => object collision
+                if (o.boundingBox().reduce(5).intersects(o2.boundingBox().reduce(5))) {
+                    if (o.role == "hero") {
+                        if (o2.role == "powerup_food") {
+                            o2.die();
+                            o.wounds -= o2.healAmount;
+                            if (o.wounds < 0) o.wounds = 0;
+                            o.meatEaten++;
+                            horde.sound.play("eat_food");
+                            for (var j = 0; j < 5; ++j) {
+                                var heart = horde.makeObject("mini_heart");
+                                heart.position.x = (o.position.x + (j * (o.size.width / 5)));
+                                heart.position.y = (o.position.y + o.size.height - horde.randomRange(0, o.size.height));
+                                this.addObject(heart);
+                            }
+                        } else if (o2.role == "powerup_coin") {
+                            o2.die();
+                            o.gold += o2.coinAmount;
+                            horde.sound.play("coins");
 
-						var c = this.coinPickup;
-						c.amount = o2.coinAmount;
-						c.y = 0;
-						c.alpha = 1;
-						c.position = o2.position.clone();
-						c.state = "on";
+                            var c = this.coinPickup;
+                            c.amount = o2.coinAmount;
+                            c.y = 0;
+                            c.alpha = 1;
+                            c.position = o2.position.clone();
+                            c.state = "on";
 
-						if (this.isSpecialLoot(o2.type)) {
-							for (var j in this.objects) {
-								if (this.objects[j].type === "pickup_arrow") {
-									this.objects[j].die();
-								}
-							}
-						}
-					} else if (o2.role == "powerup_weapon") {
-						o2.die();
-						o.addWeapon(o2.wepType, o2.wepCount);
-						horde.sound.play("pickup_weapon");
+                            if (this.isSpecialLoot(o2.type)) {
+                                for (var j in this.objects) {
+                                    if (this.objects[j].type === "pickup_arrow") {
+                                        this.objects[j].die();
+                                    }
+                                }
+                            }
+                        } else if (o2.role == "powerup_weapon") {
+                            o2.die();
+                            o.addWeapon(o2.wepType, o2.wepCount);
+                            horde.sound.play("pickup_weapon");
 
-						var w = this.weaponPickup;
-						w.type = o2.type;
-						w.scale = 1;
-						w.alpha = 0.9;
-						w.position = o2.position.clone();
-						w.state = "on";
+                            var w = this.weaponPickup;
+                            w.type = o2.type;
+                            w.scale = 1;
+                            w.alpha = 0.9;
+                            w.position = o2.position.clone();
+                            w.state = "on";
 
-						if (this.isSpecialLoot(o2.type)) {
-							for (var j in this.objects) {
-								if (this.objects[j].type === "pickup_arrow") {
-									this.objects[j].die();
-								}
-							}
-						}
-					}
-				}
-				if (
-					o.team !== null
-					&& o2.team !== null
-					&& o.team !== o2.team
-				) {
-					this.dealDamage(o2, o);
-					this.dealDamage(o, o2);
-				}
-			}
+                            if (this.isSpecialLoot(o2.type)) {
+                                for (var j in this.objects) {
+                                    if (this.objects[j].type === "pickup_arrow") {
+                                        this.objects[j].die();
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if (
+                        o.team !== null
+                        && o2.team !== null
+                        && o.team !== o2.team
+                    ) {
+                        this.dealDamage(o2, o);
+                        this.dealDamage(o, o2);
+                    }
+                }
 
-		}
+            }
 
-		// Update glowing weapons
-		if (this.isBadassWeapon(o)) {
-			if (o.glow === undefined) {
-				o.glow = {
-					alpha: 0,
-					increment: GLOW_INCREMENT,
-					timer: new horde.Timer()
-				};
-				o.glow.timer.start(50);
-			}
+            // Update glowing weapons
+            if (this.isBadassWeapon(o)) {
+                if (o.glow === undefined) {
+                    o.glow = {
+                        alpha: 0,
+                        increment: GLOW_INCREMENT,
+                        timer: new horde.Timer()
+                    };
+                    o.glow.timer.start(50);
+                }
 
-			o.glow.timer.update(elapsed);
+                o.glow.timer.update(elapsed);
 
-			if (o.glow.timer.expired()) {
-				o.glow.timer.reset();
-				o.glow.alpha += o.glow.increment;
+                if (o.glow.timer.expired()) {
+                    o.glow.timer.reset();
+                    o.glow.alpha += o.glow.increment;
 
-				var max = (1 - GLOW_INCREMENT);
-				if (o.glow.alpha >= max) {
-					o.glow.alpha = max;
-					o.glow.increment = -GLOW_INCREMENT;
-				}
+                    var max = (1 - GLOW_INCREMENT);
+                    if (o.glow.alpha >= max) {
+                        o.glow.alpha = max;
+                        o.glow.increment = -GLOW_INCREMENT;
+                    }
 
-				var min = GLOW_INCREMENT;
-				if (o.glow.alpha <= min) {
-					o.glow.alpha = min;
-					o.glow.increment = GLOW_INCREMENT;
-				}
-			}
-		}
-
+                    var min = GLOW_INCREMENT;
+                    if (o.glow.alpha <= min) {
+                        o.glow.alpha = min;
+                        o.glow.increment = GLOW_INCREMENT;
+                    }
+                }
+            }
+        }
 	}
 
-	this.monstersAlive = numMonsters;
-	this.monstersAboveGates = (numMonstersAboveGate > 0);
+    if(this.multiplayerType === 'host'){
+		this.monstersAlive = numMonsters;
+		this.monstersAboveGates = (numMonstersAboveGate > 0);
+    }
 
 	var player = this.getPlayerObject();
 	if (this.woundsTo < player.wounds) {
@@ -1994,6 +1987,11 @@ proto.updateObjects = function (elapsed) {
 	if (Math.abs(player.wounds - this.woundsTo) <= 1) {
 		this.woundsTo = player.wounds
 	}
+
+    if(this.multiplayerType === 'host')
+    	SOCKET.hostUpdate(this.gameroomId, this.objects, this.monstersAlive, this.monstersAboveGates);
+    else
+    	SOCKET.guestUpdate(this.gameroomId, this.getPlayer2Object());
 
 };
 
@@ -4501,73 +4499,20 @@ proto.drawGridLines = function horde_Engine_proto_drawGridLines(context){
 	context.stroke();
 }
 
-proto.updateMultiplayerPositions = function horde_Engine_proto_updateMultiplayerPositions(elapsed) {
-    if(this.multiplayerType === 'guest'){
-        const playerInfo = this.objects[this.player2ObjectId].getObjectInfo();
-        if(playerInfo)
-        	SOCKET.guestUpdate(this.gameroomId, playerInfo);
-    }
-    else if(this.multiplayerType === 'host'){
-        const playerInfo = this.objects[this.playerObjectId].getObjectInfo();
-        if(playerInfo)
-        	SOCKET.hostUpdate(this.gameroomId, playerInfo);
-    }
-};
-
 /**
  * Receiving updates from the other player in multiplayer game
- * @param {Object} playerInfo
- * 			id: 				(String) Object id
- * 			position: 			(Object) {x,y}
- * 			facing: 			(Object) {x,y}
- * 			currentWeaponIndex:	(Int) Index of currently used weapon
- * 			wounds:				(Int) Amount of damage object has sustained
- * 			alive:				(Bool)
- *			weapons:			(Array) [{type: (String), count: (Int)}]
- *			gold:				(Int) Amount of gold this object has earned
- *			kills:				(Int) Stats
- *			timesWounded:		(Int)
- *			totalDamageTaken:	(Int)
- *			shotsFired:			(Int)
- *			shotsLanded:		(Int)
- *			shotsPerWeapon:		(Object) {N/A}
- *			meatEaten:			(Int)
+ * @param objects
  */
-proto.updateFromHost = function (playerInfo) {
-    const playerId = this.playerObjectId;
-    if(playerInfo.hasOwnProperty('position')){
-        this.objects[playerId].position.x = playerInfo.position.x;
-        this.objects[playerId].position.y = playerInfo.position.y;
-    }
-
-    if(playerInfo.hasOwnProperty('facing')) {
-        this.objects[playerId].facing.x = playerInfo.facing.x;
-        this.objects[playerId].facing.y = playerInfo.facing.y;
-    }
-
-    for(let prop in playerInfo){
-        if(prop !== 'position' && prop !== 'facing' && prop !== 'id'){
-            this.objects[playerId][prop] = playerInfo[prop];
-        }
-    }
+proto.updateFromHost = function (objects, monstersAlive, monstersAboveGates) {
+	let player = this.getPlayer2Object();
+	this.objects = objects;
+	this.objects[this.playerObjectId2] = player;
+	this.monstersAlive = monstersAlive;
+	this.monstersAboveGates = monstersAboveGates;
 };
-proto.updateFromGuest = function (playerInfo) {
-	const playerId = this.player2ObjectId;
-    if(playerInfo.hasOwnProperty('position')){
-        this.objects[playerId].position.x = playerInfo.position.x;
-        this.objects[playerId].position.y = playerInfo.position.y;
-    }
 
-    if(playerInfo.hasOwnProperty('facing')) {
-        this.objects[playerId].facing.x = playerInfo.facing.x;
-        this.objects[playerId].facing.y = playerInfo.facing.y;
-    }
-
-    for(let prop in playerInfo){
-        if(prop !== 'position' && prop !== 'facing' && prop !== 'id'){
-            this.objects[playerId][prop] = playerInfo[prop];
-        }
-    }
+proto.updateFromGuest = function (player) {
+	this.objects[this.playerObjectId2] = player;
 };
 
 }());

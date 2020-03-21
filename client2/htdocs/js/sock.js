@@ -27,15 +27,15 @@ const endSession = (userId)=>{
     });
 };
 
-const hostUpdate = (gameroomId, objects, monstersAlive, monstersAboveGates) => {
+const hostUpdate = (gameroomId, playerPosition) => {
     socket.emit('hostUpdate',{
-        gameroomId, objects, monstersAlive, monstersAboveGates
+        gameroomId, playerPosition
     });
 };
 
-const guestUpdate = (gameroomId, player) => {
+const guestUpdate = (gameroomId, playerPosition) => {
     socket.emit('guestUpdate',{
-        gameroomId, player
+        gameroomId, playerPosition
     });
 };
 

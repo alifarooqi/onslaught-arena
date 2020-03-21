@@ -4,18 +4,18 @@ horde.sound = {};
 
 var api = "html5";
 var format = ".mp3";
-var muted = false;
+var muted = true;
 var sounds = {};
-var disabled = false;
+var disabled = true; //TODO Change sound
 
 horde.sound.init = function horde_sound_init (callback) {
 
-	if (typeof(Audio) == "undefined") {
-		disabled = true;
-		return;
-	} else {
-		disabled = false;
-	}
+	// if (typeof(Audio) == "undefined") {
+	// 	disabled = true;
+	// 	return;
+	// } else {
+	// 	disabled = false;
+	// }
 
 	switch (api) {
 		case "ios":

@@ -42,18 +42,16 @@ const startCountdown = gameroomId =>{
 };
 
 
-const updateFromHost = ({gameroomId, objects, monstersAlive, monstersAboveGates})=>{
+const updateFromHost = ({gameroomId, playerPosition})=>{
     if(ACTIVE_GAMEROOMS[gameroomId]){
-        ACTIVE_GAMEROOMS[gameroomId].guestSocket.emit('receiveHostUpdate', {
-            objects, monstersAlive, monstersAboveGates
-        });
+        ACTIVE_GAMEROOMS[gameroomId].guestSocket.emit('receiveHostUpdate', playerPosition);
     }
 };
 
 
-const updateFromGuest = ({gameroomId, player})=>{
+const updateFromGuest = ({gameroomId, playerPosition})=>{
     if(ACTIVE_GAMEROOMS[gameroomId]){
-        ACTIVE_GAMEROOMS[gameroomId].hostSocket.emit('receiveGuestUpdate', player);
+        ACTIVE_GAMEROOMS[gameroomId].hostSocket.emit('receiveGuestUpdate', playerPosition);
     }
 };
 

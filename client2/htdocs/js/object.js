@@ -90,6 +90,24 @@ horde.Object = function () {
 	this.lootTable = [];
 
 	this.killSwitch = false;
+
+	// Multiplayer Support
+	this.lastUpdate = {
+        id: "",
+        position: {x: 0, y: 0},
+        facing: {x: 0, y: 0},
+        currentWeaponIndex: 0,
+        wounds: 0,
+        alive: true,
+        weapons: [],
+        gold: 0,
+        kills: 0,
+        timesWounded: 0,
+        totalDamageTaken: 0,
+        shotsFired: 0,
+        shotsLanded: 0,
+        meatEaten: 0,
+	};
 };
 
 horde.Object.states = {
@@ -219,9 +237,9 @@ proto.init = function horde_Object_proto_init () {
 proto.die = function horde_Object_proto_die () {
 	this.alive = false;
 
-	// Clay.io: Log the death for things like achievements
-	if((this.role == "monster" || this.role == "projectile") && !this.ignoreLogDeath) // Certain projectiles are ignored (ex. fire_sword_trail)
-		this.logDeath();
+	// Clay.io: Log the death for things like achievements [Removed Leaderboard]
+	// if((this.role == "monster" || this.role == "projectile") && !this.ignoreLogDeath) // Certain projectiles are ignored (ex. fire_sword_trail)
+	// 	this.logDeath();
 };
 
 /**
@@ -751,5 +769,92 @@ proto.hasWeapon = function horde_Object_proto_hasWeapon (type) {
 	}
 	return false;
 };
+
+/**
+ * Returns the current position of the object
+ * @return {Object}
+ * 			id: 				(String) Object id
+ * 			position: 			(Object) {x,y}
+ * 			facing: 			(Object) {x,y}
+ * 			currentWeaponIndex:	(Int) Index of currently used weapon
+ * 			wounds:				(Int) Amount of damage object has sustained
+ * 			alive:				(Bool)
+ *			states:				(Array) [(horde.Object.states)]
+ *			weapons:			(Array) [{type: (String), count: (Int)}]
+ *			gold:				(Int) Amount of gold this object has earned
+ *			kills:				(Int) Stats
+ *			timesWounded:		(Int)
+ *			totalDamageTaken:	(Int)
+ *			shotsFired:			(Int)
+ *			shotsLanded:		(Int)
+ *			shotsPerWeapon:		(Object) {N/A}
+ *			meatEaten:			(Int)
+ */
+proto.getObjectInfo = function horde_Object_proto_getObjectInfo () {
+	let updateInfo = {
+        id: this.id,
+        position: {x: this.position.x, y: this.position.y},
+        facing: {x: this.facing.x, y: this.facing.y},
+        currentWeaponIndex: this.currentWeaponIndex,
+        wounds: this.wounds,
+        alive: this.alive,
+        weapons: this.weapons,
+        gold: this.gold,
+        kills: this.kills,
+        timesWounded: this.timesWounded,
+        totalDamageTaken: this.totalDamageTaken,
+        shotsFired: this.shotsFired,
+        shotsLanded: this.shotsLanded,
+        meatEaten: this.meatEaten,
+    };
+	let diff = getDifference(updateInfo, this.lastUpdate);
+	this.lastUpdate = updateInfo;
+
+	return diff;
+};
+
+const getDifference = (current, last) => {
+	let result = {};
+
+	// 1. Checking custom type of Objects
+	//Position
+	if(current.position.x !== last.position.x || current.position.y !== last.position.y)
+		result.position = current.position;
+
+    //facing
+    if(current.facing.x !== last.facing.x || current.facing.y !== last.facing.y){
+        result.facing = current.facing;
+    }
+
+	// 2. Checking Arrays with comparable elements
+    const arrayProps = ['weapons'];
+    for(let prop of arrayProps){
+        if(current[prop].length !== last[prop].length){
+            result[prop] = current[prop];
+            continue;
+        }
+        for(let i=0; i<current[prop].length; i++){
+            if(current[prop][i] !== last[prop][i]){
+                result[prop] = current[prop];
+                break;
+            }
+        }
+    }
+
+
+    // 3. Comparable properties
+    // const unaryProps = ['currentWeaponIndex', 'wounds', 'alive', 'gold', 'kills', 'timesWounded', 'totalDamageTaken', 'shotsFired', 'shotsLanded', 'meatEaten']
+	const propertiesNotToBeChecked = ['id', 'position', 'facing', ...arrayProps];
+	for(let prop in current){
+		if(!propertiesNotToBeChecked.includes(prop) && current[prop] !== last[prop])
+			result[prop] = current[prop];
+	}
+
+    if(Object.entries(result).length !== 0){
+        result.id = current.id;
+        return result;
+	}
+};
+
 
 }());

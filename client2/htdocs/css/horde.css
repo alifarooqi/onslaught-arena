@@ -423,13 +423,20 @@ div.spinner i:nth-child(8) {
 }
 
 .cancel-btn{
-	width: 100%;
+	width: 45%;
 	padding: 15px;
 	font-family: MedievalSharp, Tahoma, Arial;
 	font-size: 16px;
 	background: rgba(200, 200, 200, 0.5);
-	-webkit-text-stroke: 0.5px #cca204;
+	-webkit-text-stroke: 0.5px #806500;
 	border-radius: 5px;
+}
+
+.practice-btn{
+	background: rgba(204, 162, 4, 0.5);
+	-webkit-text-stroke: 0.5px #806500;
+	border:1px #806500 solid;
+	color: white;
 }
 
 
