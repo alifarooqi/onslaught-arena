@@ -132,6 +132,8 @@ io.sockets.on('connection', function(socket){
 
     socket.on('guestUpdate', gameroom.updateFromGuest);
 
+    socket.on('togglePause', gameroom.togglePause);
+
 
 
     /*****************

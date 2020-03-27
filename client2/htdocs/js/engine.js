@@ -38,7 +38,79 @@ horde.Engine = function horde_Engine () {
 	this.map = null;
 	this.spawnPoints = [];
 	this.objects = {};
-	this.objectIdSeed = 0;
+	// this.objectIdSeed = 0;
+    this.objectIdSeed = {
+    	"": 0,
+        "hero": 0,
+        "blood_pool": 0,
+        "h_sword": 0,
+        "h_knife": 0,
+        "h_spear": 0,
+        "h_fireball": 0,
+        "h_fireball_trail": 0,
+        "h_axe": 0,
+        "h_fire_sword": 0,
+        "fire_sword_trail": 0,
+        "h_fire_knife": 0,
+        "h_firebomb": 0,
+        "bat": 0,
+        "dire_bat": 0,
+        "goblin": 0,
+        "hunter_goblin": 0,
+        "demoblin": 0,
+        "flaming_skull": 0,
+        "huge_skull": 0,
+        "spike_wall": 0,
+        "spike_sentry": 0,
+        "spikes": 0,
+        "owlbear": 0,
+        "cyclops": 0,
+        "eyelet": 0,
+        "cube": 0,
+        "gel": 0,
+        "superclops": 0,
+        "imp": 0,
+        "wizard": 0,
+        "sandworm": 0,
+        "doppelganger": 0,
+        "e_dopp_axe": 0,
+        "e_dopp_sword": 0,
+        "beholder": 0,
+        "gas_cloud": 0,
+        "dragon": 0,
+        "e_arrow": 0,
+        "e_trident": 0,
+        "e_boulder": 0,
+        "e_bouncing_boulder": 0,
+        "e_minotaur_trident": 0,
+        "e_energy_ball": 0,
+        "e_ring_fire": 0,
+        "e_ring_fire_dopp": 0,
+        "e_fireball": 0,
+        "e_fireball_green": 0,
+        "e_static_blue_fire": 0,
+        "e_dopp_fire": 0,
+        "e_static_green_fire": 0,
+        "e_dirt_pile": 0,
+        "e_spit_pool": 0,
+        "e_shock_wave": 0,
+        "e_worm_spit": 0,
+        "mini_heart": 0,
+        "mini_skull": 0,
+        "rose": 0,
+        "cloud": 0,
+        "gate": 0,
+        "pickup_arrow": 0,
+        "item_food": 0,
+        "item_coin": 0,
+        "item_chest": 0,
+        "item_gold_chest": 0,
+        "item_weapon_knife": 0,
+        "item_weapon_spear": 0,
+        "item_weapon_fireball": 0,
+        "item_weapon_axe": 0,
+        "item_weapon_fire_sword": 0
+    };
 	this.playerObjectId = null;
     this.player2ObjectId = null;
 	this.keyboard = new horde.Keyboard();
@@ -74,6 +146,7 @@ horde.Engine = function horde_Engine () {
 									{ title: 'My Best', id: 385, self: true, limit: 10 }
 								]  });
 	} );
+
 
 	// Storage for each time putData is called - periodically that info is stored to Clay.io as well
 	horde.localData = {};
@@ -136,6 +209,11 @@ horde.Engine = function horde_Engine () {
 	// Multiplayer Support
 	this.multiplayerType = 'host';
 	this.gameroomId = '';
+    this.engineUpdate = {
+		objectAttack: []
+    };
+    this.lastParameterUpdate = {};
+
 
 };
 
@@ -234,6 +312,10 @@ proto.togglePause = (function horde_Engine_proto_togglePause () {
 			return;
 		}
 
+		let fromServer = arguments[0] || false;
+		if(this.multiplayerType !== 'single' && !fromServer)
+			SOCKET.togglePause(this.gameroomId, this.multiplayerType);
+
 		if (this.paused) {
 			this.paused = false;
 			horde.sound.setMuted(isMuted);
@@ -257,12 +339,13 @@ proto.togglePause = (function horde_Engine_proto_togglePause () {
  * @return {number} ID of the newly added object
  */
 proto.addObject = function horde_Engine_proto_addObject (object) {
-	this.objectIdSeed++;
-    var id = "o" + this.objectIdSeed;
+	this.objectIdSeed[object.type]++;
+    let id = object.type + "-" + this.objectIdSeed[object.type];
     object.id = id;
     this.objects[id] = object;
     return id;
 };
+
 
 /**
  * Returns the RGB for either red, orange or green depending on the percentage.
@@ -552,7 +635,10 @@ proto.initSound = function horde_Engine_proto_initSound () {
 };
 
 proto.initGame = function () {
-	this.objectIdSeed = 0;
+	// this.objectIdSeed = 0;
+	for(let object_type in this.objectIdSeed)
+		this.objectIdSeed[object_type] = 0;
+
 	this.konamiEntered = false;
 	this.enableClouds = false;
 
@@ -739,7 +825,6 @@ proto.initPlayer = function horde_Engine_proto_initPlayer () {
 	if (this.touchMove) {
 		this.targetReticle.position = player.boundingBox().center();
 	}
-	console.log('Player 1:', this.playerObjectId);
 };
 
 /**
@@ -759,7 +844,6 @@ proto.initPlayer2 = function horde_Engine_proto_initPlayer () {
 	if (this.touchMove) {
 		this.targetReticle.position = player2.boundingBox().center();
 	}
-    console.log('Player 2:', this.player2ObjectId);
 };
 
 proto.handleImagesLoaded = function horde_Engine_proto_handleImagesLoaded () {
@@ -967,7 +1051,7 @@ proto.update = function horde_Engine_proto_update () {
 				this.handleInput();
 			}
 			if (!this.paused) {
-				this.updateMultiplayerPositions(elapsed);
+				this.updateMultiplayer(elapsed);
 				this.updateWaves(elapsed);
 				this.updateSpawnPoints(elapsed);
 				this.updateClouds(elapsed);
@@ -1082,7 +1166,9 @@ proto.updateWonGame = function horde_Engine_proto_updateWonGame (elapsed) {
 					rose.position.y = horde.randomRange(100, 300);
 					rose.setDirection(new horde.Vector2(-1, 0));
 				}
-				this.addObject(rose);
+				let id = this.addObject(rose);
+				// this.addObjectUpdate(id, "rose",
+				// 	{position: rose.position.extractAsObject(), direction: rose.direction.extractAsObject()});
 				this.roseTimer.reset();
 			}
 			if (this.rosesThrown > 100) {
@@ -2901,13 +2987,19 @@ proto.getNearestHostile = function (object) {
 	}
 };
 
-proto.objectAttack = function (object, v) {
-
+proto.objectAttack = function (object, v, updateFromHost=false) {
 	if (!v) {
 		v = object.facing;
 	}
 
-	var weaponType = object.fireWeapon();
+	// Multiplayer Support
+    if((this.multiplayerType === 'host' && object.id !== this.player2ObjectId)
+        || (this.multiplayerType === 'guest' && object.id === this.player2ObjectId))
+        this.engineUpdate.objectAttack.push({id: object.id, v: v.extractAsObject()});
+    else if(this.multiplayerType === 'guest' && !updateFromHost)
+        return;
+
+    var weaponType = object.fireWeapon(v);
 	if (weaponType === false) {
 		return;
 	}
@@ -4499,24 +4591,130 @@ proto.drawGridLines = function horde_Engine_proto_drawGridLines(context){
 	}
 	context.strokeStyle = "red";
 	context.stroke();
-}
+};
 
-proto.updateMultiplayerPositions = function horde_Engine_proto_updateMultiplayerPositions(elapsed) {
+proto.flushEngineUpdate = function horde_Engine_proto_flushEngineUpdate(){
+    for(let updateFunc in this.engineUpdate)
+        this.engineUpdate[updateFunc] = [];
+};
+
+proto.updateMultiplayer = function horde_Engine_proto_updateMultiplayer(elapsed) {
+    /** Updates from the guest **/
     if(this.multiplayerType === 'guest'){
+        let update = {};
+
+        // Getting player update
         const playerInfo = this.objects[this.player2ObjectId].getObjectInfo();
         if(playerInfo)
-        	SOCKET.guestUpdate(this.gameroomId, playerInfo);
+        	update.playerInfo = playerInfo;
+
+        // Getting engine update
+        if(this.engineUpdate.objectAttack.length > 0){
+        	update.engineUpdate = {...this.engineUpdate};
+            this.flushEngineUpdate();
+		}
+
+        // Getting Engine parameter update
+        // let engineParameterUpdate = this.getEngineParameterUpdate();
+        // if(engineParameterUpdate)
+        // 	update.engineParameterUpdate = engineParameterUpdate;
+
+        if(Object.entries(update).length !== 0)
+        	SOCKET.guestUpdate(this.gameroomId, update);
     }
+
+
+    /** Updates from the host **/
     else if(this.multiplayerType === 'host'){
-        const playerInfo = this.objects[this.playerObjectId].getObjectInfo();
-        if(playerInfo)
-        	SOCKET.hostUpdate(this.gameroomId, playerInfo);
+    	let update = {
+    		objectUpdate: {},
+		};
+    	for(let id in this.objects){
+    		if(id !== this.player2ObjectId){
+                const objectInfo = this.objects[id].getObjectInfo();
+                if(objectInfo)
+                	update.objectUpdate[id] = objectInfo;
+			}
+		}
+        if(this.engineUpdate.objectAttack.length > 0){
+            update.engineUpdate = {...this.engineUpdate};
+            this.flushEngineUpdate();
+        }
+
+        // let engineParameterUpdate = this.getEngineParameterUpdate();
+        // if(engineParameterUpdate)
+        // 	update.engineParameterUpdate = engineParameterUpdate;
+
+        if(Object.entries(update.objectUpdate).length !== 0
+			|| update.hasOwnProperty('engineUpdate')
+            || update.hasOwnProperty('engineParameterUpdate'))
+        	SOCKET.hostUpdate(this.gameroomId, update);
     }
+};
+
+proto.getEngineParameterUpdate = function(){
+	let update = {};
+	for(let param in this.lastParameterUpdate){
+		// console.log('Checking', param, this[param])
+		if(this[param] !== this.lastParameterUpdate[param]){
+			update[param] = this[param];
+            this.lastParameterUpdate[param] = this[param];
+		}
+	}
+    if(Object.entries(update).length !== 0)
+    	return update;
+    else
+    	return null;
 };
 
 /**
  * Receiving updates from the other player in multiplayer game
- * @param {Object} playerInfo
+ * @param {Object} update:
+ * 		objectUpdate: See applyObjectUpdate for details
+ *		engineUpdate: See applyEngineUpdate for details
+ *
+ */
+proto.updateFromHost = function (update) {
+	/** Updating all the objects **/
+	for(let id in update.objectUpdate){
+		if(this.objects.hasOwnProperty(id)){
+            this.applyObjectUpdate(id, update.objectUpdate[id]);
+		}
+		else
+            console.warn("Object not found in Guest:", id);
+
+	}
+
+    /** Updating Engine **/
+	if(update.hasOwnProperty('engineUpdate')){
+        this.applyEngineUpdate(update.engineUpdate)
+	}
+    if(update.hasOwnProperty('engineParameterUpdate')){
+        this.applyEngineParameterUpdate(update.engineParameterUpdate)
+    }
+
+};
+
+proto.updateFromGuest = function (update) {
+
+    /** Updating Player 2 object **/
+	if(update.hasOwnProperty('playerInfo')){
+		this.applyObjectUpdate(this.player2ObjectId, update.playerInfo);
+	}
+
+    /** Updating Engine **/
+    if(update.hasOwnProperty('engineUpdate')){
+        this.applyEngineUpdate(update.engineUpdate);
+    }
+    if(update.hasOwnProperty('engineParameterUpdate')){
+        this.applyEngineParameterUpdate(update.engineParameterUpdate)
+    }
+};
+
+/**
+ * Apply object update received from the other player
+ * @param id {string} ID of the Object that needs to be updated
+ * @param objectInfo {Object} that contains the following properties:
  * 			id: 				(String) Object id
  * 			position: 			(Object) {x,y}
  * 			facing: 			(Object) {x,y}
@@ -4533,42 +4731,50 @@ proto.updateMultiplayerPositions = function horde_Engine_proto_updateMultiplayer
  *			shotsPerWeapon:		(Object) {N/A}
  *			meatEaten:			(Int)
  */
-proto.updateFromHost = function (playerInfo) {
-    const playerId = this.playerObjectId;
-    if(playerInfo.hasOwnProperty('position')){
-        this.objects[playerId].position.x = playerInfo.position.x;
-        this.objects[playerId].position.y = playerInfo.position.y;
-    }
+proto.applyObjectUpdate = function (id, objectInfo){
+	const vectorProperties = ['position', 'facing', 'direction'];
+	for(let prop of vectorProperties){
+		if(objectInfo.hasOwnProperty(prop)){
+			this.objects[id][prop].x = objectInfo[prop].x;
+			this.objects[id][prop].y = objectInfo[prop].y;
+		}
+	}
 
-    if(playerInfo.hasOwnProperty('facing')) {
-        this.objects[playerId].facing.x = playerInfo.facing.x;
-        this.objects[playerId].facing.y = playerInfo.facing.y;
-    }
-
-    for(let prop in playerInfo){
-        if(prop !== 'position' && prop !== 'facing' && prop !== 'id'){
-            this.objects[playerId][prop] = playerInfo[prop];
+    for(let prop in objectInfo){
+        if(!vectorProperties.includes(prop) && prop !== 'id'){
+            this.objects[id][prop] = objectInfo[prop];
         }
     }
-};
-proto.updateFromGuest = function (playerInfo) {
-	const playerId = this.player2ObjectId;
-    if(playerInfo.hasOwnProperty('position')){
-        this.objects[playerId].position.x = playerInfo.position.x;
-        this.objects[playerId].position.y = playerInfo.position.y;
-    }
+}
 
-    if(playerInfo.hasOwnProperty('facing')) {
-        this.objects[playerId].facing.x = playerInfo.facing.x;
-        this.objects[playerId].facing.y = playerInfo.facing.y;
-    }
 
-    for(let prop in playerInfo){
-        if(prop !== 'position' && prop !== 'facing' && prop !== 'id'){
-            this.objects[playerId][prop] = playerInfo[prop];
+/**
+ * Update engine parameters based on activity from other player.
+ * @param engineUpdate: An object that contains:
+ *			objectAttack: {Array} containing Objects:
+ *				id: object.id,
+ *				v: Vector as object
+
+ */
+proto.applyEngineUpdate = function (engineUpdate){
+    for(let updateFunc in engineUpdate){
+        switch (updateFunc) {
+            case 'objectAttack':
+                for(let i=0; i<engineUpdate[updateFunc].length; i++){
+                    let objectAttackInfo = engineUpdate[updateFunc][i];
+                    const o = this.objects[objectAttackInfo.id];
+                    let v = new horde.Vector2(objectAttackInfo.v.x, objectAttackInfo.v.y);
+                    this.objectAttack(o, v, true);
+                }
+                break;
         }
     }
-};
+}
+
+proto.applyEngineParameterUpdate = function (updatedParams) {
+	for(let params in updatedParams)
+		this[params] = updatedParams[params];
+}
 
 }());
 

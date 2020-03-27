@@ -24,3 +24,6 @@ socket.on('gameroomStartCountdown', time => {
 socket.on('receiveHostUpdate', update => e.updateFromHost(update));
 socket.on('receiveGuestUpdate', update => e.updateFromGuest(update));
 
+
+socket.on('togglePause', () => e.togglePause(true));
+

@@ -55,8 +55,19 @@ const updateFromGuest = ({gameroomId, playerPosition})=>{
     }
 };
 
+const togglePause = ({gameroomId, multiplayerType})=>{
+    console.log('Pause toggled by', multiplayerType);
+    if(ACTIVE_GAMEROOMS[gameroomId]){
+        if(multiplayerType === 'host')
+            ACTIVE_GAMEROOMS[gameroomId].guestSocket.emit('togglePause');
+        else if(multiplayerType === 'guest')
+            ACTIVE_GAMEROOMS[gameroomId].hostSocket.emit('togglePause');
+    }
+};
+
 module.exports = {
     create,
     updateFromHost,
-    updateFromGuest
+    updateFromGuest,
+    togglePause
 };

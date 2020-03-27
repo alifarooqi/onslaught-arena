@@ -39,11 +39,16 @@ const guestUpdate = (gameroomId, playerPosition) => {
     });
 };
 
+const togglePause = (gameroomId, multiplayerType) => {
+    socket.emit('togglePause', {gameroomId, multiplayerType});
+};
+
 
 var SOCKET = {
     findPartner,
     cancelFindPartner,
     endSession,
     hostUpdate,
-    guestUpdate
+    guestUpdate,
+    togglePause
 };

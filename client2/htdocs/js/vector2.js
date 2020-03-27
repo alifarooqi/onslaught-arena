@@ -117,4 +117,8 @@ proto.heading = function horde_Vector2_proto_heading () {
 	return Math.atan2(this.x, -this.y);
 };
 
+proto.extractAsObject = function horde_Vector2_proto_extractAsObject () {
+	return {x: this.x, y: this.y};
+};
+
 }());

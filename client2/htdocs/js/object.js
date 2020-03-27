@@ -45,7 +45,6 @@ horde.Object = function () {
 	this.soundDies = null; // Sound to play when object dies
 	this.alive = true;
 	this.states = [];
-	this.addState(horde.Object.states.IDLE);
 	this.currentWeaponIndex = 0;
 	this.collidable = true;
 	this.bounce = true;
@@ -96,6 +95,7 @@ horde.Object = function () {
         id: "",
         position: {x: 0, y: 0},
         facing: {x: 0, y: 0},
+        direction: {x: 0, y: 0},
         currentWeaponIndex: 0,
         wounds: 0,
         alive: true,
@@ -108,6 +108,15 @@ horde.Object = function () {
         shotsLanded: 0,
         meatEaten: 0,
 	};
+	// this.updateFunctions = {
+    //     addState: [],
+    //     removeState: [],
+    //     execute: [],
+    //     addWeapon: [],
+    //     cycleWeapon: [],
+	// };
+
+    this.addState(horde.Object.states.IDLE);
 };
 
 horde.Object.states = {
@@ -180,6 +189,7 @@ proto.addState = function (state, ttl) {
 	if (this.hasState(state)) {
 		return false;
 	}
+	// this.updateFunctions.addState.push({state, ttl});
 	var t = new horde.Timer();
 	t.start(ttl);
 	this.states.push({
@@ -209,6 +219,7 @@ proto.removeStateById = function (id) {
 };
 
 proto.removeState = function (state) {
+    // this.updateFunctions.removeState.push(state);
 	for (var x in this.states) {
 		if (this.states[x].type === state) {
 			this.removeStateById(x);
@@ -662,6 +673,7 @@ proto.stopMoving = function horde_Object_proto_stopMoving () {
  */
 proto.execute = function horde_Object_proto_execute (method, args) {
 	if (this[method]) {
+        // this.updateFunctions.execute.push(args);
 		return this[method].apply(this, args);
 	}
 };
@@ -686,6 +698,7 @@ proto.getWeaponInfo = function horde_Object_proto_getWeaponInfo () {
 };
 
 proto.addWeapon = function horde_Object_proto_addWeapon (type, count) {
+    // this.updateFunctions.addWeapon.push({type, count});
 
 	var remIndices = [];
 
@@ -720,6 +733,7 @@ proto.addWeapon = function horde_Object_proto_addWeapon (type, count) {
 };
 
 proto.cycleWeapon = function horde_Object_proto_cycleWeapon (reverse) {
+    // this.updateFunctions.cycleWeapon.push(reverse);
 	var len = this.weapons.length;
 	if (reverse === true) {
 		this.currentWeaponIndex--;
@@ -738,7 +752,7 @@ proto.cycleWeapon = function horde_Object_proto_cycleWeapon (reverse) {
  * "Fires" the current weapon by reducing the weapon count and returning the type
  * @return {string} Weapon type to spawn
  */
-proto.fireWeapon = function horde_Object_proto_fireWeapon () {
+proto.fireWeapon = function horde_Object_proto_fireWeapon (v) {
 	var len = this.weapons.length;
 	if (this.cooldown === true || len < 1) {
 		return false;
@@ -776,6 +790,7 @@ proto.hasWeapon = function horde_Object_proto_hasWeapon (type) {
  * 			id: 				(String) Object id
  * 			position: 			(Object) {x,y}
  * 			facing: 			(Object) {x,y}
+* 		 	direction: 			(Object) {x,y}
  * 			currentWeaponIndex:	(Int) Index of currently used weapon
  * 			wounds:				(Int) Amount of damage object has sustained
  * 			alive:				(Bool)
@@ -791,10 +806,16 @@ proto.hasWeapon = function horde_Object_proto_hasWeapon (type) {
  *			meatEaten:			(Int)
  */
 proto.getObjectInfo = function horde_Object_proto_getObjectInfo () {
+	const ignoredObjectRoles = ['projectile'];
+	if(ignoredObjectRoles.includes(this.role))
+		return;
+
+
 	let updateInfo = {
         id: this.id,
-        position: {x: this.position.x, y: this.position.y},
-        facing: {x: this.facing.x, y: this.facing.y},
+        position: this.position.extractAsObject(),
+        facing: this.facing.extractAsObject(),
+        direction: this.direction.extractAsObject(),
         currentWeaponIndex: this.currentWeaponIndex,
         wounds: this.wounds,
         alive: this.alive,
@@ -816,18 +837,16 @@ proto.getObjectInfo = function horde_Object_proto_getObjectInfo () {
 const getDifference = (current, last) => {
 	let result = {};
 
-	// 1. Checking custom type of Objects
-	//Position
-	if(current.position.x !== last.position.x || current.position.y !== last.position.y)
-		result.position = current.position;
+	/** 1. Checking Vector2 Objects **/
+    const vectorProperties = ['position', 'facing', 'direction'];
+    for(let prop of vectorProperties){
+        if(current[prop].x !== last[prop].x || current[prop].y !== last[prop].y)
+            result[prop] = current[prop];
 
-    //facing
-    if(current.facing.x !== last.facing.x || current.facing.y !== last.facing.y){
-        result.facing = current.facing;
     }
 
-	// 2. Checking Arrays with comparable elements
-    const arrayProps = ['weapons'];
+	/** 2. Checking Arrays with comparable elements **/
+    const arrayProps = [];
     for(let prop of arrayProps){
         if(current[prop].length !== last[prop].length){
             result[prop] = current[prop];
@@ -841,10 +860,21 @@ const getDifference = (current, last) => {
         }
     }
 
+    /** 3. Checking for weapons **/
+	if(current.weapons.length !== last.weapons.length)
+        result['weapons'] = current['weapons'];
+	else {
+        for(let i=0; i<current['weapons'].length; i++){
+            if(current['weapons'][i].type !== last['weapons'][i].type
+				|| current['weapons'][i].count !== last['weapons'][i].count){
+                result['weapons'] = current['weapons'];
+                break;
+            }
+        }
+	}
 
-    // 3. Comparable properties
-    // const unaryProps = ['currentWeaponIndex', 'wounds', 'alive', 'gold', 'kills', 'timesWounded', 'totalDamageTaken', 'shotsFired', 'shotsLanded', 'meatEaten']
-	const propertiesNotToBeChecked = ['id', 'position', 'facing', ...arrayProps];
+    /** 4. Comparable properties **/
+	const propertiesNotToBeChecked = ['id', 'weapons', ...vectorProperties, ...arrayProps];
 	for(let prop in current){
 		if(!propertiesNotToBeChecked.includes(prop) && current[prop] !== last[prop])
 			result[prop] = current[prop];
