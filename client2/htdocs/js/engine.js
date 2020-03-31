@@ -415,9 +415,14 @@ proto.getPlayerObject = function horde_Engine_proto_getPlayerObject () {
         return this.objects[this.player2ObjectId];
 };
 
-// proto.getPlayer2Object = function horde_Engine_proto_getPlayerObject () {
-// 	return this.objects[this.player2ObjectId];
-// };
+proto.getPlayer1Object = function horde_Engine_proto_getPlayer1Object () {
+	return this.objects[this.playerObjectId];
+};
+
+
+proto.getPlayer2Object = function horde_Engine_proto_getPlayer2Object () {
+	return this.objects[this.player2ObjectId];
+};
 
 proto.getObjectCountByType = function horde_Engine_proto_getObjectCountByType (type) {
 	var count = 0;
@@ -1066,6 +1071,10 @@ proto.update = function horde_Engine_proto_update () {
 			this.render();
 			break;
 
+        case "disconnected":
+            this.updateDisconnected(elapsed);
+            this.render();
+            break;
 		case "game_over":
 			this.updateGameOver(elapsed);
 			this.render();
@@ -1491,7 +1500,7 @@ proto.updateGameOver = function horde_Engine_proto_updateGameOver (elapsed) {
 		this.gameOverAlpha = 0;
 	}
 
-	var alphaChange = ((0.2 / 1000) * elapsed);
+	const alphaChange = ((0.2 / 1000) * elapsed);
 	this.gameOverAlpha += Number(alphaChange) || 0;
 
 	if (this.gameOverAlpha >= 0.75) {
@@ -1538,6 +1547,21 @@ proto.updateGameOver = function horde_Engine_proto_updateGameOver (elapsed) {
 		}
 	}
 
+};
+
+proto.updateDisconnected = function horde_Engine_proto_updateDisconnected (elapsed) {
+	if (!this.gameOverAlpha) {
+		this.gameOverReady = false;
+		this.gameOverAlpha = 0;
+	}
+
+	const alphaChange = ((0.5 / 1000) * elapsed);
+	this.gameOverAlpha += Number(alphaChange) || 0;
+
+	if (this.gameOverAlpha >= 0.75) {
+		this.gameOverReady = true;
+		this.gameOverAlpha = 0.75;
+	}
 };
 
 /**
@@ -3233,6 +3257,10 @@ proto.render = function horde_Engine_proto_render () {
 			this.drawGameOver(ctx);
 			break;
 
+        case "disconnected":
+            this.drawDisconnected(ctx);
+            break;
+
 		case "buy_now":
 			this.drawBuyNow(ctx);
 			this.drawPointer(ctx);
@@ -3560,6 +3588,77 @@ proto.drawObjectStats = function horde_Engine_proto_drawObjectStats (object, ctx
 
 };
 
+proto.drawDisconnected = function horde_Engine_proto_drawDisconnected (ctx) {
+    if (this.goAlphaStep) {
+        this.goAlpha += this.goAlphaStep;
+        if (this.goAlpha <= 0) {
+            this.goAlpha = 0;
+            this.goAlphaStep = 0.025;
+        }
+        if (this.goAlpha >= 1) {
+            this.goAlpha = 1;
+            this.goAlphaStep = -0.025;
+        }
+    } else {
+        this.goAlphaStep = -0.025;
+        this.goAlpha = 1;
+    }
+
+    if (!this.gameOverBg) {
+        this.drawUI(ctx);
+        this.gameOverBg = ctx.getImageData(0, 0, this.view.width, this.view.height);
+    }
+
+    ctx.putImageData(this.gameOverBg, 0, 0);
+
+    // Draw red modal background
+    ctx.save();
+    ctx.globalAlpha = this.gameOverAlpha;
+	ctx.fillStyle = "rgb(215, 25, 32)"; // red
+    ctx.fillRect(0, 0, this.view.width, this.view.height);
+
+    // Game Over
+    ctx.drawImage(
+        this.preloader.getImage("ui"),
+        564, 2324, 218, 50,
+        211, 70, 218, 50
+    );
+
+    // Draw the text
+    ctx.save();
+    ctx.textAlign = "left";
+    ctx.font = "Bold 32px MedievalSharp";
+
+    ctx.globalAlpha = 0.75;
+    ctx.fillStyle = COLOR_WHITE;
+    ctx.fillText("Player Disconnected :(", 155, 160);
+    ctx.restore();
+
+
+    if (this.gameOverReady === true) {
+        let headerY = 70;
+
+        // Game Over
+        ctx.drawImage(
+        	this.preloader.getImage("ui"),
+        	564, 2324, 218, 50,
+        	211, headerY, 218, 50
+        );
+
+        // Draw the text
+        ctx.save();
+        ctx.textAlign = "left";
+        ctx.font = "Bold 32px MedievalSharp";
+
+        ctx.globalAlpha = 0.75;
+        ctx.fillStyle = COLOR_WHITE;
+        ctx.fillText("Player Disconnected :(", 155, headerY + 90);
+
+        setTimeout(() => {this.endGame(true)}, 3500);
+    }
+
+};
+
 /**
  * Calculates the player's total score
  */
@@ -3842,6 +3941,7 @@ proto.drawObject = function horde_Engine_proto_drawObject (ctx, o) {
 	if (
 		(this.debug && (o.role === "monster"))
 		|| (o.badass && !o.hasState(horde.Object.states.DYING))
+		|| (o.role === 'hero' && o.multiplayerType !== this.multiplayerType)
 	) {
 		var hpWidth = (o.size.width - 2);
 		var hpHeight = 8;
@@ -4549,10 +4649,17 @@ proto.clearData = function horde_Engine_proto_clearData (key) {
 	}
 };
 
-proto.endGame = function () {
+proto.endGame = function (viaDisconnection=false) {
+	let playerStats = this.getPlayerObject().getStats();
+	playerStats.totalScore = this.getTotalScore();
+	playerStats.multiplayerType = this.multiplayerType;
+	SOCKET.endGame(this.gameroomId, playerStats);
 	this.gameOverReady = false;
 	this.gameOverAlpha = 0;
-	this.updateGameOver();
+	if(!viaDisconnection)
+		this.updateGameOver();
+	else
+        this.updateGameOver(3750);
 	this.state = "game_over";
 	this.timePlayed = (horde.now() - this.gameStartTime);
 };
@@ -4632,7 +4739,7 @@ proto.updateMultiplayer = function horde_Engine_proto_updateMultiplayer(elapsed)
     	for(let id in this.objects){
     		if(id !== this.player2ObjectId){
                 const objectInfo = this.objects[id].getObjectInfo();
-                if(objectInfo)
+                if(Boolean(objectInfo))
                 	update.objectUpdate[id] = objectInfo;
 			}
 		}
@@ -4745,7 +4852,7 @@ proto.applyObjectUpdate = function (id, objectInfo){
             this.objects[id][prop] = objectInfo[prop];
         }
     }
-}
+};
 
 
 /**
@@ -4769,12 +4876,17 @@ proto.applyEngineUpdate = function (engineUpdate){
                 break;
         }
     }
-}
+};
 
 proto.applyEngineParameterUpdate = function (updatedParams) {
 	for(let params in updatedParams)
 		this[params] = updatedParams[params];
-}
+};
+
+proto.partnerDisconnected = function(){
+	this.updateDisconnected();
+	this.state = 'disconnected'
+};
 
 }());
 

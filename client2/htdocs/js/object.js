@@ -66,6 +66,7 @@ horde.Object = function () {
 	// AI stuff
 	this.moveChangeElapsed = 0;
 	this.moveChangeDelay = 500;
+    this.chasing = 0;
 
 	this.wounds = 0; // Amount of damage object has sustained
 	this.weapons = [];
@@ -784,6 +785,19 @@ proto.hasWeapon = function horde_Object_proto_hasWeapon (type) {
 	return false;
 };
 
+proto.getStats = function horde_Object_proto_getStats(){
+	return {
+        kills: this.kills,
+        timesWounded: this.timesWounded,
+        totalDamageTaken: this.totalDamageTaken,
+        shotsFired: this.shotsFired,
+        shotsLanded: this.shotsLanded,
+        shotsPerWeapon: this.shotsPerWeapon,
+        meatEaten: this.meatEaten,
+        cheater: this.cheater,
+	}
+};
+
 /**
  * Returns the current position of the object
  * @return {Object}
@@ -806,10 +820,10 @@ proto.hasWeapon = function horde_Object_proto_hasWeapon (type) {
  *			meatEaten:			(Int)
  */
 proto.getObjectInfo = function horde_Object_proto_getObjectInfo () {
-	const ignoredObjectRoles = ['projectile'];
-	if(ignoredObjectRoles.includes(this.role))
-		return;
-
+	const ignoredObjectRoles = ['projectile', 'powerup_weapon'];
+	if(ignoredObjectRoles.includes(this.role)){
+		return null;
+	}
 
 	let updateInfo = {
         id: this.id,

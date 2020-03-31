@@ -7,7 +7,7 @@ else
     USER = JSON.parse(sessionStorage.user);
 
 const logout = ()=>{
-    // sock.endSession(USER._id);
+    SOCKET.endSession();
     delete sessionStorage['user'];
     USER = null;
     window.location.href = "/login";

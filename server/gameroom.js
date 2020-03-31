@@ -12,17 +12,22 @@ let ACTIVE_GAMEROOMS = {};
 
 const create = (host, hostSocket, guest, guestSocket, callback)=>{
     let NEW_GAMEROOM = {
-        host,
-        guest,
-        progress: 0
+        hostUserId: host.userId,
+        hostUsername: host.username,
+        guestUserId: guest.userId,
+        guestUsername: guest.username,
+        totalScore: 0
     };
 
-    db.insert(GAMEROOM_MODELPACK, [NEW_GAMEROOM], res =>{
-        if(res.success){
-            ACTIVE_GAMEROOMS[res.data._id] = {...res.data, hostSocket, guestSocket };
-            startCountdown(res.data._id);
+    db.insertOne(GAMEROOM_MODELPACK, NEW_GAMEROOM, res =>{
+        if(res.success && res.data.ops && res.data.ops.length){
+            let gameroomId = res.data.ops[0]._id;
+            ACTIVE_GAMEROOMS[gameroomId] = {...res.data.ops[0], hostSocket, guestSocket };
+            startCountdown(gameroomId);
+            callback({success: true, gameroomId});
         }
-        callback(res);
+        else
+            callback({success: false, data: res.data});
     });
 
 };
@@ -41,13 +46,11 @@ const startCountdown = gameroomId =>{
     }, 1000)
 };
 
-
 const updateFromHost = ({gameroomId, playerPosition})=>{
     if(ACTIVE_GAMEROOMS[gameroomId]){
         ACTIVE_GAMEROOMS[gameroomId].guestSocket.emit('receiveHostUpdate', playerPosition);
     }
 };
-
 
 const updateFromGuest = ({gameroomId, playerPosition})=>{
     if(ACTIVE_GAMEROOMS[gameroomId]){
@@ -56,7 +59,6 @@ const updateFromGuest = ({gameroomId, playerPosition})=>{
 };
 
 const togglePause = ({gameroomId, multiplayerType})=>{
-    console.log('Pause toggled by', multiplayerType);
     if(ACTIVE_GAMEROOMS[gameroomId]){
         if(multiplayerType === 'host')
             ACTIVE_GAMEROOMS[gameroomId].guestSocket.emit('togglePause');
@@ -65,9 +67,38 @@ const togglePause = ({gameroomId, multiplayerType})=>{
     }
 };
 
+const endGame = ({gameroomId, playerStats})=>{
+    if(ACTIVE_GAMEROOMS[gameroomId]){
+        if(ACTIVE_GAMEROOMS[gameroomId].playerStats){
+            //TODO Update our records of the user stats
+            let totalScore = ACTIVE_GAMEROOMS[gameroomId].playerStats.totalScore + playerStats.totalScore;
+            db.updateWithId(GAMEROOM_MODELPACK, gameroomId, {totalScore}, res => {
+                delete ACTIVE_GAMEROOMS[gameroomId];
+            });
+        }
+        else{
+            ACTIVE_GAMEROOMS[gameroomId].playerStats = playerStats;
+        }
+
+    }
+};
+
+const partnerDisconnected = socketId =>{
+    for(let gameroomId in ACTIVE_GAMEROOMS){
+        if(socketId === ACTIVE_GAMEROOMS[gameroomId].guestSocket.id){
+            ACTIVE_GAMEROOMS[gameroomId].hostSocket.emit('partnerDisconnected');
+        }
+        else if(socketId === ACTIVE_GAMEROOMS[gameroomId].hostSocket.id){
+            ACTIVE_GAMEROOMS[gameroomId].guestSocket.emit('partnerDisconnected');
+        }
+    }
+};
+
 module.exports = {
     create,
     updateFromHost,
     updateFromGuest,
-    togglePause
+    togglePause,
+    endGame,
+    partnerDisconnected
 };

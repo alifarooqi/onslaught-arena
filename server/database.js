@@ -1,4 +1,4 @@
-const MongoClient = require('mongodb').MongoClient;
+const {MongoClient, ObjectId} = require('mongodb');
 
 // Connection URL
 const url = 'mongodb://localhost:27017';
@@ -21,7 +21,7 @@ MongoClient.connect(url, { useUnifiedTopology: true}, function(err, client) {
     db = client.db(dbName);
 });
 
-
+const insertOne = (modelpack, data, callback) => insert(modelpack, [data], callback);
 const insert = function(modelpack, data, callback = _=>{}) {
     // Get the documents collection
     const collection = db.collection(modelpack.collection);
@@ -81,15 +81,28 @@ const updateOne = function(modelpack, filter, newUpdate, callback = _=>{}) {
 };
 
 
-module.exports = {
-    insert,
-    getItem,
-    getList,
-    updateOne
+const updateWithId = function(modelpack, id, newUpdate, callback = _=>{}) {
+    const collection = db.collection(modelpack.collection);
+    if(modelpack.update)
+        newUpdate[modelpack.update] = new Date();
 
+    collection.updateOne({"_id": ObjectId(id)}, {$set: newUpdate}, function(err, data) {
+        if (err){
+            console.error("DB updateWithId Error:", err);
+            callback({success: false, data, err});
+        }
+        else
+            callback({success: true, data});
+    });
 };
 
 
+module.exports = {
+    insert,
+    insertOne,
+    getItem,
+    getList,
+    updateOne,
+    updateWithId
 
-
-// db.createUser( { user: "onslaughtDB", pwd: "` 3.0g\\_NY$@B}F", roles: [ "readWrite", "dbAdmin" ]})
+};

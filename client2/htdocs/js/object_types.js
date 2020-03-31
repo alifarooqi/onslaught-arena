@@ -2,6 +2,12 @@
 
 horde.objectTypes = {};
 
+const CHASING = {
+	NONE: 0,
+	PLAYER1: 1,
+	PLAYER2: 2
+};
+
 var o = horde.objectTypes;
 
 o.hero = {
@@ -380,7 +386,14 @@ var movementTypes = {
 			this.moveChangeElapsed = 0;
 		}
 
-		var p = engine.getPlayerObject();
+        let p = engine.getPlayerObject();
+        if(engine.multiplayerType !== 'single'){
+            if(!this.chasing)
+                this.chasing = Math.random() > 0.5 ? CHASING.PLAYER1 : CHASING.PLAYER2;
+            if(this.chasing === CHASING.PLAYER2)
+                p = engine.getPlayer2Object();
+        }
+
 		this.chase(p);
 		
 		return "shoot";
@@ -390,7 +403,14 @@ var movementTypes = {
 
 		this.speed = this.defaultSpeed;
 
-		var p = engine.getPlayerObject();
+
+		let p = engine.getPlayerObject();
+        if(engine.multiplayerType !== 'single'){
+            if(!this.chasing)
+                this.chasing = Math.random() > 0.5 ? CHASING.PLAYER1 : CHASING.PLAYER2;
+            if(this.chasing === CHASING.PLAYER2)
+            	p = engine.getPlayer2Object();
+        }
 
 		// Get the distance from the player
 		var distance = p.position.clone().subtract(this.position).magnitude();
@@ -422,9 +442,14 @@ var movementTypes = {
 		}
 	},
 	wanderShoot: function (elapsed, engine) {
-		
-		var p = engine.getPlayerObject();
-		
+
+        let p = engine.getPlayerObject();
+        if(engine.multiplayerType !== 'single'){
+            if(!this.chasing)
+                this.chasing = Math.random() > 0.5 ? CHASING.PLAYER1 : CHASING.PLAYER2;
+            if(this.chasing === CHASING.PLAYER2)
+                p = engine.getPlayer2Object();
+        }
 		var diff = p.position.clone().subtract(this.position).abs();
 		
 		if (!this.cooldown && (diff.x < (p.size.width / 2) || diff.y < (p.size.height / 2))) {

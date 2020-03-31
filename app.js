@@ -79,7 +79,7 @@ io.sockets.on('connection', function(socket){
 	socket.on('signUp',function(data){
 		user.signup(data, function(res){
             if(!res)
-                return socket.emit('signInResponse',{success:false});
+                return socket.emit('signUpResponse',{success:false});
             socket.emit('signUpResponse',res);
         });
 
@@ -90,11 +90,9 @@ io.sockets.on('connection', function(socket){
     /***********
      * Session *
      ***********/
-    socket.on('startSession',function(data){
-        session.start(data.userId);
-    });
+    socket.on('startSession',({userId}) => session.start(userId, socket.id));
 
-    socket.on('findPartner',function findPartner (data){
+    socket.on('findPartner', function findPartner (data){
     	let partner = session.getPartner(data.userId, data.username, socket.id);
     	if(partner){
     		if(SOCKET_LIST[partner.socketId]){
@@ -102,8 +100,8 @@ io.sockets.on('connection', function(socket){
     			let user = {...data, multiplayerType: params.multiplayerType.host, socketId: socket.id};
     			gameroom.create(user, socket, partner, SOCKET_LIST[partner.socketId], res => {
     				if(res.success){
-    					user.gameroomId = res.data._id;
-                        partner.gameroomId = res.data._id;
+    					user.gameroomId = res.gameroomId;
+                        partner.gameroomId = res.gameroomId;
                         socket.emit('findPartnerResponse', partner);
                         SOCKET_LIST[partner.socketId].emit('findPartnerResponse', user);
 					}
@@ -117,10 +115,7 @@ io.sockets.on('connection', function(socket){
 
     socket.on('cancelFindPartner', session.cancelFindPartner);
 
-
-    socket.on('endSession',function(data){
-        session.end(data.userId);
-    });
+    socket.on('endSession',_ => session.end(socket.id));
 
 
 
@@ -134,6 +129,8 @@ io.sockets.on('connection', function(socket){
 
     socket.on('togglePause', gameroom.togglePause);
 
+    socket.on('endGame', gameroom.endGame);
+
 
 
     /*****************
@@ -141,8 +138,10 @@ io.sockets.on('connection', function(socket){
      *****************/
 
     socket.on('disconnect',function(){
+        gameroom.partnerDisconnected(socket.id);
+        session.end(socket.id);
         delete SOCKET_LIST[socket.id];
-        Player.onDisconnect(socket);
+        // Player.onDisconnect(socket);
     });
 
     socket.on('evalServer',function(data){

@@ -5,28 +5,23 @@ let ACTIVE_PLAYERS = new Queue();
 
 let SESSION_MODELPACK = {
     collection: 'session',
-    update: 'updatedOn',
     create: 'startTime'
 };
 
-let NEW_ACTIVE_PLAYERS = {
-    userId: '',
-    socketId: ''
+const start = (userId, socketId)=>{
+    let NEW_SESSION = {
+        userId,
+        socketId,
+        gameRooms: [],
+        startTime: null,
+        endTime: null
+    };
+    db.insertOne(SESSION_MODELPACK, NEW_SESSION);
 };
 
-let NEW_SESSION = {
-    userId: '',
-    startTime: null,
-    endTime: null
-};
-
-
-const start = (userId)=>{
-
-};
-
-const end = (userId)=>{
-
+const end = socketId => {
+    let endTime = new Date();
+    db.updateOne(SESSION_MODELPACK, {socketId}, {endTime});
 };
 
 const getPartner = (userId, username, socketId) => {
@@ -34,7 +29,7 @@ const getPartner = (userId, username, socketId) => {
         ACTIVE_PLAYERS.enqueue({userId, username, socketId});
         return null;
     }
-    else //TODO Create new GameRoom
+    else
         return ACTIVE_PLAYERS.dequeue();
 };
 

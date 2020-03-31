@@ -6,9 +6,8 @@ socket.on('findPartnerResponse',function(partner){
     horde.sound.play("partner_found");
     e.multiplayerType = partner.multiplayerType === 'host' ? 'guest' : 'host';
     e.gameroomId = partner.gameroomId;
-    console.log("Multiplayer Type:", e.multiplayerType);
+    console.log("Multiplayer Type:", e.multiplayerType, e.gameroomId);
 });
-
 
 socket.on('gameroomStartCountdown', time => {
     document.getElementById('gameroomCountdown').innerHTML = time;
@@ -24,6 +23,7 @@ socket.on('gameroomStartCountdown', time => {
 socket.on('receiveHostUpdate', update => e.updateFromHost(update));
 socket.on('receiveGuestUpdate', update => e.updateFromGuest(update));
 
-
 socket.on('togglePause', () => e.togglePause(true));
+
+socket.on('partnerDisconnected', () => e.partnerDisconnected());
 

@@ -188,7 +188,7 @@ const verify = async (data, cb) => {
             console.log('Verification Code:', verifyCode);
             newUser.verificationCode = verifyCode;
             sendVerifyEmail(data.email, verifyCode);
-            db.insert(USER_MODELPACK, [newUser]);
+            db.insertOne(USER_MODELPACK, newUser);
             cb({
                 success: true,
                 status:200,

@@ -21,11 +21,15 @@ const cancelFindPartner = ()=>{
     });
 };
 
-const endSession = (userId)=>{
-    socket.emit('endSession',{
-        userId
-    });
+const endSession = _ => {
+    console.log("Ending session with a logout");
+    socket.emit('endSession');
 };
+
+/*******************************************
+ * Gameroom Updates
+ *******************************************/
+
 
 const hostUpdate = (gameroomId, playerPosition) => {
     socket.emit('hostUpdate',{
@@ -43,6 +47,10 @@ const togglePause = (gameroomId, multiplayerType) => {
     socket.emit('togglePause', {gameroomId, multiplayerType});
 };
 
+const endGame = (gameroomId, playerStats) => {
+    socket.emit('endGame', {gameroomId, playerStats});
+};
+
 
 var SOCKET = {
     findPartner,
@@ -50,5 +58,6 @@ var SOCKET = {
     endSession,
     hostUpdate,
     guestUpdate,
-    togglePause
+    togglePause,
+    endGame
 };

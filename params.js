@@ -16,5 +16,6 @@ module.exports = {
     multiplayerType: {
         host: 'host',
         guest: 'guest'
-    }
+    },
+
 };
