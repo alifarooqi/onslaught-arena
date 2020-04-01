@@ -151,7 +151,8 @@ proto.supressKeys = function (e) {
 		case Keys.S:
 		case Keys.D:
 		case 191: // The "/" key to prevent searching in Firefox (#125)
-			horde.stopEvent(e);
+			// TODO: Find a better way to do chatting while gaming
+			// horde.stopEvent(e);
 			break;
 	}
 };

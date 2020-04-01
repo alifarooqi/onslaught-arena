@@ -208,6 +208,7 @@ horde.Engine = function horde_Engine () {
 
 	// Multiplayer Support
 	this.multiplayerType = 'host';
+	this.partner = null;
 	this.gameroomId = '';
     this.engineUpdate = {
 		objectAttack: []
@@ -4679,6 +4680,28 @@ proto.drawFindPartner = function horde_Engine_proto_drawFindPartner(ctx){
     ctx.fillRect(0, 0, this.view.width, this.view.height);
     ctx.restore();
     document.getElementById('loading').style.display = 'block';
+};
+
+proto.onFindingPartner = function(partner){
+	document.getElementById('loading').style.display = 'none';
+	document.getElementById('startingCountdown').style.display = 'block';
+	document.getElementById('partnerUsername').innerHTML = partner.username;
+	horde.sound.play("partner_found");
+	this.multiplayerType = partner.multiplayerType === 'host' ? 'guest' : 'host';
+	this.gameroomId = partner.gameroomId;
+	this.partner = partner;
+	console.log("Multiplayer Type:", this.multiplayerType, this.gameroomId);
+};
+
+proto.updateCountdownTimer = function (time){
+    document.getElementById('gameroomCountdown').innerHTML = time;
+    if(time === 0){
+    	console.log('Starting Game!')
+        document.getElementById('startingCountdown').style.display = 'none';
+        this.continuing = false;
+        this.showTutorial = true;
+        this.state = "intro_cinematic";
+    }
 };
 
 proto.drawGridLines = function horde_Engine_proto_drawGridLines(context){

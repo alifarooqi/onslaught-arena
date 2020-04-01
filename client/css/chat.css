@@ -14,12 +14,12 @@ html, body {
     position: fixed;
     bottom: 50px;
     right: 50px;
-    background: #5A5EB9;
-    width: 80px;
-    height: 80px;
+    background: #825b01;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     color: white;
-    padding: 28px;
+    padding: 19px;
     cursor: pointer;
     box-shadow: 0px 3px 16px 0px rgba(0, 0, 0, 0.6), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
 }
@@ -34,14 +34,14 @@ html, body {
     color: #5865C3;
 }
 #chat-overlay {
-    background: rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.4);
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    display: none;
+    /*display: none;*/
 }
 
 
@@ -58,20 +58,23 @@ html, body {
     /*   box-shadow: 0px 5px 35px 9px #464a92; */
     box-shadow: 0px 5px 35px 9px #ccc;
 }
-.chat-box-toggle {
+.chat-box-toggle,
+.mic-toggle,
+.speaker-toggle {
     float:right;
     margin-right:15px;
     cursor:pointer;
 }
 .chat-box-header {
-    background: #5A5EB9;
-    height:70px;
+    background: #825b01;
+    height:60px;
     border-top-left-radius:5px;
     border-top-right-radius:5px;
     color:white;
-    text-align:center;
+    text-align:left;
     font-size:20px;
     padding-top:17px;
+    padding-left:17px;
 }
 .chat-box-body {
     position: relative;
@@ -134,7 +137,7 @@ html, body {
     box-shadow:none;
     border:none;
     border-radius:50%;
-    color:#5A5EB9;
+    color:#825b01;
     width:35px;
     height:35px;
 }
@@ -158,7 +161,7 @@ html, body {
 
 .chat-logs::-webkit-scrollbar-thumb
 {
-    background-color: #5A5EB9;
+    background-color: #825b01;
 }
 
 
@@ -200,15 +203,41 @@ html, body {
 .chat-msg.self > .cm-msg-text {
     float:right;
     margin-right:10px;
-    background: #5A5EB9;
+    background: #825b01;
     color:white;
 }
+
+.chat-msg.bot > .cm-msg-text {
+    float:none;
+    max-width: 100%;
+    margin-right:10px;
+    margin-left:10px;
+    background: rgba(87, 60, 0 ,0.65);
+    color:white;
+    text-align: center;
+}
+
 .cm-msg-button>ul>li {
     list-style:none;
-    float:left;
-    width:50%;
+}
+.cm-msg-button>ul {
+    display: flex;
+    justify-content: space-around;
 }
 .cm-msg-button {
     clear: both;
-    margin-bottom: 70px;
+}
+
+.chat-btn{
+    border-radius: 5px;
+}
+
+#chat-notif{
+    background: red;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    position: absolute;
+    left: 5px;
+    top: 5px;
 }

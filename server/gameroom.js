@@ -94,11 +94,21 @@ const partnerDisconnected = socketId =>{
     }
 };
 
+const chatMessage = ({gameroomId, multiplayerType, message}) => {
+    if(ACTIVE_GAMEROOMS[gameroomId]){
+        if(multiplayerType === 'host')
+            ACTIVE_GAMEROOMS[gameroomId].guestSocket.emit('chatMessage', message);
+        else
+            ACTIVE_GAMEROOMS[gameroomId].hostSocket.emit('chatMessage', message);
+    }
+};
+
 module.exports = {
     create,
     updateFromHost,
     updateFromGuest,
     togglePause,
     endGame,
-    partnerDisconnected
+    partnerDisconnected,
+    chatMessage
 };

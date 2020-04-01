@@ -42,14 +42,19 @@
     <div id="chat-wrapper">
 
         <div id="chat-circle" class="btn btn-raised">
-            <div id="chat-overlay"></div>
-            <i class="material-icons">speaker_phone</i>
+            <div id="chat-overlay hidden"></div>
+			<div id="chat-notif"></div>
+			<i class="material-icons">chat</i>
         </div>
 
         <div class="chat-box">
             <div class="chat-box-header">
-                ChatBot
-                <span class="chat-box-toggle"><i class="material-icons">close</i></span>
+                Chat
+				<span class="chat-box-toggle"><i class="material-icons">close</i></span>
+				<span class="mic-toggle"><i class="material-icons" id="mic-icon">mic</i></span>
+				<!--<span class="chat-box-toggle"><i class="material-icons">mic_off</i></span>-->
+				<span class="speaker-toggle"><i class="material-icons" id="speaker-icon">volume_up</i></span>
+				<!--<span class="chat-box-toggle"><i class="material-icons">volume_off</i></span>-->
             </div>
             <div class="chat-box-body">
                 <div class="chat-box-overlay">
@@ -72,10 +77,15 @@
     </div>
 
 	<script src="/client/js/index.js"></script>
-	<script src="/client/js/lib/socket.js"></script>
-	<script src="/client/js/sock.js"></script>
+
+	<script src="/client/js/lib/tether.min.js"></script>
 	<script src="/login/vendor/jquery/jquery-3.2.1.min.js"></script>
+	<script src="/client/js/lib/socket.js"></script>
+	<script src="/client/js/lib/bootstrap.min.js"></script>
+
+	<script src="/client/js/sock.js"></script>
 	<script src="/client/js/main.js"></script>
+
 	<script src="/client/game/base.js"></script>
 	<script src="/client/game/timer.js"></script>
 	<script src="/client/game/sound.js"></script>
@@ -95,8 +105,7 @@
 	<script src="/client/game/spawn_point.js"></script>
 	<script src="/client/game/spawn_wave.js"></script>
 	<script src="/client/game/run_game.js"></script>
-	<script src="/client/js/lib/tether.min.js"></script>
-	<script src="/client/js/lib/bootstrap.min.js"></script>
+
 	<script src="/client/js/chat.js"></script>
 	<script src="/client/js/socket-listener.js"></script>
 
