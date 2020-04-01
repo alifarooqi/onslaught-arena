@@ -1,12 +1,14 @@
-let user = require('./server/user');
-let session = require('./server/session');
-let gameroom = require('./server/gameroom');
+const user = require('./server/user');
+const session = require('./server/session');
+const gameroom = require('./server/gameroom');
 const params = require('./params');
 
-var express = require('express');
-var app = express();
-var serv = require('http').Server(app);
-var cors = require('cors')
+const express = require('express');
+const app = express();
+const serv = require('http').Server(app);
+const cors = require('cors');
+const { ExpressPeerServer } = require('peer');
+
 
 app.use(cors());
 
@@ -31,9 +33,17 @@ app.get('/favicon.ico',function(req, res) {
 app.use('/client',express.static(__dirname + '/client'));
 app.use('/login',express.static(__dirname + '/client/login'));
 
+
+const peerServer = ExpressPeerServer(serv, {
+    debug: true,
+    path: '/call'
+});
+app.use('/voice', peerServer);
+
 const PORT = process.env.PORT || 2000;
 serv.listen(PORT);
 console.log("Server started at port", PORT);
+
 
 var SOCKET_LIST = {};
 var DEBUG = true;

@@ -12,6 +12,7 @@ $("#chat-submit").click(function(e) {
 });
 
 function setChatNotif() {
+    // TODO Sound when message received
     if($("#chat-notif").hasClass("hidden")){
         $("#chat-notif").removeClass("hidden");
     }
@@ -99,28 +100,38 @@ $("#chat-circle").click(function() {
     $(".chat-box").toggle('scale');
 });
 
-$(".chat-box-toggle").click(function() {
+$(".chat-box-toggle").click(toggleChatBox);
+function toggleChatBox() {
     $("#chat-circle").toggle('scale');
     $(".chat-box").toggle('scale');
     clearChatNotif();
-});
+}
 
 $(".mic-toggle").click(function() {
     const current = $('#mic-icon').html();
     const next = current === 'mic' ? 'mic_off' : 'mic';
     $('#mic-icon').html(next);
+    VOICE.toggleMic();
 });
 
 $(".speaker-toggle").click(function() {
     const current = $('#speaker-icon').html();
     const next = current === 'volume_up' ? 'volume_off' : 'volume_up';
     $('#speaker-icon').html(next);
+    VOICE.toggleSpeaker();
 });
 
 const receiveMessage = msg =>{
     generate_message(msg, 'user');
 };
 
+const toggleChat = () =>{
+    $('#chat-wrapper').toggle('scale');
+    if($("#chat-wrapper").is(":visible"))
+        toggleChatBox();
+};
+
 const CHAT = {
-    receiveMessage
+    receiveMessage,
+    toggleChat
 };

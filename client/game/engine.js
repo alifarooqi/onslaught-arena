@@ -2559,7 +2559,7 @@ proto.handleInput = function horde_Engine_proto_handleInput () {
 		// Accept hover/click with mouse on title screen options [#102]
 		var startX = (POINTER_X - 40);
 		var stopX = (POINTER_X + 130);
-		var startY = (this.pointerYStart - 22);
+		var startY = (this.pointerYStart - 22) + POINTER_HEIGHT;
 
 		// Buy Now! or Continue
 		// if (horde.isDemo() || this.canContinue()) {
@@ -2575,7 +2575,7 @@ proto.handleInput = function horde_Engine_proto_handleInput () {
 		// }
 
 		// New game
-		startY += POINTER_HEIGHT;
+		// startY += POINTER_HEIGHT;
 		if (
 			(mouseV.x >= startX && mouseV.x <= stopX)
 			&& (mouseV.y >= startY && mouseV.y < (startY + 20))
@@ -2664,15 +2664,15 @@ proto.handleInput = function horde_Engine_proto_handleInput () {
 			this.mouse.clearButtons();
 
 			switch (this.pointerY) {
-				case 0:
-					if (horde.isDemo()) {
-						// Buy Now!
-						location.href = URL_STORE;
-					} else {
-						// Continue
-						this.grabContinueInfo();
-					}
-					break;
+				// case 0:
+				// 	if (horde.isDemo()) {
+				// 		// Buy Now!
+				// 		location.href = URL_STORE;
+				// 	} else {
+				// 		// Continue
+				// 		this.grabContinueInfo();
+				// 	}
+				// 	break;
 				case 1: // New game
 					// this.continuing = false;
 					// this.showTutorial = !this.touchMove;
@@ -2748,6 +2748,7 @@ proto.handleInput = function horde_Engine_proto_handleInput () {
 		}
 	}
 
+	/* Removed skipping Intro Cinematics
 	if (this.state === "intro_cinematic") {
 		if (this.keyboard.isAnyKeyPressed() || this.mouse.isAnyButtonDown()) {
 			kb.clearKeys();
@@ -2759,6 +2760,7 @@ proto.handleInput = function horde_Engine_proto_handleInput () {
 			horde.sound.play(this.currentMusic);
 		}
 	}
+	*/
 
 	if (usingPointerOptions) {
 
@@ -3409,6 +3411,8 @@ proto.drawGameOver = function horde_Engine_proto_drawGameOver (ctx) {
 	if (this.gameOverReady === true) {
 
 		if (this.keyboard.isAnyKeyPressed() || this.mouse.isAnyButtonDown()) {
+            CHAT.toggleChat();
+            VOICE.endCall();
 			this.keyboard.clearKeys();
 			this.mouse.clearButtons();
 			this.statsIndex += 1;
@@ -4690,6 +4694,9 @@ proto.onFindingPartner = function(partner){
 	this.multiplayerType = partner.multiplayerType === 'host' ? 'guest' : 'host';
 	this.gameroomId = partner.gameroomId;
 	this.partner = partner;
+	if(this.multiplayerType === 'host')
+		VOICE.connect(partner.userId);
+	CHAT.toggleChat();
 	console.log("Multiplayer Type:", this.multiplayerType, this.gameroomId);
 };
 

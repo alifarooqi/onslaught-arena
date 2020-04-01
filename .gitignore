@@ -107,5 +107,7 @@ dist
 .vscode/
 *.zip
 client-old
+.DS_Store
+
 
 
