@@ -1,5 +1,6 @@
-
 let INDEX = 0;
+
+// On chat send
 $("#chat-submit").click(function(e) {
     e.preventDefault();
     const msg = $("#chat-input").val();
@@ -11,12 +12,15 @@ $("#chat-submit").click(function(e) {
 
 });
 
+// Display Notification dot
 function setChatNotif() {
     // TODO Sound when message received
     if($("#chat-notif").hasClass("hidden")){
         $("#chat-notif").removeClass("hidden");
     }
 }
+
+// Hide Notification dot
 function clearChatNotif(){
     if(!$("#chat-notif").hasClass("hidden")){
         $("#chat-notif").addClass("hidden");

@@ -14,8 +14,6 @@ For more information, or to change database configuration see `server/database.j
 The server should be running at `localhost:2000`.
 
 ## Todos
-- Add Chat
-- Add Voice Chat 
 - Add other items spawned multiplayer support.
 - Leaderboard
 - Add Matching and Friendship Model
@@ -24,6 +22,12 @@ The server should be running at `localhost:2000`.
 - Remove position from object update.
 - Ignore "projectile" type object update.
 - Multiplayer weapon sync
+- Practice Mode
+- Intro and player states
+
+### To Test
+- Chat
+- Voice Chat 
 
 ### Optionals
 - Record user behavior
