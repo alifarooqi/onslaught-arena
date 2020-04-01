@@ -32,3 +32,4 @@ The server should be running at `localhost:2000`.
 
 
 ## Bugs
+- Player disconncted --> Press any button to continue (had to press several times)

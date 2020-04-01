@@ -1,5 +1,6 @@
 const db = require('./database');
 const {Queue} = require('./util');
+let gameroom = require('./gameroom');
 
 let ACTIVE_PLAYERS = new Queue();
 
@@ -24,13 +25,34 @@ const end = socketId => {
     db.updateOne(SESSION_MODELPACK, {socketId}, {endTime});
 };
 
-const getPartner = (userId, username, socketId) => {
+function getPartner(userId, username, socketId) {
     if (ACTIVE_PLAYERS.isEmpty()){
         ACTIVE_PLAYERS.enqueue({userId, username, socketId});
         return null;
     }
     else
         return ACTIVE_PLAYERS.dequeue();
+}
+
+const findPartner = (data, socket, SOCKET_LIST) => {
+    let partner = getPartner(data.userId, data.username, socket.id);
+    if(partner){
+        if(SOCKET_LIST[partner.socketId]){
+            partner.multiplayerType = 'guest';
+            let user = {...data, multiplayerType: 'host', socketId: socket.id};
+            gameroom.create(user, socket, partner, SOCKET_LIST[partner.socketId], res => {
+                if(res.success){
+                    user.gameroomId = res.gameroomId;
+                    partner.gameroomId = res.gameroomId;
+                    socket.emit('findPartnerResponse', partner);
+                    SOCKET_LIST[partner.socketId].emit('findPartnerResponse', user);
+                }
+            });
+
+        }
+        else
+            findPartner(data);
+    }
 };
 
 const cancelFindPartner = ({userId}) => {
@@ -40,6 +62,6 @@ const cancelFindPartner = ({userId}) => {
 module.exports = {
     start,
     end,
-    getPartner,
+    findPartner,
     cancelFindPartner
 };

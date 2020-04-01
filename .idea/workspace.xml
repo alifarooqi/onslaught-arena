@@ -2,247 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="574ddd46-b7f5-4b80-80f5-950291191050" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/Inventory.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/img/bat.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/img/bullet.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/img/map.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/img/map2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/img/player.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/player.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/bin/build.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/chrome_web_store/app/icons/onslaught_128.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/chrome_web_store/app/icons/onslaught_16.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/chrome_web_store/app/icons/onslaught_24.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/chrome_web_store/app/icons/onslaught_32.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/chrome_web_store/app/icons/onslaught_48.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/chrome_web_store/app/manifest.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/chrome_web_store/description.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/chrome_web_store/promo/header.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/chrome_web_store/promo/promo_210x140.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/chrome_web_store/promo/promo_585x220.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/chrome_web_store/promo/screenshot_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/chrome_web_store/promo/screenshot_2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/.idea/htdocs.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/cache.manifest" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/css/horde.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/embeddable.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/font/MedievalSharp.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/font/cracked.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/img/arena_icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/img/bg-02.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/img/favicon.ico" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/img/frame_background.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/img/sheet_arena.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/img/sheet_beholder.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/img/sheet_characters.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/img/sheet_objects.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/img/sheet_ui.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/js/base.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/js/engine.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/js/image_loader.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/js/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/js/keyboard.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/js/main.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/js/mouse.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/js/object.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/js/object_types.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/js/rect.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/js/run_game.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/js/size.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/js/sock.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/js/socket-listener.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/js/socket.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/js/sound.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/js/spawn_point.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/js/spawn_wave.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/js/timer.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/js/vector2.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/js/waves_demo.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/js/waves_full.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/css/main.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/css/util.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/HELP-US-OUT.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/css/font-awesome.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/fonts/FontAwesome.otf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/fonts/fontawesome-webfont.eot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/fonts/fontawesome-webfont.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/fonts/fontawesome-webfont.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/fonts/fontawesome-webfont.woff" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/fonts/fontawesome-webfont.woff2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/less/animated.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/less/bordered-pulled.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/less/core.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/less/fixed-width.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/less/font-awesome.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/less/icons.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/less/larger.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/less/list.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/less/mixins.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/less/path.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/less/rotated-flipped.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/less/screen-reader.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/less/stacked.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/less/variables.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/scss/_animated.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/scss/_bordered-pulled.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/scss/_core.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/scss/_fixed-width.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/scss/_icons.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/scss/_larger.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/scss/_list.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/scss/_mixins.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/scss/_path.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/scss/_rotated-flipped.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/scss/_screen-reader.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/scss/_stacked.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/scss/_variables.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/scss/font-awesome.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/iconic/css/material-design-iconic-font.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/iconic/css/material-design-iconic-font.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/iconic/fonts/Material-Design-Iconic-Font.eot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/iconic/fonts/Material-Design-Iconic-Font.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/iconic/fonts/Material-Design-Iconic-Font.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/iconic/fonts/Material-Design-Iconic-Font.woff" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/iconic/fonts/Material-Design-Iconic-Font.woff2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/poppins/Poppins-Black.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/poppins/Poppins-BlackItalic.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/poppins/Poppins-Bold.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/poppins/Poppins-BoldItalic.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/poppins/Poppins-ExtraBold.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/poppins/Poppins-ExtraBoldItalic.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/poppins/Poppins-ExtraLight.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/poppins/Poppins-ExtraLightItalic.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/poppins/Poppins-Italic.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/poppins/Poppins-Light.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/poppins/Poppins-LightItalic.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/poppins/Poppins-Medium.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/poppins/Poppins-MediumItalic.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/poppins/Poppins-Regular.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/poppins/Poppins-SemiBold.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/poppins/Poppins-SemiBoldItalic.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/poppins/Poppins-Thin.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/poppins/Poppins-ThinItalic.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/images/bg-01.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/images/icons/favicon.ico" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/js/main.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/login.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/signup.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/animate/animate.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/animsition/css/animsition.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/animsition/css/animsition.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/animsition/js/animsition.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/animsition/js/animsition.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/bootstrap/css/bootstrap-grid.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/bootstrap/css/bootstrap-grid.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/bootstrap/css/bootstrap-grid.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/bootstrap/css/bootstrap-grid.min.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/bootstrap/css/bootstrap-reboot.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/bootstrap/css/bootstrap-reboot.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/bootstrap/css/bootstrap-reboot.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/bootstrap/css/bootstrap-reboot.min.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/bootstrap/css/bootstrap.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/bootstrap/css/bootstrap.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/bootstrap/css/bootstrap.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/bootstrap/css/bootstrap.min.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/bootstrap/js/bootstrap.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/bootstrap/js/bootstrap.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/bootstrap/js/popper.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/bootstrap/js/popper.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/bootstrap/js/tooltip.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/countdowntime/countdowntime.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/css-hamburgers/hamburgers.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/css-hamburgers/hamburgers.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/daterangepicker/daterangepicker.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/daterangepicker/daterangepicker.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/daterangepicker/moment.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/daterangepicker/moment.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/jquery/jquery-3.2.1.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/perfect-scrollbar/perfect-scrollbar.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/perfect-scrollbar/perfect-scrollbar.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/select2/select2.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/select2/select2.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/select2/select2.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/select2/select2.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/robots.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/bat_damage.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/bat_dies.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/beholder_damage.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/beholder_dies.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/char_attacks.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/char_attacks_fire.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/char_attacks_ice.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/char_damage_3.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/char_dies.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/code_entered.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/coins.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/cube_attacks.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/cube_damage.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/cube_dies.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/cyclops_attacks.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/cyclops_damage.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/cyclops_dies.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/demoblin_attacks.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/dopp_attacks.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/dopp_damage.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/dopp_dies.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/dragon_attacks.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/dragon_damage.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/dragon_dies.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/eat_food.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/eyelet_damage.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/eyelet_dies.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/gate_closes.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/gate_opens.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/gel_damage.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/gel_dies.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/goblin_attacks.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/goblin_damage.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/goblin_dies.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/immunity.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/imp_damage.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/imp_dies.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/minotaur_attacks.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/minotaur_damage.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/minotaur_dies.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/move_pointer.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/owlbear_alarm.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/owlbear_attacks.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/owlbear_damage.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/owlbear_dies.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/partner_found.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/pause.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/pickup_weapon.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/sandworm_attacks.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/sandworm_dies.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/select_pointer.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/skull_damage.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/skull_dies.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/spike_attacks.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/unpause.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/weapon_wall.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/wizard_attacks.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/wizard_disappear.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/wizard_reappear.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/music/final_battle.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/music/normal_battle.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/music/victory.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/template/ad_leaderboard.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/template/chrome.template.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/template/web.template.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/version.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/session.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/session.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/user.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -255,13 +17,36 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-227">
-              <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
+            <state relative-caret-position="430">
+              <caret line="98" column="62" selection-start-line="98" selection-start-column="62" selection-end-line="98" selection-end-column="62" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/session.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="513">
+              <caret line="55" column="2" selection-start-line="55" selection-start-column="2" selection-end-line="55" selection-end-column="2" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/user.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="525">
+              <caret line="131" column="78" lean-forward="true" selection-start-line="131" selection-start-column="78" selection-end-line="131" selection-end-column="78" />
               <folding>
-                <element signature="e#1232#4158#0" />
+                <element signature="e#132#209#0" />
+                <element signature="e#723#1392#0" />
+                <element signature="n#!!block;n#verifySignupCode#0" />
+                <element signature="n#!!block;n#generateRandomCode#0" />
+                <element signature="n#!!block;n#sendVerifyEmail#0" />
+                <element signature="e#4499#5956#0" />
               </folding>
             </state>
           </provider>
@@ -322,15 +107,6 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="715">
-              <caret line="109" lean-forward="true" selection-start-line="109" selection-end-line="109" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
@@ -356,7 +132,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>h_knife</find>
       <find>endSession</find>
       <find>db.updateOne</find>
       <find>getItem</find>
@@ -386,6 +161,7 @@
       <find>material</find>
       <find>2/htdocs</find>
       <find>client2</find>
+      <find>client co</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -415,18 +191,15 @@
         <option value="$PROJECT_DIR$/client2/htdocs/js/object.js" />
         <option value="$PROJECT_DIR$/params.js" />
         <option value="$PROJECT_DIR$/server/database.js" />
-        <option value="$PROJECT_DIR$/server/user.js" />
         <option value="$PROJECT_DIR$/client2/htdocs/js/index.js" />
         <option value="$PROJECT_DIR$/client2/htdocs/js/sock.js" />
         <option value="$PROJECT_DIR$/server/gameroom.js" />
         <option value="$PROJECT_DIR$/client2/htdocs/js/socket-listener.js" />
-        <option value="$PROJECT_DIR$/server/session.js" />
         <option value="$PROJECT_DIR$/client2/htdocs/js/engine.js" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/client2/htdocs/css/chat.css" />
         <option value="$PROJECT_DIR$/client2/htdocs/js/chat.js" />
         <option value="$PROJECT_DIR$/client2/htdocs/index.html" />
-        <option value="$PROJECT_DIR$/app.js" />
         <option value="$PROJECT_DIR$/client/index.html" />
         <option value="$PROJECT_DIR$/client/js/engine.js" />
         <option value="$PROJECT_DIR$/client/login/signup.html" />
@@ -435,6 +208,9 @@
         <option value="$PROJECT_DIR$/client/login/login.html" />
         <option value="$PROJECT_DIR$/client-old/index.html" />
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/server/user.js" />
+        <option value="$PROJECT_DIR$/server/session.js" />
+        <option value="$PROJECT_DIR$/app.js" />
       </list>
     </option>
   </component>
@@ -466,6 +242,11 @@
               <item name="project" type="462c0819:PsiDirectoryNode" />
               <item name="client" type="462c0819:PsiDirectoryNode" />
               <item name="js" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="project" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -536,7 +317,7 @@
       <workItem from="1581826620267" duration="714000" />
       <workItem from="1582736799290" duration="75811000" />
       <workItem from="1584599490746" duration="75630000" />
-      <workItem from="1585709872874" duration="918000" />
+      <workItem from="1585709872874" duration="2156000" />
     </task>
     <task id="LOCAL-00001" summary="Two players in the game">
       <created>1583395192319</created>
@@ -549,7 +330,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="174743000" />
+    <option name="totallyTimeSpent" value="175981000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1366,16 +1147,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/user.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="268">
-          <caret line="190" column="50" lean-forward="true" selection-start-line="190" selection-start-column="50" selection-end-line="190" selection-end-column="50" />
-          <folding>
-            <element signature="e#132#209#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client2/htdocs/js/sock.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="168">
@@ -1401,13 +1172,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
           <caret line="13" column="11" lean-forward="true" selection-start-line="13" selection-start-column="11" selection-end-line="13" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/session.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="34" selection-start-line="10" selection-start-column="34" selection-end-line="10" selection-end-column="34" />
         </state>
       </provider>
     </entry>
@@ -1480,16 +1244,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-227">
-          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
-          <folding>
-            <element signature="e#1232#4158#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
@@ -1541,6 +1295,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="715">
+          <caret line="109" lean-forward="true" selection-start-line="109" selection-end-line="109" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/client/css/horde.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
@@ -1548,10 +1309,32 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
+    <entry file="file://$PROJECT_DIR$/server/user.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="715">
-          <caret line="109" lean-forward="true" selection-start-line="109" selection-end-line="109" />
+        <state relative-caret-position="525">
+          <caret line="131" column="78" lean-forward="true" selection-start-line="131" selection-start-column="78" selection-end-line="131" selection-end-column="78" />
+          <folding>
+            <element signature="e#132#209#0" />
+            <element signature="e#723#1392#0" />
+            <element signature="n#!!block;n#verifySignupCode#0" />
+            <element signature="n#!!block;n#generateRandomCode#0" />
+            <element signature="n#!!block;n#sendVerifyEmail#0" />
+            <element signature="e#4499#5956#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/session.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="513">
+          <caret line="55" column="2" selection-start-line="55" selection-start-column="2" selection-end-line="55" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="430">
+          <caret line="98" column="62" selection-start-line="98" selection-start-column="62" selection-end-line="98" selection-end-column="62" />
         </state>
       </provider>
     </entry>

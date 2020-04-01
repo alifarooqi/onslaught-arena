@@ -36,9 +36,9 @@ function filterUser(user) {
     return user;
 }
 
-const login = async (data, cb) => {
+const login = async (data, socket) => {
     if(!data.email || !data.password){
-        cb({
+        socket.emit('signInResponse', {
             success: false,
             status: 400,
             data: "Missing email or password"
@@ -49,14 +49,14 @@ const login = async (data, cb) => {
     db.getItem(USER_MODELPACK, {email: data.email}, async res =>{
         if(res.success && await bcrypt.compare(data.password, res.data.password)){
 
-            cb({
+            socket.emit('signInResponse', {
                 success: true,
                 status: 200,
                 data: filterUser(res.data)
             });
         }
         else{
-            cb({
+            socket.emit('signInResponse', {
                 success: false,
                 status:301,
                 data: "Email or password does not match"
@@ -107,11 +107,11 @@ function verifySignupCode(data, cb) {
     });
 }
 
-const signup = async (data, cb) => {
+const signup = async (data, socket) => {
     let {email, username, verificationCode, password } = data;
 
     if(!email || !password || !username || !verificationCode){
-        cb({
+        socket.emit('signUpResponse', {
             success: false,
             status: 400,
             data: "Bad Request! Missing parameters"
@@ -122,14 +122,14 @@ const signup = async (data, cb) => {
     // Check if the username already exists
     db.getItem(USER_MODELPACK, {username}, res => {
         if (res.success) {
-            cb({
+            socket.emit('signUpResponse', {
                 success: false,
                 status: 303,
                 data: "Username exists! Please use a different username"
             });
         }
         else {
-            verifySignupCode(data, cb);
+            verifySignupCode(data, res => socket.emit('signUpResponse', res));
         }
     });
 };
@@ -170,9 +170,9 @@ function sendVerifyEmail(email, verifyCode) {
     });
 }
 
-const verify = async (data, cb) => {
+const verify = async (data, socket) => {
     if(!data.email){
-        cb({
+        socket.emit('verifyResponse',{
             success: false,
             status: 400,
             data: "Missing email"
@@ -189,15 +189,15 @@ const verify = async (data, cb) => {
             newUser.verificationCode = verifyCode;
             sendVerifyEmail(data.email, verifyCode);
             db.insertOne(USER_MODELPACK, newUser);
-            cb({
+            socket.emit('verifyResponse',{
                 success: true,
                 status:200,
                 data: null
             });
         }
         else{
-            if(res.data.verificationCode === 0){ //User verified
-                return cb({
+            if(res.data.verificationCode === 0){ // Verified User Already Exists
+                return socket.emit('verifyResponse',{
                     success: false,
                     status: 302,
                     data: "The email already exists. Please Login"
@@ -207,7 +207,7 @@ const verify = async (data, cb) => {
                 let verificationCode = generateRandomCode();
                 sendVerifyEmail(data.email, verificationCode);
                 db.updateOne(USER_MODELPACK, {_id: res.data._id}, {verificationCode});
-                cb({
+                socket.emit('verifyResponse',{
                     success: true,
                     status:201,
                     data: null
