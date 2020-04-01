@@ -14,10 +14,10 @@ For more information, or to change database configuration see `server/database.j
 The server should be running at `localhost:2000`.
 
 ## Todos
-- Add other items spawned multiplayer support.
-- Leaderboard
 - Add Chat
 - Add Voice Chat 
+- Add other items spawned multiplayer support.
+- Leaderboard
 - Add Matching and Friendship Model
 - Add Profile page
 - Other player's health bar

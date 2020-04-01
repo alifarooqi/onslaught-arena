@@ -40,7 +40,7 @@
 body, html {
 	height: 100%;
 	font-family: Poppins-Regular, sans-serif;
-  background-image: url('/client2/htdocs/img/bg-02.jpg');
+  background-image: url('/client/img/bg-02.jpg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;

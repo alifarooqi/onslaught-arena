@@ -4,20 +4,245 @@
     <list default="true" id="574ddd46-b7f5-4b80-80f5-950291191050" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README copy.md" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/js/engine.js" beforeDir="false" afterPath="$PROJECT_DIR$/client2/htdocs/js/engine.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/js/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/client2/htdocs/js/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/js/object.js" beforeDir="false" afterPath="$PROJECT_DIR$/client2/htdocs/js/object.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/js/object_types.js" beforeDir="false" afterPath="$PROJECT_DIR$/client2/htdocs/js/object_types.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/js/sock.js" beforeDir="false" afterPath="$PROJECT_DIR$/client2/htdocs/js/sock.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client2/htdocs/js/socket-listener.js" beforeDir="false" afterPath="$PROJECT_DIR$/client2/htdocs/js/socket-listener.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/params.js" beforeDir="false" afterPath="$PROJECT_DIR$/params.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/database.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/database.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/gameroom.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/gameroom.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/session.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/session.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/user.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/Inventory.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/img/bat.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/img/bullet.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/img/map.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/img/map2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/img/player.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/player.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/bin/build.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/chrome_web_store/app/icons/onslaught_128.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/chrome_web_store/app/icons/onslaught_16.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/chrome_web_store/app/icons/onslaught_24.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/chrome_web_store/app/icons/onslaught_32.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/chrome_web_store/app/icons/onslaught_48.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/chrome_web_store/app/manifest.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/chrome_web_store/description.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/chrome_web_store/promo/header.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/chrome_web_store/promo/promo_210x140.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/chrome_web_store/promo/promo_585x220.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/chrome_web_store/promo/screenshot_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/chrome_web_store/promo/screenshot_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/.idea/htdocs.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/cache.manifest" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/css/horde.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/embeddable.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/font/MedievalSharp.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/font/cracked.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/img/arena_icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/img/bg-02.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/img/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/img/frame_background.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/img/sheet_arena.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/img/sheet_beholder.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/img/sheet_characters.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/img/sheet_objects.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/img/sheet_ui.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/js/base.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/js/engine.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/js/image_loader.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/js/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/js/keyboard.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/js/main.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/js/mouse.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/js/object.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/js/object_types.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/js/rect.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/js/run_game.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/js/size.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/js/sock.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/js/socket-listener.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/js/socket.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/js/sound.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/js/spawn_point.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/js/spawn_wave.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/js/timer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/js/vector2.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/js/waves_demo.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/js/waves_full.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/css/main.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/css/util.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/HELP-US-OUT.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/css/font-awesome.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/fonts/FontAwesome.otf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/fonts/fontawesome-webfont.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/fonts/fontawesome-webfont.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/fonts/fontawesome-webfont.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/fonts/fontawesome-webfont.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/fonts/fontawesome-webfont.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/less/animated.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/less/bordered-pulled.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/less/core.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/less/fixed-width.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/less/font-awesome.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/less/icons.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/less/larger.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/less/list.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/less/mixins.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/less/path.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/less/rotated-flipped.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/less/screen-reader.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/less/stacked.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/less/variables.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/scss/_animated.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/scss/_bordered-pulled.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/scss/_core.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/scss/_fixed-width.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/scss/_icons.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/scss/_larger.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/scss/_list.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/scss/_mixins.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/scss/_path.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/scss/_rotated-flipped.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/scss/_screen-reader.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/scss/_stacked.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/scss/_variables.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/font-awesome-4.7.0/scss/font-awesome.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/iconic/css/material-design-iconic-font.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/iconic/css/material-design-iconic-font.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/iconic/fonts/Material-Design-Iconic-Font.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/iconic/fonts/Material-Design-Iconic-Font.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/iconic/fonts/Material-Design-Iconic-Font.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/iconic/fonts/Material-Design-Iconic-Font.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/iconic/fonts/Material-Design-Iconic-Font.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/poppins/Poppins-Black.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/poppins/Poppins-BlackItalic.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/poppins/Poppins-Bold.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/poppins/Poppins-BoldItalic.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/poppins/Poppins-ExtraBold.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/poppins/Poppins-ExtraBoldItalic.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/poppins/Poppins-ExtraLight.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/poppins/Poppins-ExtraLightItalic.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/poppins/Poppins-Italic.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/poppins/Poppins-Light.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/poppins/Poppins-LightItalic.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/poppins/Poppins-Medium.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/poppins/Poppins-MediumItalic.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/poppins/Poppins-Regular.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/poppins/Poppins-SemiBold.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/poppins/Poppins-SemiBoldItalic.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/poppins/Poppins-Thin.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/fonts/poppins/Poppins-ThinItalic.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/images/bg-01.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/images/icons/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/js/main.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/login.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/signup.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/animate/animate.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/animsition/css/animsition.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/animsition/css/animsition.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/animsition/js/animsition.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/animsition/js/animsition.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/bootstrap/css/bootstrap-grid.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/bootstrap/css/bootstrap-grid.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/bootstrap/css/bootstrap-grid.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/bootstrap/css/bootstrap-grid.min.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/bootstrap/css/bootstrap-reboot.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/bootstrap/css/bootstrap-reboot.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/bootstrap/css/bootstrap-reboot.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/bootstrap/css/bootstrap-reboot.min.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/bootstrap/css/bootstrap.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/bootstrap/css/bootstrap.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/bootstrap/css/bootstrap.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/bootstrap/css/bootstrap.min.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/bootstrap/js/bootstrap.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/bootstrap/js/bootstrap.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/bootstrap/js/popper.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/bootstrap/js/popper.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/bootstrap/js/tooltip.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/countdowntime/countdowntime.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/css-hamburgers/hamburgers.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/css-hamburgers/hamburgers.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/daterangepicker/daterangepicker.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/daterangepicker/daterangepicker.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/daterangepicker/moment.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/daterangepicker/moment.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/jquery/jquery-3.2.1.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/perfect-scrollbar/perfect-scrollbar.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/perfect-scrollbar/perfect-scrollbar.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/select2/select2.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/select2/select2.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/select2/select2.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/login/vendor/select2/select2.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/robots.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/bat_damage.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/bat_dies.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/beholder_damage.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/beholder_dies.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/char_attacks.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/char_attacks_fire.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/char_attacks_ice.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/char_damage_3.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/char_dies.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/code_entered.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/coins.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/cube_attacks.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/cube_damage.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/cube_dies.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/cyclops_attacks.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/cyclops_damage.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/cyclops_dies.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/demoblin_attacks.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/dopp_attacks.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/dopp_damage.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/dopp_dies.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/dragon_attacks.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/dragon_damage.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/dragon_dies.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/eat_food.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/eyelet_damage.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/eyelet_dies.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/gate_closes.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/gate_opens.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/gel_damage.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/gel_dies.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/goblin_attacks.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/goblin_damage.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/goblin_dies.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/immunity.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/imp_damage.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/imp_dies.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/minotaur_attacks.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/minotaur_damage.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/minotaur_dies.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/move_pointer.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/owlbear_alarm.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/owlbear_attacks.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/owlbear_damage.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/owlbear_dies.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/partner_found.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/pause.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/pickup_weapon.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/sandworm_attacks.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/sandworm_dies.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/select_pointer.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/skull_damage.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/skull_dies.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/spike_attacks.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/unpause.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/weapon_wall.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/wizard_attacks.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/wizard_disappear.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/effects/wizard_reappear.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/music/final_battle.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/music/normal_battle.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/htdocs/sound/music/victory.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/template/ad_leaderboard.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/template/chrome.template.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/template/web.template.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2/version.json" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -33,217 +258,87 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="510">
-              <caret line="140" column="36" selection-start-line="140" selection-start-column="36" selection-end-line="140" selection-end-column="36" />
+            <state relative-caret-position="-227">
+              <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
               <folding>
-                <element signature="e#2564#3304#0" />
+                <element signature="e#1232#4158#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/session.js">
+        <entry file="file://$PROJECT_DIR$/client/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="10" column="34" selection-start-line="10" selection-start-column="34" selection-end-line="10" selection-end-column="34" />
+            <state relative-caret-position="75">
+              <caret line="5" column="23" selection-start-line="5" selection-start-column="23" selection-end-line="5" selection-end-column="23" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/js/image_loader.js">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/js/engine.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="62">
+              <caret line="491" column="22" selection-start-line="491" selection-start-column="22" selection-end-line="491" selection-end-column="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/login/signup.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="753">
+              <caret line="32" column="73" selection-start-line="32" selection-start-column="73" selection-end-line="32" selection-end-column="73" />
+              <caret line="37" column="41" selection-start-line="37" selection-start-column="41" selection-end-line="37" selection-end-column="41" />
+              <caret line="102" column="20" selection-start-line="102" selection-start-column="20" selection-end-line="102" selection-end-column="20" />
               <folding>
-                <element signature="e#129#208#0" />
-                <element signature="e#379#383#0" />
-                <element signature="e#408#412#0" />
-                <element signature="e#466#670#0" />
-                <element signature="e#713#755#0" />
+                <element signature="n#style#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/gameroom.js">
+        <entry file="file://$PROJECT_DIR$/client/login/css/main.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="544">
-              <caret line="91" column="78" selection-start-line="91" selection-start-column="59" selection-end-line="91" selection-end-column="78" />
-              <folding>
-                <element signature="e#239#577#0" />
-                <element signature="e#616#1010#0" />
-                <element signature="e#1069#1208#0" />
-                <element signature="e#1268#1407#0" />
-                <element signature="e#1466#1605#0" />
-              </folding>
+            <state relative-caret-position="268">
+              <caret line="42" column="32" selection-start-line="42" selection-start-column="32" selection-end-line="42" selection-end-column="32" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/database.js">
+        <entry file="file://$PROJECT_DIR$/client/css/horde.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-13">
-              <caret line="29" column="38" selection-start-line="29" selection-start-column="38" selection-end-line="29" selection-end-column="38" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client2/htdocs/js/socket-listener.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="27" column="42" selection-start-line="27" selection-start-column="42" selection-end-line="27" selection-end-column="42" />
-              <folding>
-                <element signature="e#49#539#0" />
-                <element signature="e#588#919#0" />
-              </folding>
+            <state relative-caret-position="120">
+              <caret line="8" column="33" selection-start-line="8" selection-start-column="33" selection-end-line="8" selection-end-column="33" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/client2/htdocs/js/engine.js">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="1564" column="2" lean-forward="true" selection-start-line="1564" selection-start-column="2" selection-end-line="1564" selection-end-column="2" />
-              <folding>
-                <element signature="e#1007#2760#0" />
-                <element signature="e#3613#3749#0" />
-                <element signature="e#3805#4940#0" />
-                <element signature="e#5035#5099#0" />
-                <element signature="e#5200#5274#0" />
-                <element signature="e#5372#5423#0" />
-                <element signature="e#6335#6464#0" />
-                <element signature="e#6780#6985#0" />
-                <element signature="e#7718#7755#0" />
-                <element signature="e#8309#8451#0" />
-                <element signature="e#8517#8649#0" />
-                <element signature="e#8688#8789#0" />
-                <element signature="e#10586#14910#0" />
-                <element signature="e#15944#16680#0" />
-                <element signature="e#16811#17387#0" />
-                <element signature="e#17579#18069#0" />
-                <element signature="e#18195#18818#0" />
-                <element signature="e#18934#19326#0" />
-                <element signature="e#19391#19825#0" />
-                <element signature="e#19905#19935#0" />
-                <element signature="e#20038#20734#0" />
-                <element signature="e#20825#23318#0" />
-                <element signature="e#23374#25005#0" />
-                <element signature="e#25041#25125#0" />
-                <element signature="e#25212#25395#0" />
-                <element signature="e#25478#25663#0" />
-                <element signature="e#25740#26965#0" />
-                <element signature="e#27040#28009#0" />
-                <element signature="e#28012#28139#0" />
-                <element signature="e#28222#28730#0" />
-                <element signature="e#28814#31043#0" />
-                <element signature="e#31046#31166#0" />
-                <element signature="e#31237#34635#0" />
-                <element signature="e#34714#35935#0" />
-                <element signature="e#38762#39983#0" />
-                <element signature="e#35938#36068#0" />
-                <element signature="e#36145#36796#0" />
-                <element signature="e#36798#36922#0" />
-                <element signature="e#36988#37557#0" />
-                <element signature="e#37618#37719#0" />
-                <element signature="e#37783#37889#0" />
-                <element signature="e#37970#38456#0" />
-                <element signature="e#38535#39634#0" />
-                <element signature="e#39707#39925#0" />
-                <element signature="e#39928#40070#0" />
-                <element signature="e#40144#40581#0" />
-                <element signature="e#40584#40772#0" />
-                <element signature="e#40856#41138#0" />
-                <element signature="e#41217#43529#0" />
-                <element signature="e#43605#44081#0" />
-                <element signature="e#44155#44244#0" />
-                <element signature="e#44312#45271#0" />
-                <element signature="e#45315#49859#0" />
-                <element signature="e#49964#52937#0" />
-                <element signature="e#52940#53028#0" />
-                <element signature="e#53108#54355#0" />
-                <element signature="e#54358#54414#0" />
-                <element signature="e#54488#55241#0" />
-                <element signature="e#55243#55290#0" />
-                <element signature="e#55354#73035#0" />
-                <element signature="e#55758#55898#0" />
-                <element signature="e#56010#56079#0" />
-                <element signature="e#56100#56136#0" />
-                <element signature="e#56231#56266#0" />
-                <element signature="e#56474#56540#0" />
-                <element signature="e#56729#59226#0" />
-                <element signature="e#59261#61374#0" />
-                <element signature="e#61409#65873#0" />
-                <element signature="e#65905#67073#0" />
-                <element signature="e#67113#67268#0" />
-                <element signature="e#67309#67626#0" />
-                <element signature="e#67654#68460#0" />
-                <element signature="e#68600#68651#0" />
-                <element signature="e#73082#73733#0" />
-                <element signature="e#73778#77924#0" />
-                <element signature="e#77980#79269#0" />
-                <element signature="e#79348#80059#0" />
-                <element signature="e#80134#80642#0" />
-                <element signature="e#80722#80978#0" />
-                <element signature="e#81049#81537#0" />
-                <element signature="e#81540#81627#0" />
-                <element signature="e#81696#83578#0" />
-                <element signature="e#82426#83575#0" />
-                <element signature="e#82500#82793#0" />
-                <element signature="e#83645#84306#0" />
-                <element signature="e#84391#86207#0" />
-                <element signature="e#86210#86256#0" />
-                <element signature="e#86291#86625#0" />
-                <element signature="e#86688#87040#0" />
-                <element signature="e#87105#87248#0" />
-                <element signature="e#87313#87490#0" />
-                <element signature="e#87562#87684#0" />
-                <element signature="e#87751#88435#0" />
-                <element signature="e#88507#88619#0" />
-                <element signature="e#88690#89654#0" />
-                <element signature="e#89892#90261#0" />
-                <element signature="e#90331#93472#0" />
-                <element signature="e#93545#93749#0" />
-                <element signature="e#93786#93932#0" />
-                <element signature="e#94132#94434#0" />
-                <element signature="e#94746#95249#0" />
-                <element signature="e#95403#98061#0" />
-                <element signature="e#98228#100520#0" />
-                <element signature="e#100589#100866#0" />
-                <element signature="e#101066#101707#0" />
-                <element signature="e#101800#102692#0" />
-                <element signature="e#102787#103665#0" />
-                <element signature="e#103700#104292#0" />
-                <element signature="e#104361#104598#0" />
-                <element signature="e#104681#106074#0" />
-                <element signature="e#106251#106554#0" />
-                <element signature="e#106735#107163#0" />
-                <element signature="e#107759#108736#0" />
-                <element signature="e#109005#110067#0" />
-                <element signature="e#110230#110337#0" />
-                <element signature="e#110368#110531#0" />
-                <element signature="e#110571#110776#0" />
-                <element signature="e#110851#111069#0" />
-                <element signature="e#111144#111535#0" />
-                <element signature="e#114371#114376#0" />
-                <element signature="e#114621#116056#0" />
-                <element signature="e#114707#115136#0" />
-                <element signature="e#115794#115799#0" />
-                <element signature="e#116420#116625#0" />
-                <element signature="e#116663#117037#0" />
-                <element signature="e#111741#111790#0" />
-                <element signature="e#117360#118109#0" />
-                <element signature="e#118825#119338#0" />
-                <element signature="e#117840#118030#0" />
-                <element signature="e#119784#119789#0" />
-                <element signature="e#119273#119787#0" />
-                <element signature="e#119548#119553#0" />
-              </folding>
+            <state relative-caret-position="715">
+              <caret line="109" lean-forward="true" selection-start-line="109" selection-end-line="109" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client2/htdocs/js/sock.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="168">
-              <caret line="24" column="48" selection-start-line="24" selection-start-column="48" selection-end-line="24" selection-end-column="48" />
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="240">
+                <caret line="16" selection-start-line="16" selection-end-line="18" />
+              </first_editor>
+              <second_editor />
             </state>
           </provider>
         </entry>
@@ -254,17 +349,13 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
+        <option value="CSS File" />
         <option value="JavaScript File" />
       </list>
     </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>h_kni</find>
-      <find>currentWeaponIndex</find>
-      <find>endGame</find>
-      <find>stats</find>
-      <find>getS</find>
       <find>h_knife</find>
       <find>endSession</find>
       <find>db.updateOne</find>
@@ -290,6 +381,11 @@
       <find>// this.state</find>
       <find>endGame()</find>
       <find>viaD</find>
+      <find>updateDis</find>
+      <find>.css</find>
+      <find>material</find>
+      <find>2/htdocs</find>
+      <find>client2</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -300,7 +396,6 @@
       <list>
         <option value="$PROJECT_DIR$/Database.js" />
         <option value="$PROJECT_DIR$/client2/htdocs/js/user.js" />
-        <option value="$PROJECT_DIR$/client/index.html" />
         <option value="$PROJECT_DIR$/client2/htdocs/login/js/sock-listener.js" />
         <option value="$PROJECT_DIR$/server/sock.js" />
         <option value="$PROJECT_DIR$/package.json" />
@@ -312,13 +407,11 @@
         <option value="$PROJECT_DIR$/client2/template/chrome.template.html" />
         <option value="$PROJECT_DIR$/client2/htdocs/js/main.js" />
         <option value="$PROJECT_DIR$/server/util.js" />
-        <option value="$PROJECT_DIR$/client2/htdocs/index.html" />
         <option value="$PROJECT_DIR$/client2/htdocs/css/horde.css" />
         <option value="$PROJECT_DIR$/client2/htdocs/js/run_game.js" />
         <option value="$PROJECT_DIR$/client2/htdocs/js/sound.js" />
         <option value="$PROJECT_DIR$/client2/htdocs/js/vector2.js" />
         <option value="$PROJECT_DIR$/client2/htdocs/js/object_types.js" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/client2/htdocs/js/object.js" />
         <option value="$PROJECT_DIR$/params.js" />
         <option value="$PROJECT_DIR$/server/database.js" />
@@ -326,17 +419,28 @@
         <option value="$PROJECT_DIR$/client2/htdocs/js/index.js" />
         <option value="$PROJECT_DIR$/client2/htdocs/js/sock.js" />
         <option value="$PROJECT_DIR$/server/gameroom.js" />
-        <option value="$PROJECT_DIR$/app.js" />
         <option value="$PROJECT_DIR$/client2/htdocs/js/socket-listener.js" />
         <option value="$PROJECT_DIR$/server/session.js" />
         <option value="$PROJECT_DIR$/client2/htdocs/js/engine.js" />
+        <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/client2/htdocs/css/chat.css" />
+        <option value="$PROJECT_DIR$/client2/htdocs/js/chat.js" />
+        <option value="$PROJECT_DIR$/client2/htdocs/index.html" />
+        <option value="$PROJECT_DIR$/app.js" />
+        <option value="$PROJECT_DIR$/client/index.html" />
+        <option value="$PROJECT_DIR$/client/js/engine.js" />
+        <option value="$PROJECT_DIR$/client/login/signup.html" />
+        <option value="$PROJECT_DIR$/client/login/css/main.css" />
+        <option value="$PROJECT_DIR$/client/css/horde.css" />
+        <option value="$PROJECT_DIR$/client/login/login.html" />
+        <option value="$PROJECT_DIR$/client-old/index.html" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" fullScreen="true">
-    <option name="y" value="23" />
     <option name="width" value="1440" />
-    <option name="height" value="797" />
+    <option name="height" value="900" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -344,6 +448,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -354,47 +459,29 @@
             <path>
               <item name="project" type="b2602c69:ProjectViewProjectNode" />
               <item name="project" type="462c0819:PsiDirectoryNode" />
-              <item name="client2" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="project" type="b2602c69:ProjectViewProjectNode" />
               <item name="project" type="462c0819:PsiDirectoryNode" />
-              <item name="client2" type="462c0819:PsiDirectoryNode" />
-              <item name="htdocs" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="project" type="b2602c69:ProjectViewProjectNode" />
-              <item name="project" type="462c0819:PsiDirectoryNode" />
-              <item name="client2" type="462c0819:PsiDirectoryNode" />
-              <item name="htdocs" type="462c0819:PsiDirectoryNode" />
-              <item name="css" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="project" type="b2602c69:ProjectViewProjectNode" />
-              <item name="project" type="462c0819:PsiDirectoryNode" />
-              <item name="client2" type="462c0819:PsiDirectoryNode" />
-              <item name="htdocs" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
               <item name="js" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="project" type="b2602c69:ProjectViewProjectNode" />
-              <item name="project" type="462c0819:PsiDirectoryNode" />
-              <item name="server" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
@@ -448,7 +535,8 @@
       <workItem from="1581757021936" duration="1555000" />
       <workItem from="1581826620267" duration="714000" />
       <workItem from="1582736799290" duration="75811000" />
-      <workItem from="1584599490746" duration="74542000" />
+      <workItem from="1584599490746" duration="75630000" />
+      <workItem from="1585709872874" duration="918000" />
     </task>
     <task id="LOCAL-00001" summary="Two players in the game">
       <created>1583395192319</created>
@@ -461,7 +549,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="172737000" />
+    <option name="totallyTimeSpent" value="174743000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -476,7 +564,7 @@
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49879518" visible="true" weight="0.18982808" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49879518" visible="true" weight="0.19269341" />
       <window_info id="Structure" order="1" sideWeight="0.50120485" side_tool="true" weight="0.18982808" />
       <window_info id="npm" order="2" sideWeight="0.5010571" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -505,61 +593,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="Two players in the game" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/client2/htdocs/login/fonts/iconic/css/material-design-iconic-font.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="343" column="17" selection-start-line="343" selection-start-column="13" selection-end-line="343" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="12" selection-start-line="18" selection-start-column="12" selection-end-line="18" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client2/htdocs/login/js/sock-listener.js" />
-    <entry file="file://$PROJECT_DIR$/client2/htdocs/login/signup.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="251">
-          <caret line="32" column="85" selection-start-line="32" selection-start-column="67" selection-end-line="32" selection-end-column="85" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client2/htdocs/login/login.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="410">
-          <caret line="88" column="4" selection-start-line="88" selection-start-column="4" selection-end-line="88" selection-end-column="68" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client2/htdocs/login/css/main.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="731">
-          <caret line="193" column="40" selection-start-line="193" selection-start-column="40" selection-end-line="193" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client2/template/web.template.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="30" column="22" lean-forward="true" selection-start-line="30" selection-start-column="22" selection-end-line="30" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client2/htdocs/img/sheet_arena.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client2/htdocs/img/frame_background.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client2/htdocs/img/favicon.ico">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client2/htdocs/img/arena_icon.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/client2/htdocs/js/size.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
@@ -602,13 +635,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/client2/htdocs/js/socket.js">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client2/htdocs/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="358">
-          <caret line="26" column="50" selection-start-line="26" selection-start-column="50" selection-end-line="26" selection-end-column="50" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/client2/htdocs/css/horde.css">
       <provider selected="true" editor-type-id="text-editor">
@@ -655,13 +681,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client2/htdocs/js/engine.js.tmp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="1993" column="69" lean-forward="true" selection-start-line="1993" selection-start-column="8" selection-end-line="1993" selection-end-column="69" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/client2/htdocs/js/engine.js.tmp" />
     <entry file="file://$PROJECT_DIR$/node_modules/mongodb/lib/aggregation_cursor.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="268">
@@ -718,14 +738,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README copy.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor />
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/README copy.md" />
     <entry file="file://$PROJECT_DIR$/client2/htdocs/js/waves_full.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="438">
@@ -1353,16 +1366,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="375">
-            <caret line="25" selection-start-line="25" selection-end-line="26" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/server/user.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="268">
@@ -1401,200 +1404,154 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="140" column="36" selection-start-line="140" selection-start-column="36" selection-end-line="140" selection-end-column="36" />
-          <folding>
-            <element signature="e#2564#3304#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client2/htdocs/js/socket-listener.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="27" column="42" selection-start-line="27" selection-start-column="42" selection-end-line="27" selection-end-column="42" />
-          <folding>
-            <element signature="e#49#539#0" />
-            <element signature="e#588#919#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/server/session.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
+        <state relative-caret-position="150">
           <caret line="10" column="34" selection-start-line="10" selection-start-column="34" selection-end-line="10" selection-end-column="34" />
-          <folding>
-            <element signature="e#129#208#0" />
-            <element signature="e#379#383#0" />
-            <element signature="e#408#412#0" />
-            <element signature="e#466#670#0" />
-            <element signature="e#713#755#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/database.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-13">
-          <caret line="29" column="38" selection-start-line="29" selection-start-column="38" selection-end-line="29" selection-end-column="38" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/server/gameroom.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
+        <state relative-caret-position="1365">
           <caret line="91" column="78" selection-start-line="91" selection-start-column="59" selection-end-line="91" selection-end-column="78" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/database.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="435">
+          <caret line="29" column="38" selection-start-line="29" selection-start-column="38" selection-end-line="29" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client2/htdocs/js/socket-listener.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="27" column="42" selection-start-line="27" selection-start-column="42" selection-end-line="27" selection-end-column="42" />
           <folding>
-            <element signature="e#239#577#0" />
-            <element signature="e#616#1010#0" />
-            <element signature="e#1069#1208#0" />
-            <element signature="e#1268#1407#0" />
-            <element signature="e#1466#1605#0" />
+            <element signature="e#49#539#0" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/client2/htdocs/js/engine.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="1564" column="2" lean-forward="true" selection-start-line="1564" selection-start-column="2" selection-end-line="1564" selection-end-column="2" />
+        <state relative-caret-position="23460">
+          <caret line="1564" column="2" selection-start-line="1564" selection-start-column="2" selection-end-line="1564" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client2/htdocs/js/chat.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1470">
+          <caret line="98" column="2" selection-start-line="98" selection-start-column="2" selection-end-line="98" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client2/htdocs/css/chat.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3210">
+          <caret line="214" column="1" selection-start-line="214" selection-start-column="1" selection-end-line="214" selection-end-column="1" />
           <folding>
-            <element signature="e#1007#2760#0" />
-            <element signature="e#3613#3749#0" />
-            <element signature="e#3805#4940#0" />
-            <element signature="e#5035#5099#0" />
-            <element signature="e#5200#5274#0" />
-            <element signature="e#5372#5423#0" />
-            <element signature="e#6335#6464#0" />
-            <element signature="e#6780#6985#0" />
-            <element signature="e#7718#7755#0" />
-            <element signature="e#8309#8451#0" />
-            <element signature="e#8517#8649#0" />
-            <element signature="e#8688#8789#0" />
-            <element signature="e#10586#14910#0" />
-            <element signature="e#15944#16680#0" />
-            <element signature="e#16811#17387#0" />
-            <element signature="e#17579#18069#0" />
-            <element signature="e#18195#18818#0" />
-            <element signature="e#18934#19326#0" />
-            <element signature="e#19391#19825#0" />
-            <element signature="e#19905#19935#0" />
-            <element signature="e#20038#20734#0" />
-            <element signature="e#20825#23318#0" />
-            <element signature="e#23374#25005#0" />
-            <element signature="e#25041#25125#0" />
-            <element signature="e#25212#25395#0" />
-            <element signature="e#25478#25663#0" />
-            <element signature="e#25740#26965#0" />
-            <element signature="e#27040#28009#0" />
-            <element signature="e#28012#28139#0" />
-            <element signature="e#28222#28730#0" />
-            <element signature="e#28814#31043#0" />
-            <element signature="e#31046#31166#0" />
-            <element signature="e#31237#34635#0" />
-            <element signature="e#34714#35935#0" />
-            <element signature="e#38762#39983#0" />
-            <element signature="e#35938#36068#0" />
-            <element signature="e#36145#36796#0" />
-            <element signature="e#36798#36922#0" />
-            <element signature="e#36988#37557#0" />
-            <element signature="e#37618#37719#0" />
-            <element signature="e#37783#37889#0" />
-            <element signature="e#37970#38456#0" />
-            <element signature="e#38535#39634#0" />
-            <element signature="e#39707#39925#0" />
-            <element signature="e#39928#40070#0" />
-            <element signature="e#40144#40581#0" />
-            <element signature="e#40584#40772#0" />
-            <element signature="e#40856#41138#0" />
-            <element signature="e#41217#43529#0" />
-            <element signature="e#43605#44081#0" />
-            <element signature="e#44155#44244#0" />
-            <element signature="e#44312#45271#0" />
-            <element signature="e#45315#49859#0" />
-            <element signature="e#49964#52937#0" />
-            <element signature="e#52940#53028#0" />
-            <element signature="e#53108#54355#0" />
-            <element signature="e#54358#54414#0" />
-            <element signature="e#54488#55241#0" />
-            <element signature="e#55243#55290#0" />
-            <element signature="e#55354#73035#0" />
-            <element signature="e#55758#55898#0" />
-            <element signature="e#56010#56079#0" />
-            <element signature="e#56100#56136#0" />
-            <element signature="e#56231#56266#0" />
-            <element signature="e#56474#56540#0" />
-            <element signature="e#56729#59226#0" />
-            <element signature="e#59261#61374#0" />
-            <element signature="e#61409#65873#0" />
-            <element signature="e#65905#67073#0" />
-            <element signature="e#67113#67268#0" />
-            <element signature="e#67309#67626#0" />
-            <element signature="e#67654#68460#0" />
-            <element signature="e#68600#68651#0" />
-            <element signature="e#73082#73733#0" />
-            <element signature="e#73778#77924#0" />
-            <element signature="e#77980#79269#0" />
-            <element signature="e#79348#80059#0" />
-            <element signature="e#80134#80642#0" />
-            <element signature="e#80722#80978#0" />
-            <element signature="e#81049#81537#0" />
-            <element signature="e#81540#81627#0" />
-            <element signature="e#81696#83578#0" />
-            <element signature="e#82426#83575#0" />
-            <element signature="e#82500#82793#0" />
-            <element signature="e#83645#84306#0" />
-            <element signature="e#84391#86207#0" />
-            <element signature="e#86210#86256#0" />
-            <element signature="e#86291#86625#0" />
-            <element signature="e#86688#87040#0" />
-            <element signature="e#87105#87248#0" />
-            <element signature="e#87313#87490#0" />
-            <element signature="e#87562#87684#0" />
-            <element signature="e#87751#88435#0" />
-            <element signature="e#88507#88619#0" />
-            <element signature="e#88690#89654#0" />
-            <element signature="e#89892#90261#0" />
-            <element signature="e#90331#93472#0" />
-            <element signature="e#93545#93749#0" />
-            <element signature="e#93786#93932#0" />
-            <element signature="e#94132#94434#0" />
-            <element signature="e#94746#95249#0" />
-            <element signature="e#95403#98061#0" />
-            <element signature="e#98228#100520#0" />
-            <element signature="e#100589#100866#0" />
-            <element signature="e#101066#101707#0" />
-            <element signature="e#101800#102692#0" />
-            <element signature="e#102787#103665#0" />
-            <element signature="e#103700#104292#0" />
-            <element signature="e#104361#104598#0" />
-            <element signature="e#104681#106074#0" />
-            <element signature="e#106251#106554#0" />
-            <element signature="e#106735#107163#0" />
-            <element signature="e#107759#108736#0" />
-            <element signature="e#109005#110067#0" />
-            <element signature="e#110230#110337#0" />
-            <element signature="e#110368#110531#0" />
-            <element signature="e#110571#110776#0" />
-            <element signature="e#110851#111069#0" />
-            <element signature="e#111144#111535#0" />
-            <element signature="e#114371#114376#0" />
-            <element signature="e#114621#116056#0" />
-            <element signature="e#114707#115136#0" />
-            <element signature="e#115794#115799#0" />
-            <element signature="e#116420#116625#0" />
-            <element signature="e#116663#117037#0" />
-            <element signature="e#111741#111790#0" />
-            <element signature="e#117360#118109#0" />
-            <element signature="e#118825#119338#0" />
-            <element signature="e#117840#118030#0" />
-            <element signature="e#119784#119789#0" />
-            <element signature="e#119273#119787#0" />
-            <element signature="e#119548#119553#0" />
+            <element signature="e#1672#3941#2" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client2/htdocs/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="403">
+          <caret line="59" column="97" selection-start-line="59" selection-start-column="89" selection-end-line="59" selection-end-column="97" />
+          <folding>
+            <element signature="n#div#0;n#body#0;n#html#0;n#!!top" />
+            <element signature="n#div#1;n#body#0;n#html#0;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="240">
+            <caret line="16" selection-start-line="16" selection-end-line="18" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-227">
+          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
+          <folding>
+            <element signature="e#1232#4158#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="23" selection-start-line="5" selection-start-column="23" selection-end-line="5" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/js/image_loader.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/js/engine.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="62">
+          <caret line="491" column="22" selection-start-line="491" selection-start-column="22" selection-end-line="491" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/login/signup.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="753">
+          <caret line="32" column="73" selection-start-line="32" selection-start-column="73" selection-end-line="32" selection-end-column="73" />
+          <caret line="37" column="41" selection-start-line="37" selection-start-column="41" selection-end-line="37" selection-end-column="41" />
+          <caret line="102" column="20" selection-start-line="102" selection-start-column="20" selection-end-line="102" selection-end-column="20" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/login/css/main.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="268">
+          <caret line="42" column="32" selection-start-line="42" selection-start-column="32" selection-end-line="42" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client-old/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="268">
+          <caret line="33" column="20" selection-start-line="33" selection-start-column="20" selection-end-line="33" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/login/login.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1087">
+          <caret line="37" column="41" selection-start-line="37" selection-start-column="41" selection-end-line="37" selection-end-column="41" />
+          <caret line="86" column="24" selection-start-line="86" selection-start-column="24" selection-end-line="86" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/css/horde.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="33" selection-start-line="8" selection-start-column="33" selection-end-line="8" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="715">
+          <caret line="109" lean-forward="true" selection-start-line="109" selection-end-line="109" />
         </state>
       </provider>
     </entry>

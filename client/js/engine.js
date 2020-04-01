@@ -489,16 +489,16 @@ proto.init = function horde_Engine_proto_init () {
 	// Load just the logo
 	this.preloader = new horde.ImageLoader();
 	this.preloader.load({
-		"ui": "/client2/htdocs/img/sheet_ui.png" + this.cacheBust()
+		"ui": "/client/img/sheet_ui.png" + this.cacheBust()
 	}, this.preloadComplete, this);
 
 	// Load the rest of the image assets
 	this.images = new horde.ImageLoader();
 	this.images.load({
-		"arena": "/client2/htdocs/img/sheet_arena.png" + this.cacheBust(),
-		"characters": "/client2/htdocs/img/sheet_characters.png" + this.cacheBust(),
-		"objects": "/client2/htdocs/img/sheet_objects.png" + this.cacheBust(),
-		"beholder": "/client2/htdocs/img/sheet_beholder.png" + this.cacheBust()
+		"arena": "/client/img/sheet_arena.png" + this.cacheBust(),
+		"characters": "/client/img/sheet_characters.png" + this.cacheBust(),
+		"objects": "/client/img/sheet_objects.png" + this.cacheBust(),
+		"beholder": "/client/img/sheet_beholder.png" + this.cacheBust()
 	}, this.handleImagesLoaded, this);
 
 	var highScore = this.getData(HIGH_SCORE_KEY);
@@ -519,8 +519,8 @@ proto.initSound = function horde_Engine_proto_initSound () {
 	horde.sound.init(function () {
 
 		// Create all sound files
-		var musicDir = "/client2/htdocs/sound/music/";
-		var sfxDir = "/client2/htdocs/sound/effects/";
+		var musicDir = "/client/sound/music/";
+		var sfxDir = "/client/sound/effects/";
 		var s = horde.sound;
 
 		// Music

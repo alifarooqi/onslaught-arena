@@ -3,10 +3,6 @@ let session = require('./server/session');
 let gameroom = require('./server/gameroom');
 const params = require('./params');
 
-require('./Database');
-require('./Entity');
-require('./client/Inventory');
-
 var express = require('express');
 var app = express();
 var serv = require('http').Server(app);
@@ -16,25 +12,24 @@ app.use(cors());
 
 
 app.get('/',function(req, res) {
-	res.sendFile(__dirname + '/client2/htdocs/index.html');
+	res.sendFile(__dirname + '/client/index.html');
 });
 
 app.get('/login',function(req, res) {
-    res.sendFile(__dirname + '/client2/htdocs/login/login.html');
+    res.sendFile(__dirname + '/client/login/login.html');
 });
 
 app.get('/signup',function(req, res) {
-    res.sendFile(__dirname + '/client2/htdocs/login/signup.html');
+    res.sendFile(__dirname + '/client/login/signup.html');
 });
 
 app.get('/favicon.ico',function(req, res) {
-    res.sendFile(__dirname + '/client2/htdocs/img/favicon.ico');
+    res.sendFile(__dirname + '/client/img/favicon.ico');
 });
 
 
 app.use('/client',express.static(__dirname + '/client'));
-app.use('/client2',express.static(__dirname + '/client2'));
-app.use('/login',express.static(__dirname + '/client2/htdocs/login'));
+app.use('/login',express.static(__dirname + '/client/login'));
 
 const PORT = process.env.PORT || 2000;
 serv.listen(PORT);
