@@ -2,9 +2,34 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="574ddd46-b7f5-4b80-80f5-950291191050" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/session.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/session.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/user.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/css/chat.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/css/chat.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/css/horde.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/css/horde.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/embeddable.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/embeddable.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/js/base.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/game/base.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/js/engine.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/game/engine.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/js/image_loader.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/game/image_loader.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/js/keyboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/game/keyboard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/js/mouse.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/game/mouse.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/js/object.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/game/object.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/js/object_types.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/game/object_types.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/js/rect.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/game/rect.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/js/run_game.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/game/run_game.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/js/size.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/game/size.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/js/socket.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/js/lib/socket.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/js/sound.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/game/sound.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/js/spawn_point.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/game/spawn_point.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/js/spawn_wave.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/game/spawn_wave.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/js/timer.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/game/timer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/js/vector2.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/game/vector2.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/js/waves_demo.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/game/waves_demo.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/js/waves_full.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/game/waves_full.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/login/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/login/css/login.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/login/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/login/js/login.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/login/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/login/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/login/signup.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/login/signup.html" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -18,12 +43,47 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app.js">
+        <entry file="file://$PROJECT_DIR$/client/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="430">
-              <caret line="98" column="62" selection-start-line="98" selection-start-column="62" selection-end-line="98" selection-end-column="62" />
+            <state relative-caret-position="1455">
+              <caret line="97" column="39" selection-start-line="97" selection-start-column="39" selection-end-line="97" selection-end-column="39" />
             </state>
           </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/css/chat.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="15">
+              <caret line="1" column="16" selection-start-line="1" selection-start-column="16" selection-end-line="1" selection-end-column="16" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/css/horde.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="45">
+              <caret line="7" selection-start-line="7" selection-end-line="7" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/js/main.js">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/js/sock.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-237" />
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/js/chat.js">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -39,7 +99,7 @@
         <entry file="file://$PROJECT_DIR$/server/user.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="525">
-              <caret line="131" column="78" lean-forward="true" selection-start-line="131" selection-start-column="78" selection-end-line="131" selection-end-column="78" />
+              <caret line="131" column="78" selection-start-line="131" selection-start-column="78" selection-end-line="131" selection-end-column="78" />
               <folding>
                 <element signature="e#132#209#0" />
                 <element signature="e#723#1392#0" />
@@ -53,21 +113,7 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/index.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="5" column="23" selection-start-line="5" selection-start-column="23" selection-end-line="5" selection-end-column="23" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/js/image_loader.js">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/js/engine.js">
+        <entry file="file://$PROJECT_DIR$/client/game/engine.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="62">
               <caret line="491" column="22" selection-start-line="491" selection-start-column="22" selection-end-line="491" selection-end-column="22" />
@@ -76,43 +122,11 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/login/signup.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="753">
-              <caret line="32" column="73" selection-start-line="32" selection-start-column="73" selection-end-line="32" selection-end-column="73" />
-              <caret line="37" column="41" selection-start-line="37" selection-start-column="41" selection-end-line="37" selection-end-column="41" />
-              <caret line="102" column="20" selection-start-line="102" selection-start-column="20" selection-end-line="102" selection-end-column="20" />
-              <folding>
-                <element signature="n#style#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/login/css/main.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="268">
-              <caret line="42" column="32" selection-start-line="42" selection-start-column="32" selection-end-line="42" selection-end-column="32" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/css/horde.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="8" column="33" selection-start-line="8" selection-start-column="33" selection-end-line="8" selection-end-column="33" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="240">
-                <caret line="16" selection-start-line="16" selection-end-line="18" />
+              <first_editor relative-caret-position="510">
+                <caret line="34" column="82" selection-start-line="34" selection-start-column="82" selection-end-line="34" selection-end-column="82" />
               </first_editor>
               <second_editor />
             </state>
@@ -132,11 +146,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>endSession</find>
-      <find>db.updateOne</find>
-      <find>getItem</find>
-      <find>findPartnerResponse</find>
-      <find>db.insert</find>
       <find>startSession</find>
       <find>signInResponse</find>
       <find>USER._</find>
@@ -162,6 +171,11 @@
       <find>2/htdocs</find>
       <find>client2</find>
       <find>client co</find>
+      <find>mater</find>
+      <find>main.css</find>
+      <find>mainlogin</find>
+      <find>main</find>
+      <find>body</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -196,21 +210,22 @@
         <option value="$PROJECT_DIR$/server/gameroom.js" />
         <option value="$PROJECT_DIR$/client2/htdocs/js/socket-listener.js" />
         <option value="$PROJECT_DIR$/client2/htdocs/js/engine.js" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/client2/htdocs/css/chat.css" />
         <option value="$PROJECT_DIR$/client2/htdocs/js/chat.js" />
         <option value="$PROJECT_DIR$/client2/htdocs/index.html" />
-        <option value="$PROJECT_DIR$/client/index.html" />
         <option value="$PROJECT_DIR$/client/js/engine.js" />
-        <option value="$PROJECT_DIR$/client/login/signup.html" />
         <option value="$PROJECT_DIR$/client/login/css/main.css" />
-        <option value="$PROJECT_DIR$/client/css/horde.css" />
-        <option value="$PROJECT_DIR$/client/login/login.html" />
         <option value="$PROJECT_DIR$/client-old/index.html" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/server/user.js" />
         <option value="$PROJECT_DIR$/server/session.js" />
+        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/app.js" />
+        <option value="$PROJECT_DIR$/client/login/login.html" />
+        <option value="$PROJECT_DIR$/client/login/signup.html" />
+        <option value="$PROJECT_DIR$/client/css/chat.css" />
+        <option value="$PROJECT_DIR$/client/css/horde.css" />
+        <option value="$PROJECT_DIR$/client/index.html" />
       </list>
     </option>
   </component>
@@ -236,6 +251,12 @@
               <item name="project" type="b2602c69:ProjectViewProjectNode" />
               <item name="project" type="462c0819:PsiDirectoryNode" />
               <item name="client" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="project" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="css" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="project" type="b2602c69:ProjectViewProjectNode" />
@@ -267,6 +288,9 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/client/css/lib" />
+      <recent name="$PROJECT_DIR$/client/js/lib" />
+      <recent name="$PROJECT_DIR$/client/game" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/client2/htdocs/js" />
     </key>
@@ -317,7 +341,7 @@
       <workItem from="1581826620267" duration="714000" />
       <workItem from="1582736799290" duration="75811000" />
       <workItem from="1584599490746" duration="75630000" />
-      <workItem from="1585709872874" duration="2156000" />
+      <workItem from="1585709872874" duration="3854000" />
     </task>
     <task id="LOCAL-00001" summary="Two players in the game">
       <created>1583395192319</created>
@@ -330,7 +354,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="175981000" />
+    <option name="totallyTimeSpent" value="177679000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -343,7 +367,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49879518" visible="true" weight="0.19269341" />
       <window_info id="Structure" order="1" sideWeight="0.50120485" side_tool="true" weight="0.18982808" />
@@ -374,46 +397,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="Two players in the game" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/client2/htdocs/js/size.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="32" selection-start-line="8" selection-start-column="22" selection-end-line="8" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client2/htdocs/img/sheet_ui.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client2/htdocs/js/image_loader.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="26" selection-start-line="14" selection-start-column="20" selection-end-line="14" selection-end-column="26" />
-          <folding>
-            <element signature="e#691#776#0" />
-            <element signature="e#856#878#0" />
-            <element signature="e#960#982#0" />
-            <element signature="e#1050#1123#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client2/htdocs/img/sheet_characters.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/util.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="900">
-          <caret line="60" column="22" selection-start-line="60" selection-start-column="22" selection-end-line="60" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/lib.dom.d.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="17272" column="17" selection-start-line="17272" selection-start-column="17" selection-end-line="17272" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client2/htdocs/js/socket.js">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -1234,49 +1217,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="240">
-            <caret line="16" selection-start-line="16" selection-end-line="18" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="23" selection-start-line="5" selection-start-column="23" selection-end-line="5" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/js/image_loader.js">
+    <entry file="file://$PROJECT_DIR$/client/game/image_loader.js">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/js/engine.js">
+    <entry file="file://$PROJECT_DIR$/client/game/engine.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="62">
           <caret line="491" column="22" selection-start-line="491" selection-start-column="22" selection-end-line="491" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/login/signup.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="753">
-          <caret line="32" column="73" selection-start-line="32" selection-start-column="73" selection-end-line="32" selection-end-column="73" />
-          <caret line="37" column="41" selection-start-line="37" selection-start-column="41" selection-end-line="37" selection-end-column="41" />
-          <caret line="102" column="20" selection-start-line="102" selection-start-column="20" selection-end-line="102" selection-end-column="20" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/login/css/main.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="268">
-          <caret line="42" column="32" selection-start-line="42" selection-start-column="32" selection-end-line="42" selection-end-column="32" />
         </state>
       </provider>
     </entry>
@@ -1287,14 +1234,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/login/login.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1087">
-          <caret line="37" column="41" selection-start-line="37" selection-start-column="41" selection-end-line="37" selection-end-column="41" />
-          <caret line="86" column="24" selection-start-line="86" selection-start-column="24" selection-end-line="86" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="715">
@@ -1302,17 +1241,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/css/horde.css">
+    <entry file="file://$PROJECT_DIR$/server/session.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="33" selection-start-line="8" selection-start-column="33" selection-end-line="8" selection-end-column="33" />
+        <state relative-caret-position="513">
+          <caret line="55" column="2" selection-start-line="55" selection-start-column="2" selection-end-line="55" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="510">
+            <caret line="34" column="82" selection-start-line="34" selection-start-column="82" selection-end-line="34" selection-end-column="82" />
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/server/user.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="525">
-          <caret line="131" column="78" lean-forward="true" selection-start-line="131" selection-start-column="78" selection-end-line="131" selection-end-column="78" />
+          <caret line="131" column="78" selection-start-line="131" selection-start-column="78" selection-end-line="131" selection-end-column="78" />
           <folding>
             <element signature="e#132#209#0" />
             <element signature="e#723#1392#0" />
@@ -1324,17 +1273,72 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/session.js">
+    <entry file="file://$PROJECT_DIR$/client/login/css/login.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="513">
-          <caret line="55" column="2" selection-start-line="55" selection-start-column="2" selection-end-line="55" selection-end-column="2" />
+        <state relative-caret-position="268">
+          <caret line="42" column="32" selection-start-line="42" selection-start-column="32" selection-end-line="42" selection-end-column="32" />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/client/login/signup.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="620">
+          <caret line="118" column="28" selection-start-line="118" selection-start-column="28" selection-end-line="118" selection-end-column="28" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/login/login.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="620">
+          <caret line="102" column="32" selection-start-line="102" selection-start-column="32" selection-end-line="102" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/js/chat.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="430">
-          <caret line="98" column="62" selection-start-line="98" selection-start-column="62" selection-end-line="98" selection-end-column="62" />
+        <state relative-caret-position="555">
+          <caret line="37" column="21" selection-start-line="37" selection-start-column="21" selection-end-line="37" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/css/chat.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="16" selection-start-line="1" selection-start-column="16" selection-end-line="1" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/js/index.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/game/base.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/css/horde.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="7" selection-start-line="7" selection-end-line="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/js/main.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/js/sock.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-237" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1455">
+          <caret line="97" column="39" selection-start-line="97" selection-start-column="39" selection-end-line="97" selection-end-column="39" />
         </state>
       </provider>
     </entry>

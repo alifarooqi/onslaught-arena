@@ -3,8 +3,12 @@
 <head>
 	<meta charset="utf-8">
 	<title>Onslaught! Arena (dev)</title>
+	<link href="/client/css/lib/bootstrap.min.css" rel="stylesheet">
+	<link href="/client/css/lib/bootstrap-material-design.css" rel="stylesheet">
+	<link href="/client/css/lib/material-icon.css" rel="stylesheet">
+	<link href="/client/css/chat.css" rel="stylesheet">
 	<link href="/client/css/horde.css" rel="stylesheet">
-    <link href="/client/css/chat.css" rel="stylesheet">
+
 </head>
 <body>
 
@@ -35,7 +39,7 @@
 		</div>
 
 
-    <div id="body">
+    <div id="chat-wrapper">
 
         <div id="chat-circle" class="btn btn-raised">
             <div id="chat-overlay"></div>
@@ -68,30 +72,32 @@
     </div>
 
 	<script src="/client/js/index.js"></script>
-	<script src="/client/js/socket.js"></script>
+	<script src="/client/js/lib/socket.js"></script>
 	<script src="/client/js/sock.js"></script>
 	<script src="/login/vendor/jquery/jquery-3.2.1.min.js"></script>
 	<script src="/client/js/main.js"></script>
-	<script src="/client/js/base.js"></script>
-	<script src="/client/js/timer.js"></script>
-	<script src="/client/js/sound.js"></script>
-	<script src="/client/js/size.js"></script>
-	<script src="/client/js/vector2.js"></script>
-	<script src="/client/js/rect.js"></script>
-	<script src="/client/js/keyboard.js"></script>
-	<script src="/client/js/mouse.js"></script>
-	<script src="/client/js/waves_full.js"></script>
+	<script src="/client/game/base.js"></script>
+	<script src="/client/game/timer.js"></script>
+	<script src="/client/game/sound.js"></script>
+	<script src="/client/game/size.js"></script>
+	<script src="/client/game/vector2.js"></script>
+	<script src="/client/game/rect.js"></script>
+	<script src="/client/game/keyboard.js"></script>
+	<script src="/client/game/mouse.js"></script>
+	<script src="/client/game/waves_full.js"></script>
 	<!--
-	<script src="/client/js/waves_demo.js"></script>
+	<script src="/client/game/waves_demo.js"></script>
 	-->
-	<script src="/client/js/engine.js"></script>
-	<script src="/client/js/object.js"></script>
-	<script src="/client/js/object_types.js"></script>
-	<script src="/client/js/image_loader.js"></script>
-	<script src="/client/js/spawn_point.js"></script>
-	<script src="/client/js/spawn_wave.js"></script>
-	<script src="/client/js/run_game.js"></script>
-    <script src="/client/js/chat.js"></script>
+	<script src="/client/game/engine.js"></script>
+	<script src="/client/game/object.js"></script>
+	<script src="/client/game/object_types.js"></script>
+	<script src="/client/game/image_loader.js"></script>
+	<script src="/client/game/spawn_point.js"></script>
+	<script src="/client/game/spawn_wave.js"></script>
+	<script src="/client/game/run_game.js"></script>
+	<script src="/client/js/lib/tether.min.js"></script>
+	<script src="/client/js/lib/bootstrap.min.js"></script>
+	<script src="/client/js/chat.js"></script>
 	<script src="/client/js/socket-listener.js"></script>
 
 </body>

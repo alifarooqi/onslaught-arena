@@ -36,8 +36,6 @@ serv.listen(PORT);
 console.log("Server started at port", PORT);
 
 var SOCKET_LIST = {};
-
-
 var DEBUG = true;
 
 

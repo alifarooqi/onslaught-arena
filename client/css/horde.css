@@ -5,17 +5,15 @@
 	src: local('MedievalSharp'), url('../font/MedievalSharp.ttf') format('woff');
 }
 
-html {
+
+html, body {
+	margin: 0;
+	padding: 0;
 	background: #000 url('/client/img/bg-02.jpg');
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: cover;
 	min-height: 100vh;
-}
-
-html, body {
-	margin: 0;
-	padding: 0;
 }
 
 .hidden {
