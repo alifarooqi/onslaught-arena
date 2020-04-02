@@ -2,14 +2,8 @@ const {MongoClient, ObjectId} = require('mongodb');
 
 // Connection URL
 const url = process.env.MONGODB_URI || 'mongodb://localhost:27017';
-const dbName = 'onslaughtArena';
+const dbName =  process.env.DB_NAME || 'onslaughtArena';
 let db = null;
-
-const MODELPACK = {
-    collection: 'user',
-    update: 'updatedOn',
-    create: 'createdOn'
-};
 
 // Use connect method to connect to the server
 MongoClient.connect(url, { useUnifiedTopology: true}, function(err, client) {
