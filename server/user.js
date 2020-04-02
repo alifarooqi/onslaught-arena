@@ -149,6 +149,7 @@ function generateRandomCode(n=6) {
 }
 
 function sendVerifyEmail(email, verifyCode) {
+    console.log(`Verification Code for ${email}: ${verifyCode}`)
     let message = `Dear User,<br><br>
 	Thanks for signing up at Onslaught Arena.<br><br>
 	Your verification code: ${verifyCode}.<br><br>
@@ -181,11 +182,10 @@ const verify = async (data, socket) => {
     }
 
     db.getItem(USER_MODELPACK, {email: data.email}, async res =>{
-        if(!res.success){ // Create new user
+        if(!res.success){ // Creating a new user
             let newUser = {...NEW_USER};
             newUser.email = data.email;
             let verifyCode = generateRandomCode();
-            console.log('Verification Code:', verifyCode);
             newUser.verificationCode = verifyCode;
             sendVerifyEmail(data.email, verifyCode);
             db.insertOne(USER_MODELPACK, newUser);

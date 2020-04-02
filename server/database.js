@@ -22,6 +22,7 @@ MongoClient.connect(url, { useUnifiedTopology: true}, function(err, client) {
 });
 
 const insertOne = (modelpack, data, callback) => insert(modelpack, [data], callback);
+
 const insert = function(modelpack, data, callback = _=>{}) {
     // Get the documents collection
     const collection = db.collection(modelpack.collection);
@@ -36,19 +37,24 @@ const insert = function(modelpack, data, callback = _=>{}) {
     }
     // Insert some documents
     collection.insertMany(data, function(err, result) {
-        if(err)
+        if(err){
+            console.error("DB insert error", err);
             callback({success: false, err});
+        }
         else
             callback({success: true, data: result});
     });
 };
+
 const getItem = function(modelpack, filter, callback = _=>{}) {
     const collection = db.collection(modelpack.collection);
     collection.find(filter).toArray(function(err, data) {
-        if(data.length > 0)
+        if(data && data.length > 0)
             callback({success: true, data: data[0]});
-        else
+        else{
+            console.error(err);
             callback({success: false, data, err});
+        }
     });
 };
 
@@ -64,7 +70,6 @@ const getList = function(modelpack, filter, callback = _=>{}) {
     });
 };
 
-
 const updateOne = function(modelpack, filter, newUpdate, callback = _=>{}) {
     const collection = db.collection(modelpack.collection);
     if(modelpack.update)
@@ -79,7 +84,6 @@ const updateOne = function(modelpack, filter, newUpdate, callback = _=>{}) {
             callback({success: true, data});
     });
 };
-
 
 const updateWithId = function(modelpack, id, newUpdate, callback = _=>{}) {
     const collection = db.collection(modelpack.collection);
