@@ -4686,7 +4686,8 @@ proto.drawFindPartner = function horde_Engine_proto_drawFindPartner(ctx){
     document.getElementById('loading').style.display = 'block';
 };
 
-proto.onFindingPartner = function(partner){
+proto.onFindingPartner = function horde_Engine_proto_onFindingPartner(partner){
+	console.log('Partner found', partner.username);
 	document.getElementById('loading').style.display = 'none';
 	document.getElementById('startingCountdown').style.display = 'block';
 	document.getElementById('partnerUsername').innerHTML = partner.username;

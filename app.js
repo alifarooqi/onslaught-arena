@@ -41,12 +41,13 @@ const peerServer = ExpressPeerServer(serv, {
 app.use('/voice', peerServer);
 
 const PORT = process.env.PORT || 2000;
+const HOST = process.env.HOST || 'localhost';
 serv.listen(PORT);
 console.log("Server started at port", PORT);
 
 
-var SOCKET_LIST = {};
-var DEBUG = true;
+let SOCKET_LIST = {};
+const DEBUG = true;
 
 
 var io = require('socket.io')(serv,{});
@@ -54,6 +55,10 @@ io.sockets.on('connection', function(socket){
 	socket.id = Math.random();
 	SOCKET_LIST[socket.id] = socket;
 	console.log('Client connection', Object.keys(SOCKET_LIST));
+	socket.emit('initConnection', {
+	    port: PORT,
+        host: HOST
+    });
 
     /***********************
 	 * User Authentication *

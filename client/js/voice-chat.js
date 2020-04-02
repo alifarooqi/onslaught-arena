@@ -1,20 +1,28 @@
-const peer = new Peer(USER._id, {
-    host: 'localhost',
-    port: 2000,
-    path: '/voice/call'
-});
-
 const player = document.getElementById('call-player');
-let mediaStream, c;
+let peer, mediaStream, c;
 
-peer.on('call', function(call) {
-    call.answer(mediaStream);
-    c = call;
-    call.on('stream', function(stream) {
-        player.srcObject = stream;
-        player.play();
+const init = ({host, port}) => {
+    peer = new Peer(USER._id, {
+        host,
+        port,
+        path: '/voice/call'
     });
-});
+
+    peer.on('call', function(call) {
+        navigator.mediaDevices.getUserMedia({video: false, audio: true})
+            .then(media => {
+                mediaStream = media;
+                call.answer(mediaStream);
+                c = call;
+                call.on('stream', function(stream) {
+                    player.srcObject = stream;
+                    player.play();
+                });
+            })
+            .catch(err => console.error(err));
+    });
+
+};
 
 const connect = peerId => {
     navigator.mediaDevices.getUserMedia({video: false, audio: true})
@@ -22,11 +30,12 @@ const connect = peerId => {
             mediaStream = media;
             let conn = peer.connect(peerId);
             conn.on('open', function(){
-                call(peerId);
+                call(peerId, media);
             });
-        });
+        })
+        .catch(err => console.error(err));
 };
-const call = (peerId) => {
+const call = (peerId, mediaStream) => {
     c = peer.call(peerId, mediaStream);
     c.on('stream', function(stream) {
         player.srcObject = stream;
@@ -51,5 +60,6 @@ const VOICE = {
     connect,
     toggleMic,
     toggleSpeaker,
-    endCall
+    endCall,
+    init
 };
