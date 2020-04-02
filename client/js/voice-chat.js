@@ -12,7 +12,7 @@ const init = ({env, host, port}) => {
     else {
         peer = new Peer(USER._id, {
             host,
-            port: 80,
+            port: 443,
             path: '/voice/call'
         });
     }
