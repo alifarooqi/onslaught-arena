@@ -3,9 +3,7 @@ socket.on('initConnection', data => {
     VOICE.init(data);
 });
 
-socket.on('findPartnerResponse', partner => {
-    console.log('findPartnerResponse', partner.username);
-    ENGINE.onFindingPartner(partner)});
+socket.on('findPartnerResponse', partner => ENGINE.onFindingPartner(partner));
 
 socket.on('gameroomStartCountdown', time => ENGINE.updateCountdownTimer(time));
 

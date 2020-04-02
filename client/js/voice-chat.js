@@ -1,12 +1,20 @@
 const player = document.getElementById('call-player');
 let peer, mediaStream, c;
 
-const init = ({host, port}) => {
-    peer = new Peer(USER._id, {
-        host,
-        port,
-        path: '/voice/call'
-    });
+const init = ({env, host, port}) => {
+    if(env === 'dev'){
+        peer = new Peer(USER._id, {
+            host,
+            port,
+            path: '/voice/call'
+        });
+    }
+    else {
+        peer = new Peer(USER._id, {
+            host,
+            path: '/voice/call'
+        });
+    }
 
     peer.on('call', function(call) {
         navigator.mediaDevices.getUserMedia({video: false, audio: true})

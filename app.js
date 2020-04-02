@@ -42,8 +42,10 @@ app.use('/voice', peerServer);
 
 const PORT = process.env.PORT || 2000;
 const HOST = process.env.HOST || 'localhost';
+const ENV = process.env.ENV || 'dev';
+
 serv.listen(PORT);
-console.log("Server started at port", PORT);
+console.log(`Server started at ${HOST}     using port ${PORT}`);
 
 
 let SOCKET_LIST = {};
@@ -56,6 +58,7 @@ io.sockets.on('connection', function(socket){
 	SOCKET_LIST[socket.id] = socket;
 	console.log('Client connection', Object.keys(SOCKET_LIST));
 	socket.emit('initConnection', {
+	    env: ENV,
 	    port: PORT,
         host: HOST
     });

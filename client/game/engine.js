@@ -4687,7 +4687,6 @@ proto.drawFindPartner = function horde_Engine_proto_drawFindPartner(ctx){
 };
 
 proto.onFindingPartner = function horde_Engine_proto_onFindingPartner(partner){
-	console.log('Partner found', partner.username);
 	document.getElementById('loading').style.display = 'none';
 	document.getElementById('startingCountdown').style.display = 'block';
 	document.getElementById('partnerUsername').innerHTML = partner.username;
@@ -4704,7 +4703,6 @@ proto.onFindingPartner = function horde_Engine_proto_onFindingPartner(partner){
 proto.updateCountdownTimer = function (time){
     document.getElementById('gameroomCountdown').innerHTML = time;
     if(time === 0){
-    	console.log('Starting Game!')
         document.getElementById('startingCountdown').style.display = 'none';
         this.continuing = false;
         this.showTutorial = true;
