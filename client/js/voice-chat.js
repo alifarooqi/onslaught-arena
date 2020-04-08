@@ -2,35 +2,35 @@ const player = document.getElementById('call-player');
 let peer, mediaStream, c;
 
 const init = ({env, host, port}) => {
-    if(env === 'dev'){
-        peer = new Peer(USER._id, {
-            host,
-            port,
-            path: '/voice/call'
-        });
-    }
-    else {
-        peer = new Peer(USER._id, {
-            host,
-            port: 443,
-            path: '/voice/call'
-        });
-    }
-
-    peer.on('call', function(call) {
-        console.log('Receiving call...');
-        navigator.mediaDevices.getUserMedia({video: false, audio: true})
-            .then(media => {
-                mediaStream = media;
-                call.answer(mediaStream);
-                c = call;
-                call.on('stream', function(stream) {
-                    player.srcObject = stream;
-                    player.play();
-                });
-            })
-            .catch(err => console.error(err));
-    });
+    // if(env === 'dev'){
+    //     peer = new Peer(USER._id, {
+    //         host,
+    //         port,
+    //         path: '/voice/call'
+    //     });
+    // }
+    // else {
+    //     peer = new Peer(USER._id, {
+    //         host,
+    //         port: 443,
+    //         path: '/voice/call'
+    //     });
+    // }
+    //
+    // peer.on('call', function(call) {
+    //     console.log('Receiving call...');
+    //     navigator.mediaDevices.getUserMedia({video: false, audio: true})
+    //         .then(media => {
+    //             mediaStream = media;
+    //             call.answer(mediaStream);
+    //             c = call;
+    //             call.on('stream', function(stream) {
+    //                 player.srcObject = stream;
+    //                 player.play();
+    //             });
+    //         })
+    //         .catch(err => console.error(err));
+    // });
 
 };
 

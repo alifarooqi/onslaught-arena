@@ -28,6 +28,24 @@ var SCORE_COUNT = 10;
 
 const DRAW_GRID_LINES = false;
 
+const numberWithCommas = (x) => {
+	return Math.ceil(x).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+};
+
+const ENGINE_STATES = {
+    intro: "intro",
+    title: "title",
+    credits: "credits",
+    finding_partner: "finding_partner",
+    intro_cinematic: "intro_cinematic",
+    running: "running",
+    disconnected: "disconnected", // When partner's disconnected
+    game_over: "game_over",
+    match_partner: "match_partner",
+    buy_now: "buy_now",
+};
+
+
 /**
  * Creates a new Engine object
  * @constructor
@@ -208,12 +226,57 @@ horde.Engine = function horde_Engine () {
 
 	// Multiplayer Support
 	this.multiplayerType = 'host';
-	this.partner = null;
+	this.partner = {
+		username: 'farooqi',
+		rank: 123,
+        score: 5520
+	};
 	this.gameroomId = '';
     this.engineUpdate = {
 		objectAttack: []
     };
     this.lastParameterUpdate = {};
+    this.lastUpdateTimestamp = new Date();
+    this.matchPartner = {
+    	set: false,
+    	current: {
+    		host: {
+                gold: 0,
+                damage: 0,
+                score: 0,
+                rank: 0,
+                totalScore: 0
+            },
+            guest: {
+                gold: 0,
+                damage: 0,
+                score: 0,
+                rank: 0,
+                totalScore: 0
+
+            },
+            compatible: 0
+        },
+		expected:{
+            host: {
+                gold: 1000,
+                damage: 1000,
+                score: 5000,
+                rank: 131,
+                totalScore: 5002
+				
+            },
+            guest: {
+                gold: 2000,
+                damage: 2000,
+                score: 10000,
+                rank: 13,
+                totalScore: 6000
+				
+            },
+            compatible: 60
+        }
+	}
 
 
 };
@@ -445,7 +508,7 @@ proto.isAlive = function horde_Engine_proto_isAlive (objectId) {
 };
 
 proto.preloadComplete = function () {
-	this.state = "intro";
+	this.state = ENGINE_STATES.intro;
 	this.logoAlpha = 0;
 	this.logoFade = "in";
 	this.logoFadeSpeed = 1000000;
@@ -457,7 +520,7 @@ proto.preloadComplete = function () {
  */
 proto.init = function horde_Engine_proto_init () {
 
-	this.state = "intro";
+	this.state = ENGINE_STATES.intro;
 
 	this.canvases["display"] = horde.makeCanvas("display", this.view.width, this.view.height);
 	this.canvases["buffer"] = horde.makeCanvas("buffer", this.view.width, this.view.height, true);
@@ -497,6 +560,7 @@ proto.init = function horde_Engine_proto_init () {
 	this.images = new horde.ImageLoader();
 	this.images.load({
 		"arena": "/client/img/sheet_arena.png" + this.cacheBust(),
+        "match_screen": "/client/img/match_screen.jpg" + this.cacheBust(),
 		"characters": "/client/img/sheet_characters.png" + this.cacheBust(),
 		"objects": "/client/img/sheet_objects.png" + this.cacheBust(),
 		"beholder": "/client/img/sheet_beholder.png" + this.cacheBust()
@@ -636,6 +700,9 @@ proto.initSound = function horde_Engine_proto_initSound () {
 		s.create("dopp_damage", sfxDir + "dopp_damage", false, 50);
 		s.create("dopp_dies", sfxDir + "dopp_dies");
 
+		// Score increment effect
+        s.create("score", sfxDir + "score", true);
+
 	});
 
 };
@@ -651,7 +718,7 @@ proto.initGame = function () {
 	this.closeGates();
 
 	this.objects = {};
-	this.state = "title";
+	this.state = ENGINE_STATES.title;
 	this.initOptions();
 
 	this.initMap();
@@ -854,6 +921,8 @@ proto.initPlayer2 = function horde_Engine_proto_initPlayer () {
 
 proto.handleImagesLoaded = function horde_Engine_proto_handleImagesLoaded () {
 	this.imagesLoaded = true;
+	// TODO Change this
+	// this.state = ENGINE_STATES.match_partner;
 };
 
 proto.logoFadeOut = function () {
@@ -1004,7 +1073,7 @@ proto.updateIntroCinematic = function horde_Engine_proto_updateIntroCinematic (e
 			if (this.introTimer.expired()) {
 				this.currentMusic = "normal_battle_music";
 				horde.sound.play(this.currentMusic);
-				this.state = "running";
+				this.state = ENGINE_STATES.running;
 			}
 			break;
 
@@ -1026,23 +1095,23 @@ proto.update = function horde_Engine_proto_update () {
 
 	switch (this.state) {
 
-		case "intro":
+		case ENGINE_STATES.intro:
 			this.updateLogo(elapsed);
 			this.render();
 			break;
 
-		case "title":
+		case ENGINE_STATES.title:
 			this.handleInput();
 			this.updateFauxGates(elapsed);
 			this.render();
 			break;
 
-		case "credits":
+		case ENGINE_STATES.credits:
 			this.handleInput();
 			this.render();
 			break;
 
-		case "intro_cinematic":
+		case ENGINE_STATES.intro_cinematic:
 			this.handleInput();
 			this.updateIntroCinematic(elapsed);
 			this.updateFauxGates(elapsed);
@@ -1050,7 +1119,7 @@ proto.update = function horde_Engine_proto_update () {
 			break;
 
 		// The game!
-		case "running":
+		case ENGINE_STATES.running:
 			if (this.wonGame) {
 				this.updateWonGame(elapsed);
 			} else {
@@ -1072,16 +1141,23 @@ proto.update = function horde_Engine_proto_update () {
 			this.render();
 			break;
 
-        case "disconnected":
+        case ENGINE_STATES.disconnected:
             this.updateDisconnected(elapsed);
             this.render();
             break;
-		case "game_over":
+
+		case ENGINE_STATES.game_over:
 			this.updateGameOver(elapsed);
 			this.render();
 			break;
 
-		case "buy_now":
+        case ENGINE_STATES.match_partner:
+            this.updateMatchPartner(elapsed);
+            this.handleInput();
+            this.render();
+            break;
+
+		case ENGINE_STATES.buy_now:
 			this.handleInput();
 			this.render();
 			break;
@@ -2303,7 +2379,7 @@ proto.grabContinueInfo = function horde_Engine_proto_grabContinueInfo () {
 				}
 				_this.continuing = true;
 				_this.showTutorial = false;
-				_this.state = "intro_cinematic";
+				_this.state = ENGINE_STATES.intro_cinematic;
 			});
 		}
 	}, true);
@@ -2324,7 +2400,7 @@ proto.handleInput = function horde_Engine_proto_handleInput () {
 
 	this.leaderboardHover = this.achievementsHover = this.loginHover = false;
 
-	if (this.state == "running") {
+	if (this.state === ENGINE_STATES.running) {
 
 		// ESC to skip tutorial.
 		if (this.keyboard.isKeyPressed(keys.ESCAPE)) {
@@ -2543,7 +2619,7 @@ proto.handleInput = function horde_Engine_proto_handleInput () {
 
 	}
 
-	if (this.state === "title") {
+	if (this.state === ENGINE_STATES.title) {
 
 		usingPointerOptions = true;
 
@@ -2677,10 +2753,10 @@ proto.handleInput = function horde_Engine_proto_handleInput () {
 					// this.continuing = false;
 					// this.showTutorial = !this.touchMove;
 					// this.state = "intro_cinematic";
-					this.state = "finding_partner";
+					this.state = ENGINE_STATES.finding_partner;
 					break;
 				case 2: // Credits
-					this.state = "credits";
+					this.state = ENGINE_STATES.credits;
 					break;
 			}
 
@@ -2688,7 +2764,7 @@ proto.handleInput = function horde_Engine_proto_handleInput () {
 
 	}
 
-	if (this.state == "buy_now") {
+	if (this.state == ENGINE_STATES.buy_now) {
 
 		usingPointerOptions = true;
 
@@ -2739,12 +2815,12 @@ proto.handleInput = function horde_Engine_proto_handleInput () {
 	}
 
 	if (
-		(this.state === "credits")
+		(this.state === ENGINE_STATES.credits)
 	) {
 		if (this.keyboard.isAnyKeyPressed() || this.mouse.isAnyButtonDown()) {
 			kb.clearKeys();
 			this.mouse.clearButtons();
-			this.state = "title";
+			this.state = ENGINE_STATES.title;
 		}
 	}
 
@@ -2794,7 +2870,7 @@ proto.handleInput = function horde_Engine_proto_handleInput () {
 
 	}
 
-	if (this.state === "running") {
+	if (this.state === ENGINE_STATES.running) {
 		var player = this.getPlayerObject();
 
 		if (this.paused || player.hasState(horde.Object.states.DYING)) {
@@ -2980,6 +3056,17 @@ proto.handleInput = function horde_Engine_proto_handleInput () {
 
 		this.keyboard.storeKeyStates();
 		this.mouse.storeButtonStates();
+	}
+
+	if(this.state === ENGINE_STATES.match_partner){
+        if (kb.isAnyKeyPressed() || this.mouse.isAnyButtonDown()) {
+            CHAT.toggleChat();
+            VOICE.endCall();
+            this.keyboard.clearKeys();
+            this.mouse.clearButtons();
+            this.state = ENGINE_STATES.title;
+            this.initGame();
+        }
 	}
 
 };
@@ -3207,34 +3294,36 @@ proto.render = function horde_Engine_proto_render () {
 	switch (this.state) {
 
 		// Company Logo
-		case "intro":
+		case ENGINE_STATES.intro:
 			this.drawLogo(ctx);
 			break;
 
 		// Title Screen
-		case "title":
+		case ENGINE_STATES.title:
 			this.drawTitle(ctx);
 			this.drawPointer(ctx);
 			this.drawTitlePointerOptions(ctx);
 			break;
 
 		// Credits
-		case "credits":
+		case ENGINE_STATES.credits:
 			this.drawTitle(ctx);
 			this.drawCredits(ctx);
 			break;
 
-        case "finding_partner":
+		// Finding partner loading screen
+        case ENGINE_STATES.finding_partner:
         	SOCKET.findPartner();
         	this.drawFindPartner(ctx);
         	break;
 
-		case "intro_cinematic":
+		// Intro to the game
+		case ENGINE_STATES.intro_cinematic:
 			this.drawIntroCinematic(ctx);
 			break;
 
 		// The game!
-		case "running":
+		case ENGINE_STATES.running:
 			this.drawFloor(ctx);
 			if (!this.wonGame) {
 				this.drawTargetReticle(ctx);
@@ -3256,15 +3345,20 @@ proto.render = function horde_Engine_proto_render () {
 			}
 			break;
 
-		case "game_over":
+		// Game Over stats and score
+		case ENGINE_STATES.game_over:
 			this.drawGameOver(ctx);
 			break;
 
-        case "disconnected":
+        case ENGINE_STATES.match_partner:
+            this.drawMatchPartner(ctx);
+            break;
+
+        case ENGINE_STATES.disconnected:
             this.drawDisconnected(ctx);
             break;
 
-		case "buy_now":
+		case ENGINE_STATES.buy_now:
 			this.drawBuyNow(ctx);
 			this.drawPointer(ctx);
 			break;
@@ -3418,11 +3512,16 @@ proto.drawGameOver = function horde_Engine_proto_drawGameOver (ctx) {
 			this.statsIndex += 1;
 			if (this.statsIndex >= 5) {
 				if (horde.isDemo()) {
-					this.state = "buy_now";
+					this.state = ENGINE_STATES.buy_now;
 					this.initOptions();
 				} else {
 					horde.sound.stop("victory");
-					this.initGame();
+					if(this.multiplayerType === 'single')
+						this.initGame();
+					else{
+						this.state = ENGINE_STATES.match_partner;
+                        horde.sound.play('score');
+					}
 				}
 				return;
 			}
@@ -4417,7 +4516,7 @@ proto.drawPausedPointerOptions = function horde_Engine_proto_drawPausedPointerOp
 proto.initOptions = function () {
 
 	switch (this.state) {
-		case "title":
+		case ENGINE_STATES.title:
 			this.pointerYStart = 314;
 
 			if (horde.isDemo() || this.canContinue()) {
@@ -4429,14 +4528,14 @@ proto.initOptions = function () {
 			}
 			this.maxPointerY = 2;
 			break;
-		case "running":
+		case ENGINE_STATES.running:
 			this.pointerYStart = 378;
 			this.pointerY = 0;
 			this.maxPointerY = 1;
 			this.pointerOptionsStart = 0;
 			this.verifyQuit = false;
 			break;
-		case "buy_now":
+		case ENGINE_STATES.buy_now:
 			this.pointerYStart = 378;
 			this.pointerY = 0;
 			this.maxPointerY = 1;
@@ -4665,7 +4764,7 @@ proto.endGame = function (viaDisconnection=false) {
 		this.updateGameOver();
 	else
         this.updateGameOver(3750);
-	this.state = "game_over";
+	this.state = ENGINE_STATES.game_over;
 	this.timePlayed = (horde.now() - this.gameStartTime);
 };
 
@@ -4706,7 +4805,7 @@ proto.updateCountdownTimer = function (time){
         document.getElementById('startingCountdown').style.display = 'none';
         this.continuing = false;
         this.showTutorial = true;
-        this.state = "intro_cinematic";
+        this.state = ENGINE_STATES.intro_cinematic;
     }
 };
 
@@ -4727,6 +4826,159 @@ proto.drawGridLines = function horde_Engine_proto_drawGridLines(context){
 	}
 	context.strokeStyle = "red";
 	context.stroke();
+};
+
+proto.drawMatchPartner = function horde_Engine_proto_drawMatchPartner(ctx) {
+	const positions = {
+		partner_intro: {
+            username: 153,
+            rank: 430,
+            score: 540,
+			y: 195
+        },
+		stats:{
+            username: 80,
+            gold: 365,
+            damage: 455,
+            score: 545,
+			y: 270,
+			py: 311
+		},
+		compatible : {x: 190, y: 355}
+	};
+
+	const colors = {
+		general: "rgb(233, 149, 56)",
+		orange: "rgb(237, 125, 49)",
+        gold: "rgb(255, 192, 0)",
+		damage: "rgb(192, 0, 0)",
+        player: "rgb(255, 212, 128)"
+	};
+
+
+	ctx.save();
+    ctx.font = "bold 30px MedievalSharp";
+
+	// ctx.globalAlpha = OVERLAY_ALPHA;
+	// ctx.fillRect(0, 0, this.view.width, this.view.height);
+	ctx.globalAlpha = 1;
+	ctx.drawImage(
+		this.images.getImage("match_screen"),
+		0, 0, this.view.width, this.view.height
+	);
+
+	// Partner Intro
+    ctx.fillStyle = colors.general;
+    ctx.fillText(this.partner.username.toUpperCase(),
+		positions.partner_intro.username,
+		positions.partner_intro.y);
+
+    const partner = this.multiplayerType === 'host' ? 'guest' : 'host';
+    ctx.textAlign = "center";
+    ctx.fillText(numberWithCommas(this.matchPartner.current[partner].rank),
+        positions.partner_intro.rank,
+        positions.partner_intro.y);
+
+    ctx.fillText(numberWithCommas(this.matchPartner.current[partner].totalScore),
+        positions.partner_intro.score,
+        positions.partner_intro.y);
+
+    const compatible = Math.ceil(this.matchPartner.current.compatible),
+		ugold = numberWithCommas(this.matchPartner.current[this.multiplayerType].gold),
+		udamage = numberWithCommas(this.matchPartner.current[this.multiplayerType].damage),
+		uscore = numberWithCommas(this.matchPartner.current[this.multiplayerType].score),
+		pgold = numberWithCommas(this.matchPartner.current[partner].gold),
+		pdamage = numberWithCommas(this.matchPartner.current[partner].damage),
+		pscore = numberWithCommas(this.matchPartner.current[partner].score);
+
+    const username = USER.username.toUpperCase();
+    const pusername = this.partner.username.toUpperCase();
+
+    /** Compatibility percentage **/
+    ctx.font = "bold 35px MedievalSharp";
+    ctx.fillStyle = colors.orange;
+    ctx.fillText(compatible + "%",
+        positions.compatible.x,
+        positions.compatible.y);
+
+
+    ctx.font = "normal 20px MedievalSharp";
+
+	/** Users Stats **/
+
+    // Gold Coins
+    ctx.fillStyle = colors.gold;
+    ctx.fillText(ugold,
+        positions.stats.gold,
+        positions.stats.y);
+
+    ctx.fillText(pgold,
+        positions.stats.gold,
+        positions.stats.py);
+
+
+    // Damage taken
+    ctx.fillStyle = colors.damage;
+    ctx.fillText(udamage,
+        positions.stats.damage,
+        positions.stats.y);
+
+    ctx.fillText(pdamage,
+        positions.stats.damage,
+        positions.stats.py);
+
+
+    // Total Score
+    ctx.fillStyle = colors.orange;
+    ctx.fillText(uscore,
+        positions.stats.score,
+        positions.stats.y);
+
+    ctx.fillText(pscore,
+        positions.stats.score,
+        positions.stats.py);
+
+    ctx.textAlign = "left";
+    // Username
+    ctx.fillStyle = colors.player;
+    ctx.fillText(username,
+        positions.stats.username,
+        positions.stats.y);
+    ctx.fillText(pusername,
+        positions.stats.username,
+        positions.stats.py);
+
+
+    ctx.restore();
+
+};
+
+proto.updateMatchPartner = function horde_Engine_proto_updateMatchPartner(elapsed) {
+
+    this.matchPartner.current.compatible += this.matchPartner.expected.compatible*elapsed/2000; // Reach expected value in 2s
+    if(this.matchPartner.current.compatible > this.matchPartner.expected.compatible){
+        this.matchPartner.current.compatible = this.matchPartner.expected.compatible;
+        if(horde.sound.isPlaying('score')){
+            horde.sound.stop('score');
+            horde.sound.play('partner_found');
+		}
+    }
+
+    const props = ['gold', 'damage', 'score', 'rank', 'totalScore'];
+    const players = ['host', 'guest'];
+    for(let player of players){
+		for(let p of props){
+			const speed = this.matchPartner.expected[player][p]*elapsed/1500; // Reach expected value in 1.5s
+			this.matchPartner.current[player][p] += speed;
+			if(this.matchPartner.current[player][p] > this.matchPartner.expected[player][p])
+				this.matchPartner.current[player][p] = this.matchPartner.expected[player][p];
+		}
+    }
+};
+
+proto.setMatchingInfo = function horde_Engine_proto_setMatchingInfo(data) {
+	this.matchPartner.set = true;
+	this.matchPartner.expected = data;
 };
 
 proto.flushEngineUpdate = function horde_Engine_proto_flushEngineUpdate(){
@@ -4755,8 +5007,10 @@ proto.updateMultiplayer = function horde_Engine_proto_updateMultiplayer(elapsed)
         // if(engineParameterUpdate)
         // 	update.engineParameterUpdate = engineParameterUpdate;
 
-        if(Object.entries(update).length !== 0)
+        if(Object.entries(update).length !== 0){
+        	update.timestamp = new Date();
         	SOCKET.guestUpdate(this.gameroomId, update);
+        }
     }
 
 
@@ -4782,9 +5036,12 @@ proto.updateMultiplayer = function horde_Engine_proto_updateMultiplayer(elapsed)
         // 	update.engineParameterUpdate = engineParameterUpdate;
 
         if(Object.entries(update.objectUpdate).length !== 0
-			|| update.hasOwnProperty('engineUpdate')
-            || update.hasOwnProperty('engineParameterUpdate'))
+				|| update.hasOwnProperty('engineUpdate')
+            	|| update.hasOwnProperty('engineParameterUpdate')){
+            update.timestamp = new Date();
         	SOCKET.hostUpdate(this.gameroomId, update);
+		}
+
     }
 };
 
@@ -4811,6 +5068,13 @@ proto.getEngineParameterUpdate = function(){
  *
  */
 proto.updateFromHost = function (update) {
+	if(update.timestamp < this.lastUpdateTimestamp){
+		console.log('Rejecting late update', update.timestamp, this.lastUpdateTimestamp);
+		return;
+	}
+	else
+        this.lastUpdateTimestamp = update.timestamp
+
 	/** Updating all the objects **/
 	for(let id in update.objectUpdate){
 		if(this.objects.hasOwnProperty(id)){
@@ -4832,6 +5096,10 @@ proto.updateFromHost = function (update) {
 };
 
 proto.updateFromGuest = function (update) {
+    if(update.timestamp < this.lastUpdateTimestamp)
+        return;
+    else
+        this.lastUpdateTimestamp = update.timestamp
 
     /** Updating Player 2 object **/
 	if(update.hasOwnProperty('playerInfo')){
@@ -4914,7 +5182,7 @@ proto.applyEngineParameterUpdate = function (updatedParams) {
 
 proto.partnerDisconnected = function(){
 	this.updateDisconnected();
-	this.state = 'disconnected'
+	this.state = ENGINE_STATES.disconnected
 };
 
 }());

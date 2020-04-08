@@ -795,6 +795,7 @@ proto.getStats = function horde_Object_proto_getStats(){
         shotsPerWeapon: this.shotsPerWeapon,
         meatEaten: this.meatEaten,
         cheater: this.cheater,
+        gold: this.gold
 	}
 };
 
@@ -804,7 +805,7 @@ proto.getStats = function horde_Object_proto_getStats(){
  * 			id: 				(String) Object id
  * 			position: 			(Object) {x,y}
  * 			facing: 			(Object) {x,y}
-* 		 	direction: 			(Object) {x,y}
+ * 		 	direction: 			(Object) {x,y}
  * 			currentWeaponIndex:	(Int) Index of currently used weapon
  * 			wounds:				(Int) Amount of damage object has sustained
  * 			alive:				(Bool)
@@ -853,6 +854,7 @@ const getDifference = (current, last) => {
 
 	/** 1. Checking Vector2 Objects **/
     const vectorProperties = ['position', 'facing', 'direction'];
+    // const vectorProperties = ['facing', 'direction'];
     for(let prop of vectorProperties){
         if(current[prop].x !== last[prop].x || current[prop].y !== last[prop].y)
             result[prop] = current[prop];

@@ -4,9 +4,9 @@ horde.sound = {};
 
 var api = "html5";
 var format = ".mp3";
-var muted = true;
+var muted = false;
 var sounds = {};
-var disabled = true; //TODO Change sound
+var disabled = false; //TODO Change sound
 
 horde.sound.init = function horde_sound_init (callback) {
 

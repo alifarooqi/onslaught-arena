@@ -1,4 +1,5 @@
 const db = require('./database');
+const user = require('./user');
 
 let GAMEROOM_MODELPACK = {
     collection: 'gamerooms',
@@ -6,10 +7,35 @@ let GAMEROOM_MODELPACK = {
     create: 'createdOn'
 };
 
-
+/**
+ *
+ * @type { Object }
+ *      gameroomid: {
+ *          hostUserId
+ *          hostUsername
+ *          guestUserId
+ *          guestUsername
+ *          totalScore
+ *          hostSocket
+ *          guestSocket
+ *      }
+ */
 let ACTIVE_GAMEROOMS = {};
 
-
+/**
+ *
+ * @param host: user info
+ * @param hostSocket
+ * @param guest: user info
+ * @param guestSocket
+ * @param callback
+ *
+ *          user info:
+ *              userId
+ *              username
+ *              socketId
+ *              multiplayerType
+ */
 const create = (host, hostSocket, guest, guestSocket, callback)=>{
     let NEW_GAMEROOM = {
         hostUserId: host.userId,
@@ -67,11 +93,12 @@ const togglePause = ({gameroomId, multiplayerType})=>{
     }
 };
 
-const endGame = ({gameroomId, playerStats})=>{
+const endGame = async ({gameroomId, playerStats})=>{
     if(ACTIVE_GAMEROOMS[gameroomId]){
         if(ACTIVE_GAMEROOMS[gameroomId].playerStats){
             //TODO Update our records of the user stats
             let totalScore = ACTIVE_GAMEROOMS[gameroomId].playerStats.totalScore + playerStats.totalScore;
+            await sendMatchingInfo(gameroomId, playerStats, ACTIVE_GAMEROOMS[gameroomId].playerStats);
             db.updateWithId(GAMEROOM_MODELPACK, gameroomId, {totalScore}, res => {
                 delete ACTIVE_GAMEROOMS[gameroomId];
             });
@@ -82,6 +109,86 @@ const endGame = ({gameroomId, playerStats})=>{
 
     }
 };
+
+/**
+ *
+ * @param gameroomId
+ * @param player1: {Object} Player_Stats
+ * @param player2: {Object} Player_Stats
+ *
+ * {Object} Player_Stats:
+ *              kills
+ *              timesWounded
+ *              totalDamageTaken
+ *              shotsFired
+ *              shotsLanded
+ *              shotsPerWeapon
+ *              meatEaten
+ *              cheater
+ *              gold
+ *              totalScore
+ *              multiplayerType
+ *
+ * Sends the following data to the players
+ *      compatible
+ *      hostStats: {Object} stats
+ *      guestStats: {Object} stats
+ *
+*       {Object} stats:
+ *                  - coins
+ *                  - damage
+ *                  - score
+ *                  - rank
+ *                  - totalScore
+ * @returns {Promise<void>}
+ */
+
+const sendMatchingInfo = async (gameroomId, player1, player2) => {
+    let host, guest;
+    let hostStats = player1, guestStats = player2;
+    const {hostUserId, guestUserId} = ACTIVE_GAMEROOMS[gameroomId];
+    const compatible = getCompatibility(player1, player2);
+
+    if(player1.multiplayerType === 'guest'){
+        hostStats = player2;
+        guestStats = player1;
+    }
+
+    const getHost = db.getItemById(user.USER_MODELPACK, hostUserId);
+    const getGuest = db.getItemById(user.USER_MODELPACK, guestUserId);
+
+    Promise.all([getGuest, getHost]).then(res => {
+        console.log('Promise Result', res);
+    });
+
+
+
+    // Host
+    host = {
+        gold: hostStats.gold,
+        damage: hostStats.totalDamageTaken,
+        score: hostStats.totalScore,
+        rank: 123, //TODO
+        totalScore: 5000 //TODO
+    };
+    //Guest
+    guest = {
+        gold: guestStats.gold,
+        damage: guestStats.totalDamageTaken,
+        score: guestStats.totalScore,
+        rank: 13, //TODO
+        totalScore: 10000 //TODO
+    };
+
+    const response = {compatible, host, guest};
+    ACTIVE_GAMEROOMS[gameroomId].guestSocket.emit('matchingInfo', response);
+    ACTIVE_GAMEROOMS[gameroomId].hostSocket.emit('matchingInfo', response);
+};
+
+function getCompatibility(player1, player2) {
+    // TODO
+    return 82;
+}
 
 const partnerDisconnected = socketId =>{
     for(let gameroomId in ACTIVE_GAMEROOMS){

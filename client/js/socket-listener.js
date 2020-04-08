@@ -14,4 +14,7 @@ socket.on('togglePause', () => ENGINE.togglePause(true));
 
 socket.on('partnerDisconnected', () => ENGINE.partnerDisconnected());
 
+socket.on('matchingInfo', data => ENGINE.setMatchingInfo(data));
+
 socket.on('chatMessage', CHAT.receiveMessage);
+

@@ -149,11 +149,11 @@ function generateRandomCode(n=6) {
 }
 
 function sendVerifyEmail(email, verifyCode) {
-    console.log(`Verification Code for ${email}: ${verifyCode}`)
+    console.log(`Verification Code for ${email}: ${verifyCode}`);
     let message = `Dear User,<br><br>
 	Thanks for signing up at Onslaught Arena.<br><br>
 	Your verification code: ${verifyCode}.<br><br>
-	Enjoy!<br>Onslaught Arena Team`
+	Enjoy!<br>Onslaught Arena Team`;
 
 
 
@@ -225,5 +225,6 @@ const verify = async (data, socket) => {
 module.exports = {
     login,
     signup,
-    verify
+    verify,
+    USER_MODELPACK
 };

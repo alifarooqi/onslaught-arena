@@ -26,7 +26,6 @@ The server should be running at `localhost:2000`.
 - Intro and player states
 
 ### To Test
-- Chat
 - Voice Chat 
 
 ### Optionals
@@ -34,6 +33,13 @@ The server should be running at `localhost:2000`.
 - Virtual store and currency
 - Compatibility with mobile browsers
 
+### Tested
+#### On Dev
+Voice Chat
+
+
+#### On Prod
+Chat
 
 ## Bugs
 - Player disconncted --> Press any button to continue (had to press several times)

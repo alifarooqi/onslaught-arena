@@ -44,6 +44,11 @@ const findPartner = (data, socket, SOCKET_LIST) => {
                 if(res.success){
                     user.gameroomId = res.gameroomId;
                     partner.gameroomId = res.gameroomId;
+                    // TODO
+                    user.rank = 23;
+                    partner.rank = 123;
+                    user.score = 5534;
+                    partner.score = 534;
                     socket.emit('findPartnerResponse', partner);
                     SOCKET_LIST[partner.socketId].emit('findPartnerResponse', user);
                 }

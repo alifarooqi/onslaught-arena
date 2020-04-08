@@ -131,8 +131,8 @@ const receiveMessage = msg =>{
 
 const toggleChat = () =>{
     $('#chat-wrapper').toggle('scale');
-    if($("#chat-wrapper").is(":visible"))
-        toggleChatBox();
+    // if($("#chat-wrapper").is(":visible"))
+    //     toggleChatBox();
 };
 
 const CHAT = {

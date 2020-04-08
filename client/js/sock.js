@@ -21,8 +21,7 @@ const cancelFindPartner = ()=>{
     });
 };
 
-const endSession = _ => {
-    console.log("Ending session with a logout");
+const endSession = () => {
     socket.emit('endSession');
 };
 

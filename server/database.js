@@ -15,9 +15,17 @@ MongoClient.connect(url, { useUnifiedTopology: true}, function(err, client) {
     db = client.db(dbName);
 });
 
+
+const respond = (response, callback) => {
+    if(callback)
+        callback(response);
+    else
+        return response;
+};
+
 const insertOne = (modelpack, data, callback) => insert(modelpack, [data], callback);
 
-const insert = function(modelpack, data, callback = _=>{}) {
+const insert = async function(modelpack, data, callback = _=>{}) {
     // Get the documents collection
     const collection = db.collection(modelpack.collection);
     let now = new Date();
@@ -33,38 +41,43 @@ const insert = function(modelpack, data, callback = _=>{}) {
     collection.insertMany(data, function(err, result) {
         if(err){
             console.error("DB insert error", err);
-            callback({success: false, err});
+            return respond({success: false, err}, callback)
+
         }
-        else
-            callback({success: true, data: result});
+
+        return respond({success: true, data: result}, callback);
     });
 };
 
-const getItem = function(modelpack, filter, callback = _=>{}) {
+const getItem = async function(modelpack, filter, callback) {
     const collection = db.collection(modelpack.collection);
     collection.find(filter).toArray(function(err, data) {
-        if(data && data.length > 0)
-            callback({success: true, data: data[0]});
+        if(data && data.length)
+            return respond({success: true, data: data[0]}, callback);
         else{
             console.error(err);
-            callback({success: false, data, err});
+            return respond({success: false, data, err}, callback);
         }
     });
 };
 
-const getList = function(modelpack, filter, callback = _=>{}) {
+const getItemById = async function(modelpack, id, callback) {
+    return getItem(modelpack, {_id: ObjectId(id)}, callback);
+};
+
+const getList = async function(modelpack, filter, callback) {
     const collection = db.collection(modelpack.collection);
     collection.find(filter).toArray(function(err, data) {
         if(err){
             console.error("DB getList Error:", err);
-            callback({success: false, data, err});
+            return respond({success: false, data, err}, callback);
         }
-        else
-            callback({success: true, data});
+
+        return respond({success: true, data}, callback);
     });
 };
 
-const updateOne = function(modelpack, filter, newUpdate, callback = _=>{}) {
+const updateOne = async function(modelpack, filter, newUpdate, callback) {
     const collection = db.collection(modelpack.collection);
     if(modelpack.update)
         newUpdate[modelpack.update] = new Date();
@@ -72,26 +85,25 @@ const updateOne = function(modelpack, filter, newUpdate, callback = _=>{}) {
     collection.updateOne(filter, {$set: newUpdate}, function(err, data) {
         if (err){
             console.error("DB UpdateOne Error:", err);
-            callback({success: false, data, err});
+            return respond({success: false, data, err}, callback);
         }
-        else
-            callback({success: true, data});
+        return respond({success: true, data}, callback);
     });
 };
 
-const updateWithId = function(modelpack, id, newUpdate, callback = _=>{}) {
-    const collection = db.collection(modelpack.collection);
-    if(modelpack.update)
-        newUpdate[modelpack.update] = new Date();
-
-    collection.updateOne({"_id": ObjectId(id)}, {$set: newUpdate}, function(err, data) {
-        if (err){
-            console.error("DB updateWithId Error:", err);
-            callback({success: false, data, err});
-        }
-        else
-            callback({success: true, data});
-    });
+const updateWithId = async function(modelpack, id, newUpdate, callback) {
+    return updateOne(modelpack, {"_id": ObjectId(id)}, newUpdate, callback);
+    // const collection = db.collection(modelpack.collection);
+    // if(modelpack.update)
+    //     newUpdate[modelpack.update] = new Date();
+    //
+    // collection.updateOne({"_id": ObjectId(id)}, {$set: newUpdate}, function(err, data) {
+    //     if (err){
+    //         console.error("DB updateWithId Error:", err);
+    //         return respond({success: false, data, err}, callback);
+    //     }
+    //     return respond({success: true, data}, callback);
+    // });
 };
 
 
@@ -101,6 +113,6 @@ module.exports = {
     getItem,
     getList,
     updateOne,
-    updateWithId
-
+    updateWithId,
+    getItemById
 };
