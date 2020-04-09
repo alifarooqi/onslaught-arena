@@ -3776,13 +3776,9 @@ proto.drawDisconnected = function horde_Engine_proto_drawDisconnected (ctx) {
  * Calculates the player's total score
  */
 proto.getTotalScore = function () {
-
+	// Todo Change to accomodate 2nd player
 	const player = this.getPlayerObject();
-	let wavesComplete = this.currentWaveId;
-
-	if (this.wonGame) {
-		wavesComplete += 1;
-	}
+	let wavesComplete = this.wonGame ? this.currentWaveId + 1 : this.currentWaveId;
 
 	let score = (wavesComplete * 1000);
 	score += player.gold;
@@ -5044,6 +5040,8 @@ proto.updateMultiplayer = function horde_Engine_proto_updateMultiplayer() {
                 const objectInfo = this.objects[id].getObjectInfo();
                 if(Boolean(objectInfo))
                 	update.objectUpdate[id] = objectInfo;
+                else if(this.objects[id].ignoreUpdate)
+                	console.log('Ignored in engine', id, objectInfo, Boolean(objectInfo));
 			}
 		}
         if(this.engineUpdate.objectAttack.length > 0){

@@ -95,10 +95,11 @@ o.h_sword = {
 	spriteAlign: true,
 	priority: 0,
 	bounce: false,
+    ignoreUpdate: true,
 	
 	// Clay.io
-	achievementId: "masterswords",
-	deathsForAchievement: 1000
+	// achievementId: "masterswords",
+	// deathsForAchievement: 1000
 };
 
 o.h_knife = {
@@ -113,7 +114,8 @@ o.h_knife = {
 	spriteY: 0,
 	spriteAlign: true,
 	priority: 1,
-	bounce: false
+	bounce: false,
+    ignoreUpdate: true,
 };
 
 o.h_spear = {
@@ -128,7 +130,8 @@ o.h_spear = {
 	spriteAlign: true,
 	priority: 2,
 	bounce: false,
-	piercing: true
+	piercing: true,
+    ignoreUpdate: true,
 };
 
 o.h_fireball = {
@@ -147,6 +150,7 @@ o.h_fireball = {
 	priority: 3,
 	bounce: false,
 	damageType: "magic",
+    ignoreUpdate: true,
 
 	onInit: function () {
 		this.trailTimer = new horde.Timer();
@@ -162,8 +166,8 @@ o.h_fireball = {
 	},
 	
 	// Clay.io
-	achievementId: "masterfire",
-	deathsForAchievement: 1000
+	// achievementId: "masterfire",
+	// deathsForAchievement: 1000
 
 };
 
@@ -183,8 +187,9 @@ o.h_fireball_trail = {
 	bounce: false,
 	damageType: "magic",
 	drawIndex: 0,
+    ignoreUpdate: true,
 	// Clay.io
-	ignoreLogDeath: true
+	// ignoreLogDeath: true
 };
 
 /*
@@ -244,10 +249,11 @@ o.h_axe = {
 	priority: 5,
 	ttl: 4000,
 	piercing: true,
+    ignoreUpdate: true,
 	
 	// Clay.io
-	achievementId: "masteraxes",
-	deathsForAchievement: 1000
+	// achievementId: "masteraxes",
+	// deathsForAchievement: 1000
 };
 
 o.h_fire_sword = {
@@ -265,6 +271,7 @@ o.h_fire_sword = {
 	piercing: true,
 	soundAttacks: "fire_attack",
 	damageType: "magic",
+    ignoreUpdate: true,
 	
 	onInit: function () {
 		this.spawnTimer = new horde.Timer();
@@ -280,8 +287,8 @@ o.h_fire_sword = {
 	},
 	
 	// Clay.io
-	achievementId: "masterfireswords",
-	deathsForAchievement: 1000
+	// achievementId: "masterfireswords",
+	// deathsForAchievement: 1000
 	
 };
 
@@ -299,8 +306,9 @@ o.fire_sword_trail = {
 	bounce: false,
 	drawIndex: 0,
 	damageType: "magic",
+    ignoreUpdate: true,
 	// Clay.io
-	ignoreLogDeath: true
+	// ignoreLogDeath: true
 };
 
 o.h_fire_knife = {
@@ -319,6 +327,7 @@ o.h_fire_knife = {
 	piercing: true,
 	soundAttacks: "fire_attack",
 	damageType: "magic",
+    ignoreUpdate: true,
 	
 	onInit: function () {
 		this.spawnTimer = new horde.Timer();
@@ -350,7 +359,8 @@ o.h_firebomb = {
 	soundAttacks: "fire_attack",
 	priority: 3,
 	bounce: false,
-	damageType: "magic"
+	damageType: "magic",
+    ignoreUpdate: true,
 };
 
 /*
@@ -2854,8 +2864,9 @@ o.e_arrow = {
 	spriteY: 0,
 	spriteAlign: true,
 	bounce: false,
+    ignoreUpdate: true,
 	// Clay.io
-	ignoreLogDeath: true
+	// ignoreLogDeath: true
 };
 
 o.e_trident = {
@@ -2869,8 +2880,9 @@ o.e_trident = {
 	spriteY: 0,
 	spriteAlign: true,
 	bounce: false,
+    ignoreUpdate: true,
 	// Clay.io
-	ignoreLogDeath: true
+	// ignoreLogDeath: true
 };
 
 o.e_boulder = {
@@ -2884,8 +2896,9 @@ o.e_boulder = {
 	spriteY: 0,
 	rotate: true,
 	bounce: false,
+    ignoreUpdate: true,
 	// Clay.io
-	ignoreLogDeath: true
+	// ignoreLogDeath: true
 };
 
 o.e_bouncing_boulder = {
@@ -2900,8 +2913,9 @@ o.e_bouncing_boulder = {
 	rotate: true,
 	bounce: true,
 	ttl: 5000,
+    ignoreUpdate: true,
 	// Clay.io
-	ignoreLogDeath: true
+	// ignoreLogDeath: true
 };
 
 o.e_minotaur_trident = {
@@ -2915,8 +2929,9 @@ o.e_minotaur_trident = {
 	spriteX: 160,
 	spriteY: 0,
 	bounce: false,
+    ignoreUpdate: true,
 	// Clay.io
-	ignoreLogDeath: true
+	// ignoreLogDeath: true
 };
 
 o.e_energy_ball = {
@@ -2930,8 +2945,9 @@ o.e_energy_ball = {
 	spriteY: 0,
 	rotate: true,
 	bounce: false,
+    ignoreUpdate: true,
 	// Clay.io
-	ignoreLogDeath: true
+	// ignoreLogDeath: true
 };
 
 o.e_ring_fire = {
@@ -2946,8 +2962,9 @@ o.e_ring_fire = {
 	rotate: true,
 	bounce: false,
 	damageType: "magic",
+    ignoreUpdate: true,
 	// Clay.io
-	ignoreLogDeath: true
+	// ignoreLogDeath: true
 };
 
 o.e_ring_fire_dopp = {
@@ -2962,8 +2979,9 @@ o.e_ring_fire_dopp = {
 	rotate: true,
 	bounce: false,
 	damageType: "magic",
+    ignoreUpdate: true,
 	// Clay.io
-	ignoreLogDeath: true
+	// ignoreLogDeath: true
 };
 
 o.e_fireball = {
@@ -2978,8 +2996,9 @@ o.e_fireball = {
 	rotate: true,
 	bounce: false,
 	damageType: "magic",
+    ignoreUpdate: true,
 	// Clay.io
-	ignoreLogDeath: true
+	// ignoreLogDeath: true
 };
 
 o.e_fireball_green = {
@@ -2995,8 +3014,9 @@ o.e_fireball_green = {
 	ttl: 400,
 	bounce: false,
 	damageType: "magic",
+    ignoreUpdate: true,
 	// Clay.io
-	ignoreLogDeath: true
+	// ignoreLogDeath: true
 };
 
 o.e_static_blue_fire = {
@@ -3014,8 +3034,9 @@ o.e_static_blue_fire = {
 	bounce: false,
 	drawIndex: 0,
 	damageType: "magic",
+    ignoreUpdate: true,
 	// Clay.io
-	ignoreLogDeath: true
+	// ignoreLogDeath: true
 };
 
 o.e_dopp_fire = {
@@ -3034,7 +3055,8 @@ o.e_dopp_fire = {
 	drawIndex: 0,
 	damageType: "magic",
 	// Clay.io
-	ignoreLogDeath: true
+	// ignoreLogDeath: true,
+    ignoreUpdate: true,
 };
 
 o.e_static_green_fire = {
@@ -3054,7 +3076,8 @@ o.e_static_green_fire = {
 	drawIndex: 0,
 	damageType: "magic",
 	// Clay.io
-	ignoreLogDeath: true
+	// ignoreLogDeath: true,
+	ignoreUpdate: true,
 };
 
 o.e_dirt_pile = {
@@ -3127,7 +3150,8 @@ o.e_shock_wave = {
 	animated: true,
 	damageType: "magic",
 	// Clay.io
-	ignoreLogDeath: true
+	ignoreLogDeath: true,
+    ignoreUpdate: true, //TODO Check
 };
 
 o.e_worm_spit = {
@@ -3143,6 +3167,7 @@ o.e_worm_spit = {
 	bounce: false,
 	animated: true,
 	damageType: "magic",
+    ignoreUpdate: true, //TODO Check
 
 	onInit: function () {
 		this.dieTimer = new horde.Timer();

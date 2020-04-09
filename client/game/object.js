@@ -50,11 +50,14 @@ horde.Object = function () {
 	this.bounce = true;
 	this.piercing = false;
 
+	/* Removing Clay
+
 	// Clay.io
 	this.achievementId = null; // Related Clay.io Achievement ID
 	this.deathsForAchievement = Infinity; // # of kills necessary necessary to earn achievement
 	this.ignoreLogDeath = false; // If set to true, the # of deaths isn't logged (in Clay.io data-storage)
 
+*/
 	// Default sounds
 	this.soundDamage = null;
 	this.soundDies = null;
@@ -92,6 +95,7 @@ horde.Object = function () {
 	this.killSwitch = false;
 
 	// Multiplayer Support
+	this.ignoreUpdate = false;
 	this.lastUpdate = {
         id: "",
         position: {x: 0, y: 0},
@@ -101,13 +105,13 @@ horde.Object = function () {
         wounds: 0,
         alive: true,
         weapons: [],
-        gold: 0,
-        kills: 0,
-        timesWounded: 0,
+        // gold: 0,
+        // kills: 0,
+        // timesWounded: 0,
         totalDamageTaken: 0,
-        shotsFired: 0,
-        shotsLanded: 0,
-        meatEaten: 0,
+        // shotsFired: 0,
+        // shotsLanded: 0,
+        // meatEaten: 0,
 	};
 	// this.updateFunctions = {
     //     addState: [],
@@ -259,6 +263,7 @@ proto.die = function horde_Object_proto_die () {
  * @return {void}
  */
 proto.logDeath = function horde_Object_proto_logDeath () {
+	/* Removing Clay
 	// Clay.io: Update number of enemies killed
 	var deaths = 0;
 	var key = this.type + "_killed";
@@ -294,6 +299,7 @@ proto.logDeath = function horde_Object_proto_logDeath () {
 			}
 		});
 	}
+	*/
 }
 
 /**
@@ -821,10 +827,14 @@ proto.getStats = function horde_Object_proto_getStats(){
  *			meatEaten:			(Int)
  */
 proto.getObjectInfo = function horde_Object_proto_getObjectInfo () {
-	const ignoredObjectRoles = ['projectile', 'powerup_weapon'];
-	if(ignoredObjectRoles.includes(this.role)){
-		return null;
-	}
+	// const ignoredObjectRoles = ['projectile', 'powerup_weapon'];
+	// if(ignoredObjectRoles.includes(this.role)){
+	// 	console.log('Ignoring', this.id);
+	// 	return null;
+	// }
+
+	if(this.ignoreUpdate)
+		return;
 
 	let updateInfo = {
         id: this.id,
@@ -835,13 +845,13 @@ proto.getObjectInfo = function horde_Object_proto_getObjectInfo () {
         wounds: this.wounds,
         alive: this.alive,
         weapons: this.weapons,
-        gold: this.gold,
-        kills: this.kills,
-        timesWounded: this.timesWounded,
+        // gold: this.gold,
+        // kills: this.kills,
+        // timesWounded: this.timesWounded,
         totalDamageTaken: this.totalDamageTaken,
-        shotsFired: this.shotsFired,
-        shotsLanded: this.shotsLanded,
-        meatEaten: this.meatEaten,
+        // shotsFired: this.shotsFired,
+        // shotsLanded: this.shotsLanded,
+        // meatEaten: this.meatEaten,
     };
 	let diff = getDifference(updateInfo, this.lastUpdate);
 	this.lastUpdate = updateInfo;
