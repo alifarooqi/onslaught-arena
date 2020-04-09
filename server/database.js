@@ -17,10 +17,14 @@ MongoClient.connect(url, { useUnifiedTopology: true}, function(err, client) {
 
 
 const respond = (response, callback) => {
-    if(callback)
+    if(callback){
+        console.log('Responding via callback');
         callback(response);
-    else
+    }
+    else{
+        console.log('Responding via return');
         return response;
+    }
 };
 
 const insertOne = (modelpack, data, callback) => insert(modelpack, [data], callback);
@@ -61,8 +65,9 @@ const getItem = async function(modelpack, filter, callback) {
     });
 };
 
-const getItemById = async function(modelpack, id, callback) {
-    return getItem(modelpack, {_id: ObjectId(id)}, callback);
+const getItemById = async function(modelpack, id) {
+    const collection = db.collection(modelpack.collection);
+    return await collection.findOne({_id: ObjectId(id)});
 };
 
 const getList = async function(modelpack, filter, callback) {
@@ -93,26 +98,38 @@ const updateOne = async function(modelpack, filter, newUpdate, callback) {
 
 const updateWithId = async function(modelpack, id, newUpdate, callback) {
     return updateOne(modelpack, {"_id": ObjectId(id)}, newUpdate, callback);
-    // const collection = db.collection(modelpack.collection);
-    // if(modelpack.update)
-    //     newUpdate[modelpack.update] = new Date();
-    //
-    // collection.updateOne({"_id": ObjectId(id)}, {$set: newUpdate}, function(err, data) {
-    //     if (err){
-    //         console.error("DB updateWithId Error:", err);
-    //         return respond({success: false, data, err}, callback);
-    //     }
-    //     return respond({success: true, data}, callback);
-    // });
 };
+
+async function getPlayerRankById(id) {
+    const player = await getItemById(user.USER_MODELPACK, id);
+    const score = player.score;
+    return getPlayerRankByScore(score);
+}
+async function getPlayerRankByScore(score) {
+    const users = db.collection('users');
+    const rank = await users.countDocuments({score: {$gt: score}});
+    return rank + 1;
+}
+
+function updateUserScore(id, score) {
+    const users = db.collection('users');
+    users.updateOne({_id: ObjectId(id)}, {$inc: {score}});
+}
+
 
 
 module.exports = {
+    db,
     insert,
     insertOne,
     getItem,
     getList,
     updateOne,
     updateWithId,
-    getItemById
+    getItemById,
+    leaderboard: {
+        getPlayerRankById,
+        getPlayerRankByScore,
+        updateUserScore
+    }
 };

@@ -45,6 +45,47 @@ const ENGINE_STATES = {
     buy_now: "buy_now",
 };
 
+const MATCH_PARTNER_INIT = {
+    set: false,
+    current: {
+        host: {
+            gold: 0,
+            damage: 0,
+            score: 0,
+            rank: 0,
+            totalScore: 0
+        },
+        guest: {
+            gold: 0,
+            damage: 0,
+            score: 0,
+            rank: 0,
+            totalScore: 0
+
+        },
+        compatible: 0
+    },
+    expected:{
+        host: {
+            gold: 1000,
+            damage: 1000,
+            score: 5000,
+            rank: 131,
+            totalScore: 5002
+
+        },
+        guest: {
+            gold: 2000,
+            damage: 2000,
+            score: 10000,
+            rank: 13,
+            totalScore: 6000
+
+        },
+        compatible: 60
+    }
+};
+
 
 /**
  * Creates a new Engine object
@@ -137,6 +178,7 @@ horde.Engine = function horde_Engine () {
 	this.debug = false; // Debugging toggle
 	this.konamiEntered = false;
 
+	/* Removing Clay
 	// Clay.io: Load in the API
 	this.Clay = Clay = window.Clay = {};
 	Clay.gameKey = "onslaughtarena";
@@ -164,7 +206,7 @@ horde.Engine = function horde_Engine () {
 									{ title: 'My Best', id: 385, self: true, limit: 10 }
 								]  });
 	} );
-
+	*/
 
 	// Storage for each time putData is called - periodically that info is stored to Clay.io as well
 	horde.localData = {};
@@ -237,46 +279,7 @@ horde.Engine = function horde_Engine () {
     };
     this.lastParameterUpdate = {};
     this.lastUpdateTimestamp = new Date();
-    this.matchPartner = {
-    	set: false,
-    	current: {
-    		host: {
-                gold: 0,
-                damage: 0,
-                score: 0,
-                rank: 0,
-                totalScore: 0
-            },
-            guest: {
-                gold: 0,
-                damage: 0,
-                score: 0,
-                rank: 0,
-                totalScore: 0
-
-            },
-            compatible: 0
-        },
-		expected:{
-            host: {
-                gold: 1000,
-                damage: 1000,
-                score: 5000,
-                rank: 131,
-                totalScore: 5002
-				
-            },
-            guest: {
-                gold: 2000,
-                damage: 2000,
-                score: 10000,
-                rank: 13,
-                totalScore: 6000
-				
-            },
-            compatible: 60
-        }
-	}
+    this.matchPartner = {...MATCH_PARTNER_INIT};
 
 
 };
@@ -760,6 +763,8 @@ proto.initGame = function () {
 
 	this.gameStartTime = horde.now();
 
+	this.match_partner = {...MATCH_PARTNER_INIT};
+
 };
 
 /**
@@ -921,8 +926,6 @@ proto.initPlayer2 = function horde_Engine_proto_initPlayer () {
 
 proto.handleImagesLoaded = function horde_Engine_proto_handleImagesLoaded () {
 	this.imagesLoaded = true;
-	// TODO Change this
-	// this.state = ENGINE_STATES.match_partner;
 };
 
 proto.logoFadeOut = function () {
@@ -1126,7 +1129,7 @@ proto.update = function horde_Engine_proto_update () {
 				this.handleInput();
 			}
 			if (!this.paused) {
-				this.updateMultiplayer(elapsed);
+				this.updateMultiplayer();
 				this.updateWaves(elapsed);
 				this.updateSpawnPoints(elapsed);
 				this.updateClouds(elapsed);
@@ -1467,7 +1470,7 @@ proto.updateWaves = function horde_Engine_proto_updateWaves (elapsed) {
 			return;
 		}
 
-		// Clay.io: Achievements [Removed Leaderboard]
+		// Clay.io: Achievements [Removing Clay]
 		/*
 		var achievementId = false;
 		switch( this.currentWaveId + 1 ) {
@@ -1607,7 +1610,7 @@ proto.updateGameOver = function horde_Engine_proto_updateGameOver (elapsed) {
 		var highScore = Number(this.getData(HIGH_SCORE_KEY));
 		var totalScore = this.getTotalScore();
 
-		// Clay.io: Post score to clay.io [Removed Leaderboard]
+		// Clay.io: Post score to clay.io [Removing Clay]
 
 		/*
 		var _this = this;
@@ -1646,6 +1649,8 @@ proto.updateDisconnected = function horde_Engine_proto_updateDisconnected (elaps
  * @param {Boolean} share If true, will give the player an option to share their score
  */
 proto.showLeaderboard = function horde_Engine_proto_showLeaderboard (share) {
+
+	/* Removing Clay
 	var share = typeof share === 'undefined' ? false : share;
 
 	var html = []; // Post to social HTML. Array for readability
@@ -1666,125 +1671,129 @@ proto.showLeaderboard = function horde_Engine_proto_showLeaderboard (share) {
 	else {
 		this.clayLeaderboard.show();
 	}
-}
+	*/
+
+};
 
 /**
  * Takes a screenshot and posts it to the specified site through Clay.io
  * @param {String} site facebook or twitter
  */
 proto.postSocial = function horde_Engine_proto_postSocial (site) {
-	var screenshot = new Clay.Screenshot({ prompt: false, id: 'display' });
-	var _this = this;
-	screenshot.save(function( response ) {
-		if(site == 'facebook')
-			(new Clay.Facebook()).post({ message: "I just scored " + _this.getTotalScore() + " in Onslaught! Arena - (screenshot: " + response.url + ")", link: "http://onslaughtarena.clay.io" });
-		else if(site == 'twitter')
-			(new Clay.Twitter()).post({ message: "I just scored " + _this.getTotalScore() + " in Onslaught! Arena - (sreenshot: " + response.url + ")! Play me: http://onslaughtarena.clay.io" });
-	} );
+    /* Removing Clay
+    var screenshot = new Clay.Screenshot({ prompt: false, id: 'display' });
+    var _this = this;
+    screenshot.save(function( response ) {
+        if(site == 'facebook')
+            (new Clay.Facebook()).post({ message: "I just scored " + _this.getTotalScore() + " in Onslaught! Arena - (screenshot: " + response.url + ")", link: "http://onslaughtarena.clay.io" });
+        else if(site == 'twitter')
+            (new Clay.Twitter()).post({ message: "I just scored " + _this.getTotalScore() + " in Onslaught! Arena - (sreenshot: " + response.url + ")! Play me: http://onslaughtarena.clay.io" });
+    } );
+    */
 
-}
+};
 
 proto.openGates = function horde_Engine_proto_openGates () {
-	if (this.gateState !== "up") {
-		this.gateDirection = "up";
-		horde.sound.play("gate_opens");
-	}
+    if (this.gateState !== "up") {
+        this.gateDirection = "up";
+        horde.sound.play("gate_opens");
+    }
 };
 
 proto.closeGates = function horde_Engine_proto_closeGates () {
-	if (this.gateState !== "down") {
-		this.gateDirection = "down";
-		horde.sound.play("gate_closes");
-	}
+    if (this.gateState !== "down") {
+        this.gateDirection = "down";
+        horde.sound.play("gate_closes");
+    }
 };
 
 proto.updateFauxGates = function horde_Engine_proto_updateFauxGates (elapsed) {
 
-	if (this.gateDirection === "down") {
-		this.gatesX = 0;
-		this.gatesY += ((200 / 1000) * elapsed);
-		if (this.gatesY >= 0) {
-			this.gatesX = 0;
-			this.gatesY = 0;
-			this.gateDirection = "";
-			this.gateState = "down";
-		}
-	}
+    if (this.gateDirection === "down") {
+        this.gatesX = 0;
+        this.gatesY += ((200 / 1000) * elapsed);
+        if (this.gatesY >= 0) {
+            this.gatesX = 0;
+            this.gatesY = 0;
+            this.gateDirection = "";
+            this.gateState = "down";
+        }
+    }
 
-	if (this.gateDirection === "up") {
-		this.gatesX = horde.randomRange(-1, 1);
-		this.gatesY -= ((50 / 1000) * elapsed);
-		if (this.gatesY <= -54) {
-			this.gatesX = 0;
-			this.gatesY = -54;
-			this.gateDirection = "";
-			this.gateState = "up";
-		}
-	}
+    if (this.gateDirection === "up") {
+        this.gatesX = horde.randomRange(-1, 1);
+        this.gatesY -= ((50 / 1000) * elapsed);
+        if (this.gatesY <= -54) {
+            this.gatesX = 0;
+            this.gatesY = -54;
+            this.gateDirection = "";
+            this.gateState = "up";
+        }
+    }
 
 };
 
 proto.updateTutorial = function horde_Engine_proto_updateTutorial (elapsed) {
 
-	var speed = 0.1;
+    var speed = 0.1;
 
-	if (this.tutorialDirection === "down") {
-		this.tutorialY += (speed * elapsed);
-		if (this.tutorialY >= 0) {
-			this.tutorialY = 0;
-			this.tutorialDirection = null;
+    if (this.tutorialDirection === "down") {
+        this.tutorialY += (speed * elapsed);
+        if (this.tutorialY >= 0) {
+            this.tutorialY = 0;
+            this.tutorialDirection = null;
 
-			if (this.tutorialIndex >= TUTORIAL_NUM_TIPS) {
-				this.hideTutorialTimer.start(5000);
-			}
-		}
-	}
+            if (this.tutorialIndex >= TUTORIAL_NUM_TIPS) {
+                this.hideTutorialTimer.start(5000);
+            }
+        }
+    }
 
-	if (this.tutorialDirection === "up") {
-		this.tutorialY -= (speed * elapsed);
-		if (this.tutorialY < -TUTORIAL_HEIGHT) {
-			this.tutorialY = -TUTORIAL_HEIGHT;
-			this.tutorialDirection = "down";
-			this.tutorialIndex += 1;
-			if (this.tutorialIndex > TUTORIAL_NUM_TIPS) {
-				this.showTutorial = false;
-			}
-		}
-	}
+    if (this.tutorialDirection === "up") {
+        this.tutorialY -= (speed * elapsed);
+        if (this.tutorialY < -TUTORIAL_HEIGHT) {
+            this.tutorialY = -TUTORIAL_HEIGHT;
+            this.tutorialDirection = "down";
+            this.tutorialIndex += 1;
+            if (this.tutorialIndex > TUTORIAL_NUM_TIPS) {
+                this.showTutorial = false;
+            }
+        }
+    }
 
-	if (!this.hideTutorialTimer) {
-		this.hideTutorialTimer = new horde.Timer();
-	}
+    if (!this.hideTutorialTimer) {
+        this.hideTutorialTimer = new horde.Timer();
+    }
 
-	if (!this.nextTutorialTimer) {
-		this.nextTutorialTimer = new horde.Timer();
-		this.nextTutorialTimer.start(10000);
-	}
+    if (!this.nextTutorialTimer) {
+        this.nextTutorialTimer = new horde.Timer();
+        this.nextTutorialTimer.start(10000);
+    }
 
-	this.hideTutorialTimer.update(elapsed);
-	this.nextTutorialTimer.update(elapsed);
+    this.hideTutorialTimer.update(elapsed);
+    this.nextTutorialTimer.update(elapsed);
 
-	if (this.hideTutorialTimer.expired()) {
-		this.tutorialDirection = "up";
-	}
+    if (this.hideTutorialTimer.expired()) {
+        this.tutorialDirection = "up";
+    }
 
-	if (this.nextTutorialTimer.expired()) {
-		this.nextTutorial(this.tutorialIndex + 1);
-		this.nextTutorialTimer.reset();
-	}
+    if (this.nextTutorialTimer.expired()) {
+        this.nextTutorial(this.tutorialIndex + 1);
+        this.nextTutorialTimer.reset();
+    }
 
 };
 
 proto.nextTutorial = function horde_Engine_proto_nextTutorial (index) {
 
-	if (!this.showTutorial || (this.tutorialDirection !== null)) {
-		return;
-	}
+    if (!this.showTutorial || (this.tutorialDirection !== null)) {
+        return;
+    }
 
-	// Move the tutorial up if we want to see the next one
-	if (this.tutorialIndex === (index - 1)) {
-		this.tutorialDirection = "up";
-	}
+    // Move the tutorial up if we want to see the next one
+    if (this.tutorialIndex === (index - 1)) {
+        this.tutorialDirection = "up";
+    }
 
 };
 
@@ -2764,7 +2773,7 @@ proto.handleInput = function horde_Engine_proto_handleInput () {
 
 	}
 
-	if (this.state == ENGINE_STATES.buy_now) {
+	if (this.state === ENGINE_STATES.buy_now) {
 
 		usingPointerOptions = true;
 
@@ -3768,14 +3777,14 @@ proto.drawDisconnected = function horde_Engine_proto_drawDisconnected (ctx) {
  */
 proto.getTotalScore = function () {
 
-	var player = this.getPlayerObject();
-	var wavesComplete = this.currentWaveId;
+	const player = this.getPlayerObject();
+	let wavesComplete = this.currentWaveId;
 
 	if (this.wonGame) {
 		wavesComplete += 1;
 	}
 
-	var score = (wavesComplete * 1000);
+	let score = (wavesComplete * 1000);
 	score += player.gold;
 	score -= (player.totalDamageTaken * 10);
 
@@ -4401,7 +4410,8 @@ proto.drawPointer = function horde_Engine_proto_drawPointer (ctx) {
  * @return {Boolean} true if the checkpoint is stored
  */
 proto.canContinue = function (checkAgain) {
-
+	return false;
+	/* Removing Clay and Continue
 	if( this.canContinueVar ) { // already grabbed from Clay.io
 		var checkpointWave = this.canContinueVar;
 		return checkpointWave;
@@ -4421,6 +4431,7 @@ proto.canContinue = function (checkAgain) {
 	}
 	var checkpointWave = this.getData("checkpoint_wave"); // fallback to local data (while the clay data loads);
 	return Boolean(checkpointWave);
+	*/
 };
 
 proto.drawTitlePointerOptions = function horde_Engine_proto_drawTitlePointerOptions (ctx) {
@@ -4685,6 +4696,7 @@ proto.drawDebugInfo = function horde_Engine_proto_drawDebugInfo (ctx) {
  */
 proto.getData = function horde_Engine_proto_getData (key, callback, forceClay) {
 	// Load in the Clay data if it exists, otherwise fallback to localStorage
+	/* Removing Clay
 	if(callback) {
 		if(Clay.isReady && Clay.Player.loggedIn && (forceClay || !horde.localData[key])) {
 			var handler = function(response) {
@@ -4702,6 +4714,7 @@ proto.getData = function horde_Engine_proto_getData (key, callback, forceClay) {
 		}
 		return undefined;
 	}
+	*/
 	if (window.localStorage && window.localStorage.getItem) {
 		return window.localStorage.getItem(key);
 	}
@@ -4717,6 +4730,8 @@ proto.putData = function horde_Engine_proto_putData (key, value) {
 	if (window.localStorage && window.localStorage.setItem) {
 		window.localStorage.setItem(key, value);
 	}
+
+	/* Removing Clay
 	// Clay.io: Store to Clay.io as well (as primary source of storage, localStorage as backup)
 	// We store to Clay.io if new data isn't passed in 3s
 	// This is in place so we're not flooding Clay.io with data stores (there is a limit...)
@@ -4736,11 +4751,16 @@ proto.putData = function horde_Engine_proto_putData (key, value) {
 		var localKey = key;
 		var localValue = value;
 		var localTimes = times;
-		horde.localData[key] = { value: localValue, times: localTimes, timeout: setTimeout(function() {
-			Clay.Player.saveUserData(localKey, localValue);
-			horde.localData[localKey].timeout = null;
+		horde.localData[key] = {
+			value: localValue,
+			times: localTimes,
+			timeout: setTimeout(function() {
+				Clay.Player.saveUserData(localKey, localValue);
+				horde.localData[localKey].timeout = null;
 		}, 3000) };
 	} )();
+
+	*/
 };
 
 /**
@@ -4986,7 +5006,7 @@ proto.flushEngineUpdate = function horde_Engine_proto_flushEngineUpdate(){
         this.engineUpdate[updateFunc] = [];
 };
 
-proto.updateMultiplayer = function horde_Engine_proto_updateMultiplayer(elapsed) {
+proto.updateMultiplayer = function horde_Engine_proto_updateMultiplayer() {
     /** Updates from the guest **/
     if(this.multiplayerType === 'guest'){
         let update = {};
@@ -5150,7 +5170,6 @@ proto.applyObjectUpdate = function (id, objectInfo){
         }
     }
 };
-
 
 /**
  * Update engine parameters based on activity from other player.

@@ -14,16 +14,15 @@ For more information, or to change database configuration see `server/database.j
 The server should be running at `localhost:2000`.
 
 ## Todos
-- Add other items spawned multiplayer support.
 - Leaderboard
 - Add Matching and Friendship Model
 - Add Profile page
-- Other player's health bar
-- Remove position from object update.
+- Add other items spawned multiplayer support.
+- Make updates more optimized.
 - Ignore "projectile" type object update.
 - Multiplayer weapon sync
 - Practice Mode
-- Intro and player states
+- Intro Animation and player states
 
 ### To Test
 - Voice Chat 
@@ -42,4 +41,4 @@ Voice Chat
 Chat
 
 ## Bugs
-- Player disconncted --> Press any button to continue (had to press several times)
+- Player disconnected --> Press any button to continue (had to press several times)
