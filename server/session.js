@@ -36,11 +36,14 @@ function getPartner(userId, username, socketId) {
 
 const findPartner = (data, socket, SOCKET_LIST) => {
     let partner = getPartner(data.userId, data.username, socket.id);
+    console.log('Finding partner...', data.username, partner);
     if(partner){
+        console.log('Partner found!');
         if(SOCKET_LIST[partner.socketId]){
             partner.multiplayerType = 'guest';
             let user = {...data, multiplayerType: 'host', socketId: socket.id};
             gameroom.create(user, socket, partner, SOCKET_LIST[partner.socketId], res => {
+                console.log('Gameroom created');
                 if(res.success){
                     user.gameroomId = res.gameroomId;
                     partner.gameroomId = res.gameroomId;
@@ -50,6 +53,7 @@ const findPartner = (data, socket, SOCKET_LIST) => {
                     user.score = 5534;
                     partner.score = 534;
                     socket.emit('findPartnerResponse', partner);
+                    console.log('Sending response...');
                     SOCKET_LIST[partner.socketId].emit('findPartnerResponse', user);
                 }
             });

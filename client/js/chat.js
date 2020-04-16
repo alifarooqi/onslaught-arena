@@ -130,6 +130,7 @@ const receiveMessage = msg =>{
 };
 
 const toggleChat = () =>{
+    console.log('Toggling Chat');
     $('#chat-wrapper').toggle('scale');
     // if($("#chat-wrapper").is(":visible"))
     //     toggleChatBox();

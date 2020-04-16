@@ -1,6 +1,6 @@
 const db = require('./database');
 const user = require('./user');
-const {ObjectId} = require('mongodb');
+const partnership = require('./partnership');
 
 let GAMEROOM_MODELPACK = {
     collection: 'gamerooms',
@@ -109,7 +109,7 @@ const endGame = async ({gameroomId, playerStats})=>{
                 db.leaderboard.updateUserScore(guestUserId, playerStats.totalScore);
                 db.leaderboard.updateUserScore(hostUserId, ACTIVE_GAMEROOMS[gameroomId].playerStats.totalScore);
             }
-            delete ACTIVE_GAMEROOMS[gameroomId];
+            // delete ACTIVE_GAMEROOMS[gameroomId];
         }
         else{
             ACTIVE_GAMEROOMS[gameroomId].playerStats = playerStats;
@@ -219,6 +219,28 @@ const chatMessage = ({gameroomId, multiplayerType, message}) => {
     }
 };
 
+const onMatchPartner = ({gameroomId, selection})=>{ // selection = 'match' || 'ignore'
+    if(ACTIVE_GAMEROOMS.hasOwnProperty(gameroomId)){
+        if(ACTIVE_GAMEROOMS[gameroomId].partnerSelection){
+            if(ACTIVE_GAMEROOMS[gameroomId].partnerSelection === 'match' && selection === 'match'){
+                partnership.create(ACTIVE_GAMEROOMS[gameroomId].hostUserId, ACTIVE_GAMEROOMS[gameroomId].guestUserId);
+
+                const response = true;
+                ACTIVE_GAMEROOMS[gameroomId].guestSocket.emit('matchPartnerResponse', response);
+                ACTIVE_GAMEROOMS[gameroomId].hostSocket.emit('matchPartnerResponse', response);
+            }
+            else{
+                const response = false;
+                ACTIVE_GAMEROOMS[gameroomId].guestSocket.emit('matchPartnerResponse', response);
+                ACTIVE_GAMEROOMS[gameroomId].hostSocket.emit('matchPartnerResponse', response);
+            }
+        }
+        else
+            ACTIVE_GAMEROOMS[gameroomId].partnerSelection = selection;
+    }
+
+};
+
 
 module.exports = {
     create,
@@ -227,5 +249,6 @@ module.exports = {
     togglePause,
     endGame,
     partnerDisconnected,
-    chatMessage
+    chatMessage,
+    onMatchPartner
 };

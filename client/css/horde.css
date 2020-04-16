@@ -437,5 +437,22 @@ div.spinner i:nth-child(8) {
 	color: white;
 }
 
+#hide-btn{
+	min-width: 40%;
+	padding: 5px 30px;
+	font-family: MedievalSharp, Tahoma, Arial;
+	font-size: 25px;
+	border-color: rgb(237, 125, 49);
+	border-width: 3px;
+	color: white;
+	-webkit-text-stroke: 0.5px #806500;
+	border-radius: 5px;
+	background: none;
+	margin: 0 auto;
+	display: none;
+}
+#hide-btn:hover{
+	background: rgba(237, 125, 49, 0.5);
+}
 
 /*End Loader*/

@@ -54,6 +54,9 @@ const sendChatMessage = (gameroomId, multiplayerType, message) => {
     socket.emit('chatMessage', {gameroomId, multiplayerType, message});
 };
 
+const matchPartner = (gameroomId, selection) => {
+    socket.emit('matchPartner', {gameroomId, selection});
+};
 
 var SOCKET = {
     findPartner,
@@ -63,5 +66,6 @@ var SOCKET = {
     guestUpdate,
     togglePause,
     endGame,
-    sendChatMessage
+    sendChatMessage,
+    matchPartner
 };

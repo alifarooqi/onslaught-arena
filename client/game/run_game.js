@@ -15,5 +15,9 @@ const startPractice = ()=>{
 
 };
 
+const hideMatchPartner = () => {
+    document.getElementById('match-loading').style.display = 'none';
+    ENGINE.hideMatchPartnerScreen();
+};
 
 

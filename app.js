@@ -87,6 +87,7 @@ io.sockets.on('connection', function(socket){
     socket.on('togglePause', gameroom.togglePause);
     socket.on('endGame', gameroom.endGame);
     socket.on('chatMessage', gameroom.chatMessage);
+    socket.on('matchPartner', gameroom.onMatchPartner);
 
     /*****************
      * Disconnection *

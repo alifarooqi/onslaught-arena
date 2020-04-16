@@ -18,18 +18,16 @@ MongoClient.connect(url, { useUnifiedTopology: true}, function(err, client) {
 
 const respond = (response, callback) => {
     if(callback){
-        console.log('Responding via callback');
         callback(response);
     }
     else{
-        console.log('Responding via return');
         return response;
     }
 };
 
 const insertOne = (modelpack, data, callback) => insert(modelpack, [data], callback);
 
-const insert = async function(modelpack, data, callback = _=>{}) {
+const insert = async function(modelpack, data, callback) {
     // Get the documents collection
     const collection = db.collection(modelpack.collection);
     let now = new Date();

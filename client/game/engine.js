@@ -83,8 +83,69 @@ const MATCH_PARTNER_INIT = {
 
         },
         compatible: 60
-    }
+    },
 };
+
+const MATCH_PARTNER_STATES = {
+	initial: 0,
+	waiting: 1,
+	matched: 2,
+	ignored: 3
+};
+
+/**
+ * Draws a rounded rectangle using the current state of the canvas.
+ * If you omit the last three params, it will draw a rectangle
+ * outline with a 5 pixel border radius
+ * @param {CanvasRenderingContext2D} ctx
+ * @param {Number} x The top left x coordinate
+ * @param {Number} y The top left y coordinate
+ * @param {Number} width The width of the rectangle
+ * @param {Number} height The height of the rectangle
+ * @param {String} strokeStyle Color in rgb or hex
+ * @param {String} fillStyle Color in rgb or hex
+ * @param {Number} [radius = 5] The corner radius; It can also be an object
+ *                 to specify different radii for corners
+ * @param {Number} [radius.tl = 0] Top left
+ * @param {Number} [radius.tr = 0] Top right
+ * @param {Number} [radius.br = 0] Bottom right
+ * @param {Number} [radius.bl = 0] Bottom left
+ * @param {Boolean} [stroke = true] Whether to stroke the rectangle.
+ */
+function drawRoundRect(ctx, x, y, width, height, strokeStyle, fillStyle, radius=10, stroke=true) {
+	if (typeof radius === 'number') {
+		radius = {tl: radius, tr: radius, br: radius, bl: radius};
+	} else {
+		let defaultRadius = {tl: 0, tr: 0, br: 0, bl: 0};
+		for (let side in defaultRadius) {
+			radius[side] = radius[side] || defaultRadius[side];
+		}
+	}
+	if(strokeStyle)
+        ctx.strokeStyle = strokeStyle;
+
+	if(fillStyle)
+        ctx.fillStyle = fillStyle;
+
+    ctx.lineWidth = 3;
+	ctx.beginPath();
+	ctx.moveTo(x + radius.tl, y);
+	ctx.lineTo(x + width - radius.tr, y);
+	ctx.quadraticCurveTo(x + width, y, x + width, y + radius.tr);
+	ctx.lineTo(x + width, y + height - radius.br);
+	ctx.quadraticCurveTo(x + width, y + height, x + width - radius.br, y + height);
+	ctx.lineTo(x + radius.bl, y + height);
+	ctx.quadraticCurveTo(x, y + height, x, y + height - radius.bl);
+	ctx.lineTo(x, y + radius.tl);
+	ctx.quadraticCurveTo(x, y, x + radius.tl, y);
+	ctx.closePath();
+	if (fillStyle) {
+		ctx.fill();
+	}
+	if (stroke) {
+		ctx.stroke();
+	}
+}
 
 
 /**
@@ -280,6 +341,8 @@ horde.Engine = function horde_Engine () {
     this.lastParameterUpdate = {};
     this.lastUpdateTimestamp = new Date();
     this.matchPartner = {...MATCH_PARTNER_INIT};
+    this.matchPartnerState = MATCH_PARTNER_STATES.initial;
+    this.animationProgress = 0; // Range [0 - 1]
 
 
 };
@@ -566,7 +629,9 @@ proto.init = function horde_Engine_proto_init () {
         "match_screen": "/client/img/match_screen.jpg" + this.cacheBust(),
 		"characters": "/client/img/sheet_characters.png" + this.cacheBust(),
 		"objects": "/client/img/sheet_objects.png" + this.cacheBust(),
-		"beholder": "/client/img/sheet_beholder.png" + this.cacheBust()
+		"beholder": "/client/img/sheet_beholder.png" + this.cacheBust(),
+        "match_stamp": "/client/img/match.png" + this.cacheBust(),
+        "not_match_stamp": "/client/img/not-match.png" + this.cacheBust()
 	}, this.handleImagesLoaded, this);
 
 	var highScore = this.getData(HIGH_SCORE_KEY);
@@ -705,6 +770,7 @@ proto.initSound = function horde_Engine_proto_initSound () {
 
 		// Score increment effect
         s.create("score", sfxDir + "score", true);
+        s.create("stamp", sfxDir + "stamp");
 
 	});
 
@@ -926,6 +992,8 @@ proto.initPlayer2 = function horde_Engine_proto_initPlayer () {
 
 proto.handleImagesLoaded = function horde_Engine_proto_handleImagesLoaded () {
 	this.imagesLoaded = true;
+	// this.state = ENGINE_STATES.match_partner; //Todo
+    // this.initOptions();
 };
 
 proto.logoFadeOut = function () {
@@ -3068,15 +3136,112 @@ proto.handleInput = function horde_Engine_proto_handleInput () {
 	}
 
 	if(this.state === ENGINE_STATES.match_partner){
-        if (kb.isAnyKeyPressed() || this.mouse.isAnyButtonDown()) {
-            CHAT.toggleChat();
-            VOICE.endCall();
-            this.keyboard.clearKeys();
-            this.mouse.clearButtons();
-            this.state = ENGINE_STATES.title;
-            this.initGame();
+		if(this.matchPartnerState === MATCH_PARTNER_STATES.initial){
+			const button = {
+				matchX: 100,
+				unmatchX: 350,
+				y: 405,
+				width: 200,
+				height: 50,
+			};
+			let startX = button.matchX;
+			let stopX = button.matchX + button.width;
+			const startY = button.y;
+			const stopY = button.y + button.height;
+
+			// Match Button
+			if (
+				(mouseV.x >= startX && mouseV.x <= stopX)
+				&& (mouseV.y >= startY && mouseV.y <= stopY)
+			) {
+				document.body.style.cursor = 'pointer';
+				if (this.mouse.hasMoved && this.pointerY !== 1){
+					this.pointerY = 1;
+					horde.sound.play("move_pointer");
+				}
+				if (this.mouse.isButtonDown(buttons.LEFT)) {
+					this.keyboard.keyStates[keys.SPACE] = true;
+				}
+			}
+			else{
+				// Unmatch Button
+				startX = button.unmatchX;
+				stopX = button.unmatchX + button.width;
+				if (
+					(mouseV.x >= startX && mouseV.x <= stopX)
+					&& (mouseV.y >= startY && mouseV.y <= stopY)
+				) {
+					document.body.style.cursor = 'pointer';
+					if (this.mouse.hasMoved && this.pointerY !== 2) {
+						this.pointerY = 2;
+						horde.sound.play("move_pointer");
+					}
+					if (this.mouse.isButtonDown(buttons.LEFT)) {
+						this.keyboard.keyStates[keys.SPACE] = true;
+					}
+				}
+				else{
+					document.body.style.cursor = 'auto';
+				}
+			}
+
+
+			if (kb.isKeyPressed(keys.ENTER) || kb.isKeyPressed(keys.SPACE)) {
+
+				horde.sound.play("select_pointer");
+				kb.clearKey(keys.ENTER);
+				kb.clearKey(keys.SPACE);
+				this.mouse.clearButtons();
+
+				// Not selected any button
+				if (this.pointerY === 0) {
+					this.pointerY = 1;
+				}
+				else {
+					SOCKET.matchPartner(this.gameroomId, this.pointerY === 1 ? 'match' : 'ignore');
+					document.body.style.cursor = 'auto';
+					// Selected Match
+					if (this.pointerY === 1) {
+						this.matchPartnerState = MATCH_PARTNER_STATES.waiting;
+						document.getElementById('match-loading').style.display = 'block';
+						setTimeout(() => {
+							document.getElementById('hide-btn').style.display = 'inline-block';
+						}, 2000); //Todo change to 5 secs
+					}
+					else {
+                        horde.sound.play('stamp');
+						this.hideMatchPartnerScreen();
+					}
+				}
+			}
+
+
+			// Toggle selection on Keyboard press
+			if (
+				this.keyboard.isKeyPressed(keys.A)
+				|| this.keyboard.isKeyPressed(keys.LEFT)
+				|| this.keyboard.isKeyPressed(keys.D)
+				|| this.keyboard.isKeyPressed(keys.RIGHT)
+			) {
+				this.keyboard.keyStates[keys.A] = false;
+				this.keyboard.keyStates[keys.LEFT] = false;
+				this.keyboard.keyStates[keys.D] = false;
+				this.keyboard.keyStates[keys.RIGHT] = false;
+				this.pointerY = this.pointerY === 1 ? 2 : 1;
+				horde.sound.play("move_pointer");
+			}
+
+			this.keyboard.storeKeyStates();
+		}
+        else if(this.matchPartnerState > 1){ //Matched or ignored
+            if (this.keyboard.isAnyKeyPressed() || this.mouse.isAnyButtonDown()) {
+                kb.clearKeys();
+                this.mouse.clearButtons();
+                this.hideMatchPartnerScreen();
+            }
         }
-	}
+
+    }
 
 };
 
@@ -3514,8 +3679,8 @@ proto.drawGameOver = function horde_Engine_proto_drawGameOver (ctx) {
 	if (this.gameOverReady === true) {
 
 		if (this.keyboard.isAnyKeyPressed() || this.mouse.isAnyButtonDown()) {
-            CHAT.toggleChat();
-            VOICE.endCall();
+            // CHAT.toggleChat();
+            // VOICE.endCall();
 			this.keyboard.clearKeys();
 			this.mouse.clearButtons();
 			this.statsIndex += 1;
@@ -3529,6 +3694,7 @@ proto.drawGameOver = function horde_Engine_proto_drawGameOver (ctx) {
 						this.initGame();
 					else{
 						this.state = ENGINE_STATES.match_partner;
+                        this.initOptions();
                         horde.sound.play('score');
 					}
 				}
@@ -4359,19 +4525,7 @@ proto.drawTitle = function horde_Engine_proto_drawTitle (ctx) {
 	ctx.restore();
 
 	// Copyright text
-/*
-	var copyright = "Lost Decade Games";
-	ctx.save();
-	ctx.font = "Bold 14px Monospace";
-
-	ctx.fillStyle = COLOR_BLACK;
-	ctx.fillText(copyright, 6, 462);
-
-	ctx.fillStyle = grey;
-	ctx.fillText(copyright, 4, 460);
-	ctx.restore();
-*/
-	var copyrightDate = "Ali Farooqi \u00A9 2020";
+	const copyrightDate = "Ali Farooqi \u00A9 2020";
 	ctx.save();
 	ctx.font = "14px Monospace";
 
@@ -4548,6 +4702,14 @@ proto.initOptions = function () {
 			this.maxPointerY = 1;
 			this.pointerOptionsStart = 0;
 			break;
+        case ENGINE_STATES.match_partner:
+            this.pointerY = 0;
+            this.pointerOptionsStart = 0;
+            this.maxPointerY = 2;
+            this.pointerYStart = 405;
+            this.matchPartnerState = MATCH_PARTNER_STATES.initial;
+			this.animationProgress = 0;
+        	break;
 	}
 
 };
@@ -4802,6 +4964,7 @@ proto.drawFindPartner = function horde_Engine_proto_drawFindPartner(ctx){
 };
 
 proto.onFindingPartner = function horde_Engine_proto_onFindingPartner(partner){
+	console.log('Found Partner...');
 	document.getElementById('loading').style.display = 'none';
 	document.getElementById('startingCountdown').style.display = 'block';
 	document.getElementById('partnerUsername').innerHTML = partner.username;
@@ -4964,13 +5127,100 @@ proto.drawMatchPartner = function horde_Engine_proto_drawMatchPartner(ctx) {
         positions.stats.username,
         positions.stats.py);
 
+    this.drawMatchPartnerButtons(ctx);
+    this.drawMatchPartnerStamp(ctx);
+
+
+    // Draw overlay
+    if(this.matchPartnerState === MATCH_PARTNER_STATES.waiting){
+        ctx.globalAlpha = 0.7;
+        ctx.fillStyle = COLOR_BLACK;
+        ctx.fillRect(0, 0, this.view.width, this.view.height);
+    }
+
 
     ctx.restore();
 
 };
 
+proto.drawMatchPartnerButtons = function(ctx){
+	if(this.matchPartnerState === MATCH_PARTNER_STATES.initial) {
+        const style = {
+            matchX: 100,
+            unmatchX: 350,
+            y: 405,
+            width: 200,
+            height: 50,
+            strokeStyle: "rgb(237, 125, 49)",
+            hoverFill: "rgba(237, 125, 49, 0.5)",
+            color: "rgb(237, 125, 49)",
+            hoverColor: "rgb(255,255,255)"
+        };
+        let fillStyle = this.pointerY === 1 ? style.hoverFill : null;
+        drawRoundRect(ctx, style.matchX, style.y, style.width, style.height, style.strokeStyle, fillStyle);
+        fillStyle = this.pointerY === 2 ? style.hoverFill : null;
+        drawRoundRect(ctx, style.unmatchX, style.y, style.width, style.height, style.strokeStyle, fillStyle);
+
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.font = "bold 35px MedievalSharp";
+        ctx.fillStyle = this.pointerY === 1 ? style.hoverColor : style.color;
+        let x = style.matchX + style.width / 2;
+        let y = style.y + style.height / 2;
+        ctx.fillText("Match", x, y);
+
+        ctx.fillStyle = this.pointerY === 2 ? style.hoverColor : style.color;
+        x = style.unmatchX + style.width / 2;
+        ctx.fillText("Ignore", x, y);
+    }
+};
+
+proto.drawMatchPartnerStamp = function(ctx){
+    if(this.matchPartnerState !== MATCH_PARTNER_STATES.matched
+		&& this.matchPartnerState !== MATCH_PARTNER_STATES.ignored){
+    	return;
+	}
+
+	const RATIO = 1.7871148459;
+    const centerX = this.view.width/2,
+        centerY = this.view.height/2;
+
+	const START_SIZE = 1200,
+		END_SIZE = 300;
+	const SIZE = START_SIZE - (START_SIZE - END_SIZE)*this.animationProgress,
+		X = centerX - SIZE*RATIO/2,
+		Y = centerY - SIZE/2;
+	ctx.save();
+
+    ctx.translate(centerX, centerY);
+    ctx.rotate(-30*Math.PI/180);
+    ctx.translate(-centerX, -centerY);
+    if(this.matchPartnerState === MATCH_PARTNER_STATES.matched){
+
+        ctx.drawImage(
+            this.images.getImage("match_stamp"),
+            X, Y, SIZE*RATIO, SIZE
+        );
+	}
+	else if(this.matchPartnerState === MATCH_PARTNER_STATES.ignored){
+        ctx.drawImage(
+            this.images.getImage("not_match_stamp"),
+            X, Y, SIZE*RATIO, SIZE
+        );
+	}
+    ctx.restore();
+    ctx.textAlign = "middle";
+    ctx.font = "normal 20px MedievalSharp";
+    ctx.fillStyle = "rgb(237, 125, 49)";
+    ctx.fillText("Press any key to continue...",
+        centerX, 425);
+	ctx.restore();
+
+};
+
 proto.updateMatchPartner = function horde_Engine_proto_updateMatchPartner(elapsed) {
 
+	// Numbers animation
     this.matchPartner.current.compatible += this.matchPartner.expected.compatible*elapsed/2000; // Reach expected value in 2s
     if(this.matchPartner.current.compatible > this.matchPartner.expected.compatible){
         this.matchPartner.current.compatible = this.matchPartner.expected.compatible;
@@ -4990,11 +5240,41 @@ proto.updateMatchPartner = function horde_Engine_proto_updateMatchPartner(elapse
 				this.matchPartner.current[player][p] = this.matchPartner.expected[player][p];
 		}
     }
+
+    // Match/Unmatch Stamp
+	if(this.matchPartnerState === MATCH_PARTNER_STATES.matched
+		|| this.matchPartnerState === MATCH_PARTNER_STATES.ignored){
+		if(this.animationProgress < 1)
+			this.animationProgress += elapsed/500; // Animation completed in 0.5s
+		else
+            this.animationProgress = 1;
+    }
 };
 
 proto.setMatchingInfo = function horde_Engine_proto_setMatchingInfo(data) {
 	this.matchPartner.set = true;
 	this.matchPartner.expected = data;
+};
+
+proto.hideMatchPartnerScreen = function(){
+    CHAT.toggleChat();
+    VOICE.endCall();
+    this.keyboard.clearKeys();
+    this.mouse.clearButtons();
+    this.state = ENGINE_STATES.title;
+    this.initGame();
+    document.getElementById('hide-btn').style.display = 'none';
+};
+
+proto.onMatchPartnerResponse = function(match){
+	if(this.state === ENGINE_STATES.match_partner){
+        document.getElementById('match-loading').style.display = 'none';
+        setTimeout(() => horde.sound.play('stamp'), 600);
+		if(match)
+			this.matchPartnerState = MATCH_PARTNER_STATES.matched;
+		else
+            this.matchPartnerState = MATCH_PARTNER_STATES.ignored;
+	}
 };
 
 proto.flushEngineUpdate = function horde_Engine_proto_flushEngineUpdate(){
@@ -5040,8 +5320,6 @@ proto.updateMultiplayer = function horde_Engine_proto_updateMultiplayer() {
                 const objectInfo = this.objects[id].getObjectInfo();
                 if(Boolean(objectInfo))
                 	update.objectUpdate[id] = objectInfo;
-                else if(this.objects[id].ignoreUpdate)
-                	console.log('Ignored in engine', id, objectInfo, Boolean(objectInfo));
 			}
 		}
         if(this.engineUpdate.objectAttack.length > 0){
@@ -5198,8 +5476,10 @@ proto.applyEngineParameterUpdate = function (updatedParams) {
 };
 
 proto.partnerDisconnected = function(){
-	this.updateDisconnected();
-	this.state = ENGINE_STATES.disconnected
+	if(this.state === ENGINE_STATES.running){
+		this.updateDisconnected();
+		this.state = ENGINE_STATES.disconnected;
+	}
 };
 
 }());

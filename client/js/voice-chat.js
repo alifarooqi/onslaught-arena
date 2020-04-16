@@ -2,6 +2,7 @@ const player = document.getElementById('call-player');
 let peer, mediaStream, c;
 
 const init = ({env, host, port}) => {
+    //Removed Voice Call
     if(env === 'dev'){
         peer = new Peer(USER._id, {
             host,
@@ -18,7 +19,6 @@ const init = ({env, host, port}) => {
     }
 
     peer.on('call', function(call) {
-        console.log('Receiving call...');
         navigator.mediaDevices.getUserMedia({video: false, audio: true})
             .then(media => {
                 mediaStream = media;
@@ -46,7 +46,6 @@ const connect = peerId => {
         .catch(err => console.error(err));
 };
 const call = (peerId, mediaStream) => {
-    console.log('Calling...', peerId);
     c = peer.call(peerId, mediaStream);
     c.on('stream', function(stream) {
         player.srcObject = stream;
