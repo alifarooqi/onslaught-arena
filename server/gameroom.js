@@ -195,8 +195,30 @@ const sendMatchingInfo = async (gameroomId, player1, player2) => {
 };
 
 function getCompatibility(player1, player2) {
-    // TODO
-    return 82;
+    console.log('Stats:', player1, player2);
+    const statWeight = {
+        kills: 10,
+        timesWounded: 2,
+        totalDamageTaken: 5,
+        shotsFired: 5,
+        shotsLanded: 5,
+        gold: 2,
+        totalScore: 10
+    };
+    let compatibility = 100; // Max Compatibility
+    for(let stat in statWeight){
+        let statDifference = Math.abs(player1[stat] - player2[stat]);
+        statDifference /= Math.max(player1[stat], player2[stat]);
+        statDifference *= statWeight[stat];
+        if(!isNaN(statDifference))
+            compatibility -= statDifference;
+        console.log('Stat Difference of', stat, statDifference);
+    }
+    compatibility = Math.ceil(compatibility);
+    compatibility = Math.max(compatibility, 0);
+    console.log('Compatibility:', compatibility);
+
+    return compatibility;
 }
 
 const partnerDisconnected = socketId =>{

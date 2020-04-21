@@ -3276,6 +3276,10 @@ proto.getNearestHostile = function (object) {
 };
 
 proto.objectAttack = function (object, v, updateFromHost=false) {
+	if(!object){
+		console.warn('Object not found, cannot attack', object, v, updateFromHost);
+		return
+	}
 	if (!v) {
 		v = object.facing;
 	}
@@ -3946,9 +3950,15 @@ proto.getTotalScore = function () {
 	const player = this.getPlayerObject();
 	let wavesComplete = this.wonGame ? this.currentWaveId + 1 : this.currentWaveId;
 
-	let score = (wavesComplete * 1000);
+	let score = (wavesComplete * 50);
 	score += player.gold;
-	score -= (player.totalDamageTaken * 10);
+	score += player.kills * 5;
+	score -= player.totalDamageTaken;
+	const accuracy = player.shotsLanded/player.shotsFired
+	if(isNaN(accuracy))
+		score -= 50;
+	else
+		score += accuracy*50;
 
 	if (player.cheater === true) {
 		score /= 2;
@@ -3958,7 +3968,7 @@ proto.getTotalScore = function () {
 		score = 0;
 	}
 
-	return score;
+	return Math.ceil(score);
 };
 
 proto.drawLogo = function horde_Engine_proto_drawLogo (ctx) {
@@ -5252,6 +5262,7 @@ proto.updateMatchPartner = function horde_Engine_proto_updateMatchPartner(elapse
 };
 
 proto.setMatchingInfo = function horde_Engine_proto_setMatchingInfo(data) {
+	console.log("Matching Info received");
 	this.matchPartner.set = true;
 	this.matchPartner.expected = data;
 };
@@ -5376,8 +5387,8 @@ proto.updateFromHost = function (update) {
 		if(this.objects.hasOwnProperty(id)){
             this.applyObjectUpdate(id, update.objectUpdate[id]);
 		}
-		else
-            console.warn("Object not found in Guest:", id);
+		// else
+            // console.warn("Object not found in Guest:", id);
 
 	}
 
