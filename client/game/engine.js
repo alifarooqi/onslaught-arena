@@ -3807,7 +3807,7 @@ proto.drawObjectStats = function horde_Engine_proto_drawObjectStats (object, ctx
 	}
 
 	// Waves
-	var displayWave = 0;
+	let displayWave = 0;
 	if (this.statsIndex === 0) {
 		displayWave = this.statsCount;
 		max = wavesComplete;
@@ -3818,7 +3818,7 @@ proto.drawObjectStats = function horde_Engine_proto_drawObjectStats (object, ctx
 		displayWave = wavesComplete;
 	}
 	ctx.fillStyle = "rgb(199, 234, 251)";
-	ctx.fillText(displayWave + " x 1000", textX, 182);
+	ctx.fillText(displayWave.toString(), textX, 182);
 
 	// Gold earned
 	var displayGold = 0;
@@ -3832,7 +3832,7 @@ proto.drawObjectStats = function horde_Engine_proto_drawObjectStats (object, ctx
 		displayGold = object.gold;
 	}
 	ctx.fillStyle = "rgb(255, 245, 121)";
-	ctx.fillText(displayGold, textX, (180 + textHeight));
+	ctx.fillText(displayGold.toString(), textX, (180 + textHeight));
 
 	// Damage taken
 	var displayDamage = 0;
@@ -3846,7 +3846,7 @@ proto.drawObjectStats = function horde_Engine_proto_drawObjectStats (object, ctx
 		displayDamage = object.totalDamageTaken;
 	}
 	ctx.fillStyle = "rgb(237, 28, 36)";
-	ctx.fillText("-" + displayDamage + " x 10", textX, 180 + (textHeight * 2));
+	ctx.fillText(displayDamage.toString(), textX, 180 + (textHeight * 2));
 
 	// Total score
 	var displayScore = "";
@@ -5375,12 +5375,12 @@ proto.getEngineParameterUpdate = function(){
  *
  */
 proto.updateFromHost = function (update) {
-	if(update.timestamp < this.lastUpdateTimestamp){
-		console.log('Rejecting late update', update.timestamp, this.lastUpdateTimestamp);
-		return;
-	}
-	else
-        this.lastUpdateTimestamp = update.timestamp
+	// if(update.timestamp < this.lastUpdateTimestamp){
+	// 	console.log('Rejecting late update', update.timestamp, this.lastUpdateTimestamp);
+	// 	return;
+	// }
+	// else
+    //     this.lastUpdateTimestamp = update.timestamp;
 
 	/** Updating all the objects **/
 	for(let id in update.objectUpdate){
@@ -5403,10 +5403,10 @@ proto.updateFromHost = function (update) {
 };
 
 proto.updateFromGuest = function (update) {
-    if(update.timestamp < this.lastUpdateTimestamp)
-        return;
-    else
-        this.lastUpdateTimestamp = update.timestamp
+    // if(update.timestamp < this.lastUpdateTimestamp)
+    //     return;
+    // else
+    //     this.lastUpdateTimestamp = update.timestamp;
 
     /** Updating Player 2 object **/
 	if(update.hasOwnProperty('playerInfo')){

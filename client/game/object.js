@@ -244,6 +244,14 @@ proto.init = function horde_Object_proto_init () {
 	if (this.animated) {
 		this.animElapsed = horde.randomRange(0, this.animDelay);
 	}
+
+	if(this.role === "hero"){
+		this.weaponSyncTimer = setInterval(()=>{
+			this.lastUpdate.weapons = [];
+            this.lastUpdate.currentWeaponIndex = null;
+            this.lastUpdate.alive = null;
+		}, 1000);
+	}
 };
 
 /**
