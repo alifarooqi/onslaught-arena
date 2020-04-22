@@ -336,7 +336,8 @@ horde.Engine = function horde_Engine () {
 	};
 	this.gameroomId = '';
     this.engineUpdate = {
-		objectAttack: []
+		objectAttack: [],
+		dropObject: []
     };
     this.lastParameterUpdate = {};
     this.lastUpdateTimestamp = new Date();
@@ -1392,14 +1393,14 @@ proto.updateSpawnPoints = function horde_Engine_proto_updateSpawnPoints (elapsed
 	if (this.gateState !== "up") {
 		return;
 	}
-	var closeGates = true;
+    let closeGates = true;
 	// Iterate over the spawn points and update them
-	for (var x in this.spawnPoints) {
+	for (let x in this.spawnPoints) {
 		if (this.spawnPoints[x].queue.length >= 1) {
 			closeGates = false;
 		}
 		// Spawn points can return an object to spawn
-		var o = this.spawnPoints[x].update(elapsed, (this.monstersAlive === 0));
+        let o = this.spawnPoints[x].update(elapsed, (this.monstersAlive === 0));
 		if (o !== false) {
 			// We need to spawn an object
 			this.addObject(o);
@@ -1411,35 +1412,36 @@ proto.updateSpawnPoints = function horde_Engine_proto_updateSpawnPoints (elapsed
 };
 
 proto.spawnWaveExtras = function horde_Engine_proto_spawnWaveExtras (waveNumber) {
+    let locs, len;
 	switch (waveNumber) {
 
 		case 1:
 			// Spawn a couple weapons scrolls to give the player an early taste of the fun!
-			var player = this.getPlayerObject();
+			const player = this.getPlayerObject();
 
 			// 1. Knife
-			var wep = horde.makeObject("item_weapon_knife");
+            let wep = horde.makeObject("item_weapon_knife");
 			wep.position = player.position.clone();
 			wep.position.x -= 96;
 			wep.position.y += 64;
 			this.addObject(wep);
 
 			// 2. Spear
-			var wep = horde.makeObject("item_weapon_spear");
+			wep = horde.makeObject("item_weapon_spear");
 			wep.position = player.position.clone();
 			wep.position.x -= 32;
 			wep.position.y += 64;
 			this.addObject(wep);
 
 			// 3. Axe
-			var wep = horde.makeObject("item_weapon_axe");
+			wep = horde.makeObject("item_weapon_axe");
 			wep.position = player.position.clone();
 			wep.position.x += 32;
 			wep.position.y += 64;
 			this.addObject(wep);
 
 			// 4. Fire
-			var wep = horde.makeObject("item_weapon_fireball");
+			wep = horde.makeObject("item_weapon_fireball");
 			wep.position = player.position.clone();
 			wep.position.x += 96;
 			wep.position.y += 64;
@@ -1449,14 +1451,14 @@ proto.spawnWaveExtras = function horde_Engine_proto_spawnWaveExtras (waveNumber)
 
 		case 11:
 			// Two spikes in the middle to the left and right
-			var locs = [
-				{x: 192, y: 224},
-				{x: 416, y: 224}
-			];
-			var len = locs.length;
-			for (var x = 0; x < len; ++x) {
-				var pos = locs[x];
-				var s = horde.makeObject("spikes");
+			locs = [
+                {x: 192, y: 224},
+                {x: 416, y: 224}
+            ];
+            len = locs.length;
+			for (let x = 0; x < len; ++x) {
+                let pos = locs[x];
+                let s = horde.makeObject("spikes");
 				s.position = new horde.Vector2(pos.x, pos.y);
 				this.addObject(s);
 			}
@@ -1464,16 +1466,16 @@ proto.spawnWaveExtras = function horde_Engine_proto_spawnWaveExtras (waveNumber)
 
 		case 21:
 			// Spike sentries in each corner
-			var spikeLocs = [
+            let spikeLocs = [
 				{x: 32, y: 64},
 				{x: 32, y: 352},
 				{x: 576, y: 64},
 				{x: 576, y: 352}
 			];
-			var len = spikeLocs.length;
-			for (var x = 0; x < len; x++) {
-				var pos = spikeLocs[x];
-				var s = horde.makeObject("spike_sentry");
+            len = spikeLocs.length;
+			for (let x = 0; x < len; x++) {
+                let pos = spikeLocs[x];
+                let s = horde.makeObject("spike_sentry");
 				s.position = new horde.Vector2(pos.x, pos.y);
 				this.addObject(s);
 			}
@@ -1481,14 +1483,14 @@ proto.spawnWaveExtras = function horde_Engine_proto_spawnWaveExtras (waveNumber)
 
 		case 31:
 			// Two spikes in the middle above and below
-			var locs = [
-				{x: 304, y: 114},
-				{x: 304, y: 304}
-			];
-			var len = locs.length;
-			for (var x = 0; x < len; ++x) {
-				var pos = locs[x];
-				var s = horde.makeObject("spikes");
+			locs = [
+                {x: 304, y: 114},
+                {x: 304, y: 304}
+            ];
+            len = locs.length;
+			for (let x = 0; x < len; ++x) {
+                let pos = locs[x];
+                let s = horde.makeObject("spikes");
 				s.position = new horde.Vector2(pos.x, pos.y);
 				this.addObject(s);
 			}
@@ -1500,8 +1502,8 @@ proto.spawnWaveExtras = function horde_Engine_proto_spawnWaveExtras (waveNumber)
 
 		case 50:
 			// Despawn all traps; Doppelganger is hard enough!!
-			for (var id in this.objects) {
-				var obj = this.objects[id];
+			for (let id in this.objects) {
+                let obj = this.objects[id];
 				if (obj.role === "trap") {
 					obj.die();
 				}
@@ -2005,7 +2007,17 @@ proto.moveObject = function horde_Engine_proto_moveObject (object, elapsed) {
 
 };
 
-proto.dropObject = function horde_Engine_proto_dropObject (object, type) {
+proto.dropObject = function horde_Engine_proto_dropObject (object, type, forceDrop=false) {
+	if(this.multiplayerType === 'host') {
+        this.engineUpdate.dropObject.push({
+            objectId: object.id,
+            type,
+            pos: object.position.extractAsObject()
+        });
+    }
+	else if(!forceDrop)
+		return;
+
 	var drop = horde.makeObject(type);
 	drop.position = object.position.clone();
 	drop.position.y -= 1;
@@ -4521,7 +4533,8 @@ proto.drawTitle = function horde_Engine_proto_drawTitle (ctx) {
 */
 
 	// Version
-	var version = ("v" + VERSION);
+	// var version = ("v" + VERSION);
+	let version = "Multiplayer Version";
 	if (horde.isDemo()) version += " demo";
 	ctx.save();
 	ctx.font = "Bold 14px Monospace";
@@ -4974,7 +4987,6 @@ proto.drawFindPartner = function horde_Engine_proto_drawFindPartner(ctx){
 };
 
 proto.onFindingPartner = function horde_Engine_proto_onFindingPartner(partner){
-	console.log('Found Partner...');
 	document.getElementById('loading').style.display = 'none';
 	document.getElementById('startingCountdown').style.display = 'block';
 	document.getElementById('partnerUsername').innerHTML = partner.username;
@@ -5333,9 +5345,13 @@ proto.updateMultiplayer = function horde_Engine_proto_updateMultiplayer() {
                 	update.objectUpdate[id] = objectInfo;
 			}
 		}
-        if(this.engineUpdate.objectAttack.length > 0){
-            update.engineUpdate = {...this.engineUpdate};
-            this.flushEngineUpdate();
+
+    	for(let prop in this.engineUpdate) {
+            if (this.engineUpdate[prop].length > 0) {
+                update.engineUpdate = {...this.engineUpdate};
+                this.flushEngineUpdate();
+                break;
+            }
         }
 
         // let engineParameterUpdate = this.getEngineParameterUpdate();
@@ -5355,7 +5371,6 @@ proto.updateMultiplayer = function horde_Engine_proto_updateMultiplayer() {
 proto.getEngineParameterUpdate = function(){
 	let update = {};
 	for(let param in this.lastParameterUpdate){
-		// console.log('Checking', param, this[param])
 		if(this[param] !== this.lastParameterUpdate[param]){
 			update[param] = this[param];
             this.lastParameterUpdate[param] = this[param];
@@ -5477,6 +5492,20 @@ proto.applyEngineUpdate = function (engineUpdate){
                     this.objectAttack(o, v, true);
                 }
                 break;
+			case 'dropObject':
+                for(let i=0; i<engineUpdate[updateFunc].length; i++){
+                	const {objectId, type, pos} = engineUpdate[updateFunc][i];
+                    const o = this.objects[objectId];
+                    if(o){
+                    	this.dropObject(o, type, true);
+					}
+                    else{
+                    	let object = {
+                    		position: new horde.Vector2(pos.x, pos.y)
+						}
+                        this.dropObject(object, type, true);
+					}
+                }
         }
     }
 };

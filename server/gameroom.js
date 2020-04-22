@@ -195,7 +195,6 @@ const sendMatchingInfo = async (gameroomId, player1, player2) => {
 };
 
 function getCompatibility(player1, player2) {
-    console.log('Stats:', player1, player2);
     const statWeight = {
         kills: 10,
         timesWounded: 2,
@@ -212,11 +211,9 @@ function getCompatibility(player1, player2) {
         statDifference *= statWeight[stat];
         if(!isNaN(statDifference))
             compatibility -= statDifference;
-        console.log('Stat Difference of', stat, statDifference);
     }
     compatibility = Math.ceil(compatibility);
     compatibility = Math.max(compatibility, 0);
-    console.log('Compatibility:', compatibility);
 
     return compatibility;
 }

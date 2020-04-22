@@ -4,7 +4,6 @@ socket.on('initConnection', data => {
 });
 
 socket.on('findPartnerResponse', partner => {
-    console.log('Partner found yay...');
     ENGINE.onFindingPartner(partner);
 });
 

@@ -17,15 +17,16 @@ The server should be running at `localhost:2000`.
 - Leaderboard
 - Add Matching and Friendship Model
 - Add Profile page
-- Add other items spawned multiplayer support.
 - Make updates more optimized.
-- Ignore "projectile" type object update.
-- Multiplayer weapon sync
 - Practice Mode
 - Intro Animation and player states
+- Registration: username and password restrictions
 
 ### To Test
 - Voice Chat 
+- Add other items spawned multiplayer support.
+- Ignore "projectile" type object update.
+- Multiplayer weapon sync
 
 ### Optionals
 - Record user behavior
