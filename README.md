@@ -14,6 +14,7 @@ For more information, or to change database configuration see `server/database.j
 The server should be running at `localhost:2000`.
 
 ## Todos
+- Chat + Engine handle input
 - Leaderboard
 - Add Matching and Friendship Model
 - Add Profile page
@@ -43,3 +44,4 @@ Chat
 
 ## Bugs
 - Player disconnected --> Press any button to continue (had to press several times)
+- WebSocket connection to 'wss://onslaught-arena.herokuapp.com/socket.io/?EIO=3&transport=websocket&sid=pj1R1XESz-uSJkFnAAAB' failed: Error during WebSocket handshake: Unexpected response code: 400

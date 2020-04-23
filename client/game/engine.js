@@ -340,7 +340,8 @@ horde.Engine = function horde_Engine () {
 		dropObject: []
     };
     this.lastParameterUpdate = {};
-    this.lastUpdateTimestamp = new Date();
+    this.lastUpdateReceivedTimestamp = new Date();
+    this.lastUpdateSentTimestamp = new Date();
     this.matchPartner = {...MATCH_PARTNER_INIT};
     this.matchPartnerState = MATCH_PARTNER_STATES.initial;
     this.animationProgress = 0; // Range [0 - 1]
@@ -2479,7 +2480,8 @@ proto.grabContinueInfo = function horde_Engine_proto_grabContinueInfo () {
  * @return {void}
  */
 proto.handleInput = function horde_Engine_proto_handleInput () {
-
+	if(document.activeElement.id === 'chat-input')
+		return;
 	var kb = this.keyboard;
 	var keys = horde.Keyboard.Keys;
 	var buttons = horde.Mouse.Buttons;
@@ -2903,9 +2905,7 @@ proto.handleInput = function horde_Engine_proto_handleInput () {
 
 	}
 
-	if (
-		(this.state === ENGINE_STATES.credits)
-	) {
+	if(this.state === ENGINE_STATES.credits) {
 		if (this.keyboard.isAnyKeyPressed() || this.mouse.isAnyButtonDown()) {
 			kb.clearKeys();
 			this.mouse.clearButtons();
@@ -3949,7 +3949,12 @@ proto.drawDisconnected = function horde_Engine_proto_drawDisconnected (ctx) {
         ctx.fillStyle = COLOR_WHITE;
         ctx.fillText("Player Disconnected :(", 155, headerY + 90);
 
-        setTimeout(() => {this.endGame(true)}, 3500);
+        setTimeout(() => {
+            this.keyboard.clearKeys();
+            this.mouse.clearButtons();
+            this.state = ENGINE_STATES.title;
+            this.initGame();
+		}, 3500);
     }
 
 };
@@ -5325,11 +5330,13 @@ proto.updateMultiplayer = function horde_Engine_proto_updateMultiplayer() {
         // let engineParameterUpdate = this.getEngineParameterUpdate();
         // if(engineParameterUpdate)
         // 	update.engineParameterUpdate = engineParameterUpdate;
-
+		const now = new Date();
         if(Object.entries(update).length !== 0){
-        	update.timestamp = new Date();
+        	update.timestamp = now;
         	SOCKET.guestUpdate(this.gameroomId, update);
         }
+        else if(now - this.lastUpdateSentTimestamp > 1000)
+            SOCKET.guestUpdate(this.gameroomId, {});
     }
 
 
@@ -5357,13 +5364,15 @@ proto.updateMultiplayer = function horde_Engine_proto_updateMultiplayer() {
         // let engineParameterUpdate = this.getEngineParameterUpdate();
         // if(engineParameterUpdate)
         // 	update.engineParameterUpdate = engineParameterUpdate;
-
+        const now = new Date();
         if(Object.entries(update.objectUpdate).length !== 0
 				|| update.hasOwnProperty('engineUpdate')
             	|| update.hasOwnProperty('engineParameterUpdate')){
-            update.timestamp = new Date();
+            update.timestamp = now;
         	SOCKET.hostUpdate(this.gameroomId, update);
 		}
+        else if(now - this.lastUpdateSentTimestamp > 1000)
+            SOCKET.hostUpdate(this.gameroomId, {});
 
     }
 };
@@ -5390,12 +5399,12 @@ proto.getEngineParameterUpdate = function(){
  *
  */
 proto.updateFromHost = function (update) {
-	// if(update.timestamp < this.lastUpdateTimestamp){
-	// 	console.log('Rejecting late update', update.timestamp, this.lastUpdateTimestamp);
-	// 	return;
-	// }
-	// else
-    //     this.lastUpdateTimestamp = update.timestamp;
+	if(update.timestamp < this.lastUpdateReceivedTimestamp){
+		console.log('Rejecting late update', update.timestamp, this.lastUpdateReceivedTimestamp);
+		return;
+	}
+	else
+        this.lastUpdateReceivedTimestamp = update.timestamp;
 
 	/** Updating all the objects **/
 	for(let id in update.objectUpdate){
@@ -5418,10 +5427,10 @@ proto.updateFromHost = function (update) {
 };
 
 proto.updateFromGuest = function (update) {
-    // if(update.timestamp < this.lastUpdateTimestamp)
-    //     return;
-    // else
-    //     this.lastUpdateTimestamp = update.timestamp;
+    if(update.timestamp < this.lastUpdateReceivedTimestamp)
+        return;
+    else
+        this.lastUpdateReceivedTimestamp = update.timestamp;
 
     /** Updating Player 2 object **/
 	if(update.hasOwnProperty('playerInfo')){
@@ -5517,8 +5526,8 @@ proto.applyEngineParameterUpdate = function (updatedParams) {
 
 proto.partnerDisconnected = function(){
 	if(this.state === ENGINE_STATES.running){
-		this.updateDisconnected();
-		this.state = ENGINE_STATES.disconnected;
+        this.state = ENGINE_STATES.disconnected;
+        this.updateDisconnected();
 	}
 };
 

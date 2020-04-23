@@ -19,6 +19,8 @@ let GAMEROOM_MODELPACK = {
  *          totalScore
  *          hostSocket
  *          guestSocket
+ *          lastGuestUpdate
+ *          lastHostUpdate
  *      }
  */
 let ACTIVE_GAMEROOMS = {};
@@ -68,19 +70,25 @@ const startCountdown = gameroomId =>{
             gameroom.guestSocket.emit('gameroomStartCountdown', time);
             time--;
         }
-        if(time < 0)
+        if(time < 0) {
+            ACTIVE_GAMEROOMS[gameroomId].lastGuestUpdate = new Date();
+            ACTIVE_GAMEROOMS[gameroomId].lastHostUpdate = new Date();
+            ACTIVE_GAMEROOMS[gameroomId].startTime = new Date();
             clearInterval(interval);
+        }
     }, 1000)
 };
 
 const updateFromHost = ({gameroomId, playerPosition})=>{
     if(ACTIVE_GAMEROOMS[gameroomId]){
+        ACTIVE_GAMEROOMS[gameroomId].lastHostUpdate = new Date();
         ACTIVE_GAMEROOMS[gameroomId].guestSocket.emit('receiveHostUpdate', playerPosition);
     }
 };
 
 const updateFromGuest = ({gameroomId, playerPosition})=>{
     if(ACTIVE_GAMEROOMS[gameroomId]){
+        ACTIVE_GAMEROOMS[gameroomId].lastGuestUpdate = new Date();
         ACTIVE_GAMEROOMS[gameroomId].hostSocket.emit('receiveGuestUpdate', playerPosition);
     }
 };
@@ -222,9 +230,11 @@ const partnerDisconnected = socketId =>{
     for(let gameroomId in ACTIVE_GAMEROOMS){
         if(socketId === ACTIVE_GAMEROOMS[gameroomId].guestSocket.id){
             ACTIVE_GAMEROOMS[gameroomId].hostSocket.emit('partnerDisconnected');
+            delete ACTIVE_GAMEROOMS[gameroomId];
         }
         else if(socketId === ACTIVE_GAMEROOMS[gameroomId].hostSocket.id){
             ACTIVE_GAMEROOMS[gameroomId].guestSocket.emit('partnerDisconnected');
+            delete ACTIVE_GAMEROOMS[gameroomId];
         }
     }
 };
@@ -259,6 +269,24 @@ const onMatchPartner = ({gameroomId, selection})=>{ // selection = 'match' || 'i
     }
 
 };
+
+
+// Check for disconnection every 1.5 seconds
+setInterval(()=>{
+    for(let gameroomId in ACTIVE_GAMEROOMS){
+        let now = new Date();
+        if(now - ACTIVE_GAMEROOMS[gameroomId].startTime < 12000){
+            continue;
+        }
+        if(now - ACTIVE_GAMEROOMS[gameroomId].lastGuestUpdate > 1500 ||
+            now - ACTIVE_GAMEROOMS[gameroomId].lastHostUpdate > 1500){
+            ACTIVE_GAMEROOMS[gameroomId].hostSocket.emit('partnerDisconnected');
+            ACTIVE_GAMEROOMS[gameroomId].guestSocket.emit('partnerDisconnected');
+            delete ACTIVE_GAMEROOMS[gameroomId];
+
+        }
+    }
+}, 1500);
 
 
 module.exports = {

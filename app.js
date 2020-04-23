@@ -7,7 +7,7 @@ const express = require('express');
 const app = express();
 const serv = require('http').Server(app);
 const cors = require('cors');
-const { ExpressPeerServer } = require('peer');
+// const { ExpressPeerServer } = require('peer');
 
 
 app.use(cors());
@@ -33,19 +33,20 @@ app.get('/favicon.ico',function(req, res) {
 app.use('/client',express.static(__dirname + '/client'));
 app.use('/login',express.static(__dirname + '/client/login'));
 
-
+/*
 const peerServer = ExpressPeerServer(serv, {
     debug: true,
     path: '/call'
 });
 app.use('/voice', peerServer);
+*/
 
 const PORT = process.env.PORT || 2000;
 const HOST = process.env.HOST || 'localhost';
 const ENV = process.env.ENV || 'dev';
 
 serv.listen(PORT);
-console.log(`Server started at ${HOST}     using port ${PORT}`);
+console.log(`Server started at ${HOST} using port ${PORT}`);
 
 
 let SOCKET_LIST = {};
