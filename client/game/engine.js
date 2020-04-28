@@ -328,7 +328,7 @@ horde.Engine = function horde_Engine () {
 	this.wasdMovesArrowsAttack = true;
 
 	// Multiplayer Support
-	this.multiplayerType = 'host';
+	this.multiplayerType = 'single';
 	this.partner = {
 		username: 'farooqi',
 		rank: 123,
@@ -798,7 +798,7 @@ proto.initGame = function () {
 	this.initWaves();
 
 	this.initPlayer();
-    this.initPlayer2();
+    // this.initPlayer2();
 
 	this.gameOverBg = null;
 
@@ -923,7 +923,7 @@ proto.initWaves = function horde_Engine_proto_initWaves () {
 	this.waves = [];
 	this.waveTimer = new horde.Timer();
 	this.waveTimer.start(1);
-	this.currentWaveId = -1;
+	this.currentWaveId = 1; //TODO Change to -1
 
 	this.waveText = {
 		string: "",
@@ -1558,7 +1558,11 @@ proto.updateWaves = function horde_Engine_proto_updateWaves (elapsed) {
 			(new Clay.Achievement({ id: achievementId })).award();
 		}
 		*/
-
+		if(this.currentWaveId === 2){
+            this.currentWaveId = -2;
+            this.state = ENGINE_STATES.finding_partner;
+            return;
+		}
 		this.currentWaveId++;
 		var actualWave = (this.currentWaveId + 1);
 		if (this.continuing || this.waveHack) {
@@ -2841,10 +2845,10 @@ proto.handleInput = function horde_Engine_proto_handleInput () {
 				// 	}
 				// 	break;
 				case 1: // New game
-					// this.continuing = false;
-					// this.showTutorial = !this.touchMove;
-					// this.state = "intro_cinematic";
-					this.state = ENGINE_STATES.finding_partner;
+					this.continuing = false;
+					this.showTutorial = !this.touchMove;
+					this.state = "intro_cinematic";
+					// this.state = ENGINE_STATES.finding_partner;
 					break;
 				case 2: // Credits
 					this.state = ENGINE_STATES.credits;
@@ -2913,7 +2917,6 @@ proto.handleInput = function horde_Engine_proto_handleInput () {
 		}
 	}
 
-	/* Removed skipping Intro Cinematics
 	if (this.state === "intro_cinematic") {
 		if (this.keyboard.isAnyKeyPressed() || this.mouse.isAnyButtonDown()) {
 			kb.clearKeys();
@@ -2925,7 +2928,6 @@ proto.handleInput = function horde_Engine_proto_handleInput () {
 			horde.sound.play(this.currentMusic);
 		}
 	}
-	*/
 
 	if (usingPointerOptions) {
 
@@ -3963,7 +3965,6 @@ proto.drawDisconnected = function horde_Engine_proto_drawDisconnected (ctx) {
  * Calculates the player's total score
  */
 proto.getTotalScore = function () {
-	// Todo Change to accomodate 2nd player
 	const player = this.getPlayerObject();
 	let wavesComplete = this.wonGame ? this.currentWaveId + 1 : this.currentWaveId;
 
@@ -4220,7 +4221,7 @@ proto.drawObject = function horde_Engine_proto_drawObject (ctx, o) {
 	}
 
 
-    if (o.multiplayerType  && o.multiplayerType !== this.multiplayerType) {
+    if (o.multiplayerType && this.multiplayerType !== 'single' && o.multiplayerType !== this.multiplayerType) {
         this.drawImageOverlay(
             ctx, this.images.getImage(o.spriteSheet),
             s.x, s.y + 1, o.size.width - 1, o.size.height - 1,
@@ -5002,6 +5003,10 @@ proto.onFindingPartner = function horde_Engine_proto_onFindingPartner(partner){
 	if(this.multiplayerType === 'host')
 		VOICE.connect(partner.userId);
 	CHAT.toggleChat();
+    this.keyboard.clearKeys();
+    this.mouse.clearButtons();
+    this.currentWaveId = 3;
+	this.initPlayer2();
 	console.log("Multiplayer Type:", this.multiplayerType, this.gameroomId);
 };
 
@@ -5011,7 +5016,7 @@ proto.updateCountdownTimer = function (time){
         document.getElementById('startingCountdown').style.display = 'none';
         this.continuing = false;
         this.showTutorial = true;
-        this.state = ENGINE_STATES.intro_cinematic;
+        this.state = ENGINE_STATES.running;
     }
 };
 
@@ -5279,7 +5284,6 @@ proto.updateMatchPartner = function horde_Engine_proto_updateMatchPartner(elapse
 };
 
 proto.setMatchingInfo = function horde_Engine_proto_setMatchingInfo(data) {
-	console.log("Matching Info received");
 	this.matchPartner.set = true;
 	this.matchPartner.expected = data;
 };
@@ -5530,6 +5534,13 @@ proto.partnerDisconnected = function(){
         this.updateDisconnected();
 	}
 };
+
+proto.cancelLoadingAndQuit = function () {
+    this.keyboard.clearKeys();
+    this.mouse.clearButtons();
+    this.state = ENGINE_STATES.title;
+    this.initGame();
+}
 
 }());
 

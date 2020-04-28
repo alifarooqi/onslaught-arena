@@ -117,6 +117,7 @@ const endGame = async ({gameroomId, playerStats})=>{
                 db.leaderboard.updateUserScore(guestUserId, playerStats.totalScore);
                 db.leaderboard.updateUserScore(hostUserId, ACTIVE_GAMEROOMS[gameroomId].playerStats.totalScore);
             }
+            ACTIVE_GAMEROOMS[gameroomId].endGame = true;
             // delete ACTIVE_GAMEROOMS[gameroomId];
         }
         else{
@@ -230,11 +231,11 @@ const partnerDisconnected = socketId =>{
     for(let gameroomId in ACTIVE_GAMEROOMS){
         if(socketId === ACTIVE_GAMEROOMS[gameroomId].guestSocket.id){
             ACTIVE_GAMEROOMS[gameroomId].hostSocket.emit('partnerDisconnected');
-            delete ACTIVE_GAMEROOMS[gameroomId];
+            setForDeletion(gameroomId);
         }
         else if(socketId === ACTIVE_GAMEROOMS[gameroomId].hostSocket.id){
             ACTIVE_GAMEROOMS[gameroomId].guestSocket.emit('partnerDisconnected');
-            delete ACTIVE_GAMEROOMS[gameroomId];
+            setForDeletion(gameroomId);
         }
     }
 };
@@ -249,6 +250,7 @@ const chatMessage = ({gameroomId, multiplayerType, message}) => {
 };
 
 const onMatchPartner = ({gameroomId, selection})=>{ // selection = 'match' || 'ignore'
+    console.log('on match partner', selection, ACTIVE_GAMEROOMS[gameroomId].partnerSelection);
     if(ACTIVE_GAMEROOMS.hasOwnProperty(gameroomId)){
         if(ACTIVE_GAMEROOMS[gameroomId].partnerSelection){
             if(ACTIVE_GAMEROOMS[gameroomId].partnerSelection === 'match' && selection === 'match'){
@@ -270,19 +272,26 @@ const onMatchPartner = ({gameroomId, selection})=>{ // selection = 'match' || 'i
 
 };
 
+const setForDeletion = gameroomId =>{
+    const TIMEOUT = 10000; // Delete after 10 seconds
+    setTimeout(()=>{
+        delete ACTIVE_GAMEROOMS[gameroomId];
+    }, TIMEOUT);
+};
+
 
 // Check for disconnection every 1.5 seconds
 setInterval(()=>{
     for(let gameroomId in ACTIVE_GAMEROOMS){
         let now = new Date();
-        if(now - ACTIVE_GAMEROOMS[gameroomId].startTime < 12000){
+        if(now - ACTIVE_GAMEROOMS[gameroomId].startTime < 12000 || ACTIVE_GAMEROOMS[gameroomId].endGame){
             continue;
         }
         if(now - ACTIVE_GAMEROOMS[gameroomId].lastGuestUpdate > 1500 ||
             now - ACTIVE_GAMEROOMS[gameroomId].lastHostUpdate > 1500){
             ACTIVE_GAMEROOMS[gameroomId].hostSocket.emit('partnerDisconnected');
             ACTIVE_GAMEROOMS[gameroomId].guestSocket.emit('partnerDisconnected');
-            delete ACTIVE_GAMEROOMS[gameroomId];
+            setForDeletion(gameroomId);
 
         }
     }

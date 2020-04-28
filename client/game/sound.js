@@ -10,10 +10,11 @@ var disabled = false; //TODO Change sound
 
 horde.sound.init = function horde_sound_init (callback) {
 
-	// if (typeof(Audio) == "undefined") {
-	// 	disabled = true;
-	// 	return;
-	// } else {
+	if (typeof(Audio) == "undefined") {
+		disabled = true;
+		return;
+	}
+	// else {
 	// 	disabled = false;
 	// }
 

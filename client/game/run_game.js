@@ -4,7 +4,8 @@ ENGINE.run();
 
 const cancelLoading = ()=>{
 	document.getElementById('loading').style.display = 'none';
-    ENGINE.state = "title";
+	ENGINE.cancelLoadingAndQuit();
+    // ENGINE.state = "title";
 	SOCKET.cancelFindPartner();
 };
 
