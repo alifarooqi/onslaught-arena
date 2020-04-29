@@ -65,7 +65,7 @@ proto.handleMouseUp = function (e) {
 
 proto.handleTouchDown = function (e) {
 	this.isTouchDevice = true;
-    let touch = e.touches[0];
+    let touch = e.touches[e.touches.length - 1];
 	const clientX = touch.pageX;
     const clientY = touch.pageY;
 
