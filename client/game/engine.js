@@ -925,7 +925,7 @@ proto.initWaves = function horde_Engine_proto_initWaves () {
 	this.waves = [];
 	this.waveTimer = new horde.Timer();
 	this.waveTimer.start(1);
-	this.currentWaveId = -1; //TODO Change to -1
+	this.currentWaveId = 2; //TODO Change to -1
 
 	this.waveText = {
 		string: "",
@@ -1560,6 +1560,12 @@ proto.updateWaves = function horde_Engine_proto_updateWaves (elapsed) {
 			(new Clay.Achievement({ id: achievementId })).award();
 		}
 		*/
+        if(this.currentWaveId < 2){
+        	this.getPlayerObject().setMentalState('Lonely', 0);
+		}
+        else{
+            this.getPlayerObject().setMentalState(); // Reset State
+		}
 		if(this.currentWaveId === 2){
             this.currentWaveId = -2;
             this.state = ENGINE_STATES.finding_partner;
@@ -3300,6 +3306,13 @@ proto.objectAttack = function (object, v, updateFromHost=false) {
 		v = object.facing;
 	}
 
+	if(object.mentalState === 'Anxious'){
+		// const SEVERITY = 0.5;
+        // v.x += horde.randomRange(-SEVERITY, SEVERITY);
+        // v.y += horde.randomRange(-SEVERITY, SEVERITY);
+        v = horde.randomDirection();
+	}
+
 	// Multiplayer Support
     if((this.multiplayerType === 'host' && object.id !== this.player2ObjectId)
         || (this.multiplayerType === 'guest' && object.id === this.player2ObjectId))
@@ -4268,6 +4281,16 @@ proto.drawObject = function horde_Engine_proto_drawObject (ctx, o) {
 		ctx.fillRect(-(o.size.width / 2) + 1, ((o.size.height / 2) + 1), (o.size.width - 2), (hpHeight - 2));
 		ctx.fillStyle = this.getBarColor(o.hitPoints, (o.hitPoints - o.wounds));
 		ctx.fillRect(-(o.size.width / 2) + 1, ((o.size.height / 2) + 1), width, (hpHeight - 2));
+	}
+
+	// Mental State
+	if(o.id === this.getPlayerObject().id && o.mentalState && o.mentalState !== ''){
+        ctx.fillStyle = COLOR_ORANGE;
+        ctx.strokeStyle = COLOR_BLACK;
+        ctx.textAlign = 'center';
+        ctx.font = "Bold 14px MedievalSharp";
+        ctx.fillText(o.mentalState, 0, (o.size.height / 2) + 10);
+        ctx.strokeText(o.mentalState, 0, (o.size.height / 2) + 10);
 	}
 
 	ctx.restore();

@@ -8,6 +8,13 @@ const CHASING = {
 	PLAYER2: 2
 };
 
+const MENTAL_STATES = {
+	NORMAL: "",
+	LONELY: "Lonely",
+	ANXIOUS: 'Anxious',
+	SAD: 'Sad'
+};
+
 var o = horde.objectTypes;
 
 o.hero = {
@@ -29,6 +36,8 @@ o.hero = {
 	isMeatboy: false,
 	bloodTimer: null,
 	multiplayerType: 'host',
+	mentalState: MENTAL_STATES.NORMAL,
+    mentalStateTimer: new horde.Timer(),
 
 	onInit: function () {
 		if (this.isMeatboy) {
@@ -55,6 +64,20 @@ o.hero = {
 				this.bloodTimer.start(horde.randomRange(75, 150));
 			}
 		}
+
+		if(this.mentalState !== MENTAL_STATES.NORMAL){
+            this.mentalStateTimer.update(elapsed);
+            if(this.mentalStateTimer.expired()){
+            	this.setMentalState(); // Resetting mental state to normal
+			}
+		}
+		else {
+			let rand = horde.randomRange(0, 10000);
+			if(rand > 9995)
+                this.setMentalState('Sad');
+            else if(rand > 9990)
+                this.setMentalState('Anxious');
+		}
 	},
 
 	onKilled: function (attacker, engine) {
@@ -65,7 +88,23 @@ o.hero = {
 			skull.position.y = (this.position.y + this.size.height - horde.randomRange(0, this.size.height));
 			engine.addObject(skull);
 		}
-	}
+	},
+
+	setMentalState: function (type, duration=30000) {
+		if(type) {
+			if(this.mentalState === MENTAL_STATES.NORMAL) {
+                this.mentalStateTimer.start(duration);
+                this.mentalState = type;
+                if (type === MENTAL_STATES.SAD) {
+                    this.speed = 75;
+                }
+            }
+        }
+		else{
+            this.mentalState = MENTAL_STATES.NORMAL;
+            this.speed = 150;
+		}
+    }
 
 };
 
