@@ -34,6 +34,7 @@ canvas {
 	position: absolute;
 	background: #000;
 	color: #f1f1f2;
+	touch-action: none;
 }
 
 .fallback {
@@ -457,3 +458,11 @@ div.spinner i:nth-child(8) {
 }
 
 /*End Loader*/
+
+#joystick-container{
+	position: relative;
+	top: 350px;
+	height: 200px;
+	width: 640px;
+	background: red;
+}

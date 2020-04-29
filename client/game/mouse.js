@@ -12,9 +12,10 @@ horde.Mouse = function (canvas) {
 
 
 	// Mobile Phone
-	// horde.on("touchmove", this.handleMouseMove, window, this);
-	horde.on("touchstart", this.handleTouchDown, window, this);
-	horde.on("touchend", this.handleTouchUp, window, this);
+    this.isTouchDevice = false;
+	horde.on("touchmove", this.handleTouchDown, canvas, this);
+	horde.on("touchstart", this.handleTouchDown, canvas, this);
+	horde.on("touchend", this.handleTouchUp, canvas, this);
 
 };
 
@@ -63,13 +64,24 @@ proto.handleMouseUp = function (e) {
 };
 
 proto.handleTouchDown = function (e) {
-	this.buttonStates[Mouse.Buttons.LEFT] = true;
-	horde.stopEvent(e);
+	this.isTouchDevice = true;
+    let touch = e.touches[0];
+	const clientX = touch.pageX;
+    const clientY = touch.pageY;
+
+    let offset = horde.getOffset(this.canvas);
+    this.mouseX = (((clientX - offset.x) * 640) / this.canvas.offsetWidth);
+    this.mouseY = (((clientY - offset.y) * 480) / this.canvas.offsetHeight);
+    this.hasMoved = true;
+
+    this.buttonStates[Mouse.Buttons.LEFT] = true;
+
 	if (window.focus) window.focus();
 };
 
 proto.handleTouchUp = function (e) {
-	this.buttonStates[Mouse.Buttons.LEFT] = true;
+    this.isTouchDevice = true;
+	this.buttonStates[Mouse.Buttons.LEFT] = false;
 };
 
 

@@ -234,6 +234,7 @@ horde.Engine = function horde_Engine () {
 	this.playerObjectId = null;
     this.player2ObjectId = null;
 	this.keyboard = new horde.Keyboard();
+    this.joystick = false;
 	this.view = new horde.Size(SCREEN_WIDTH, SCREEN_HEIGHT);
 	this.images = null;
 	this.debug = false; // Debugging toggle
@@ -925,7 +926,7 @@ proto.initWaves = function horde_Engine_proto_initWaves () {
 	this.waves = [];
 	this.waveTimer = new horde.Timer();
 	this.waveTimer.start(1);
-	this.currentWaveId = 2; //TODO Change to -1
+	this.currentWaveId = -1; //TODO Change to -1
 
 	this.waveText = {
 		string: "",
@@ -2487,6 +2488,88 @@ proto.grabContinueInfo = function horde_Engine_proto_grabContinueInfo () {
 	}, true);
 }
 
+proto.initJoystick = function horde_Engine_proto_initJoystick () {
+	if(!this.joystick && this.mouse.isTouchDevice){
+		let j = document.createElement("div");
+		j.id = 'joystick-container';
+        let stage = document.getElementById("stage");
+        stage.appendChild(j);
+
+
+        const options = {
+            zone: j,
+            mode: 'semi',
+            catchDistance: 150,
+            color: 'black'
+        };
+        let manager = nipplejs.create(options);
+        let keys = horde.Keyboard.Keys;
+
+        manager.on('move', (e, data) => {
+            const d = data.angle.degree;
+            if(d < 22.5 || d > 337.5){ // RIGHT
+                this.keyboard.clearKey(keys.A);
+                this.keyboard.clearKey(keys.S);
+                this.keyboard.clearKey(keys.W);
+            	this.keyboard.keyStates[keys.D] = true;
+			}
+            else if(d < 67.5 ){ // UP-RIGHT
+                this.keyboard.clearKey(keys.A);
+                this.keyboard.clearKey(keys.S);
+                this.keyboard.keyStates[keys.W] = true;
+                this.keyboard.keyStates[keys.D] = true;
+            }
+            else if(d < 112.5 ){ // UP
+                this.keyboard.clearKey(keys.A);
+                this.keyboard.clearKey(keys.D);
+                this.keyboard.clearKey(keys.S);
+                this.keyboard.keyStates[keys.W] = true;
+            }
+            else if(d < 157.5 ){ // UP-LEFT
+                this.keyboard.clearKey(keys.D);
+                this.keyboard.clearKey(keys.S);
+                this.keyboard.keyStates[keys.W] = true;
+                this.keyboard.keyStates[keys.A] = true;
+            }
+            else if(d < 202.5 ){ // LEFT
+                this.keyboard.clearKey(keys.S);
+                this.keyboard.clearKey(keys.W);
+                this.keyboard.clearKey(keys.D);
+                this.keyboard.keyStates[keys.A] = true;
+            }
+            else if(d < 247.5 ){ // DOWN-LEFT
+                this.keyboard.clearKey(keys.W);
+                this.keyboard.clearKey(keys.D);
+                this.keyboard.keyStates[keys.S] = true;
+                this.keyboard.keyStates[keys.A] = true;
+            }
+            else if(d < 292.5 ){ // DOWN
+                this.keyboard.clearKey(keys.W);
+                this.keyboard.clearKey(keys.A);
+                this.keyboard.clearKey(keys.D);
+                this.keyboard.keyStates[keys.S] = true;
+            }
+            else{ // DOWN-RIGHT
+                this.keyboard.clearKey(keys.A);
+                this.keyboard.clearKey(keys.W);
+                this.keyboard.keyStates[keys.S] = true;
+                this.keyboard.keyStates[keys.D] = true;
+            }
+		});
+        manager.on('start', _ =>{
+            console.log('Start', this.state);
+        });
+        manager.on('end', _ =>{
+            console.log('End', this.keyboard.isKeyPressed());
+            this.keyboard.clearKey(keys.A);
+            this.keyboard.clearKey(keys.W);
+            this.keyboard.clearKey(keys.S);
+            this.keyboard.clearKey(keys.D);
+        });
+        this.joystick = j;
+	}
+};
+
 /**
  * Handles game input
  * @return {void}
@@ -2494,6 +2577,7 @@ proto.grabContinueInfo = function horde_Engine_proto_grabContinueInfo () {
 proto.handleInput = function horde_Engine_proto_handleInput () {
 	if(document.activeElement.id === 'chat-input')
 		return;
+	this.initJoystick();
 	var kb = this.keyboard;
 	var keys = horde.Keyboard.Keys;
 	var buttons = horde.Mouse.Buttons;
@@ -3098,7 +3182,6 @@ proto.handleInput = function horde_Engine_proto_handleInput () {
 			}
 
 		}
-
 		// Move the player
 		player.stopMoving();
 		if ((move.x !== 0) || (move.y !== 0)) {
