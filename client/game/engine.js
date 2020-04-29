@@ -833,6 +833,8 @@ proto.initGame = function () {
 
 	this.match_partner = {...MATCH_PARTNER_INIT};
 
+    this.multiplayerType = 'single';
+
 };
 
 /**
@@ -923,7 +925,7 @@ proto.initWaves = function horde_Engine_proto_initWaves () {
 	this.waves = [];
 	this.waveTimer = new horde.Timer();
 	this.waveTimer.start(1);
-	this.currentWaveId = 1; //TODO Change to -1
+	this.currentWaveId = -1; //TODO Change to -1
 
 	this.waveText = {
 		string: "",
@@ -4229,6 +4231,16 @@ proto.drawObject = function horde_Engine_proto_drawObject (ctx, o) {
             "rgba(191, 104, 11, 0.6)"
         );
     }
+    else if (o.multiplayerType && this.multiplayerType === 'single') {
+    	const alpha = 0.8 - this.currentWaveId*0.2;
+    	const fillStyle = "rgba(0, 0, 0, " + alpha +")";
+        this.drawImageOverlay(
+            ctx, this.images.getImage(o.spriteSheet),
+            s.x, s.y + 1, o.size.width - 1, o.size.height - 1,
+            -(o.size.width / 2), -(o.size.height / 2), o.size.width, o.size.height,
+            fillStyle
+        );
+    }
 
 	// Message indestructible enemy projectiles
 	if (this.isBadassWeapon(o) && o.glow) {
@@ -4244,7 +4256,7 @@ proto.drawObject = function horde_Engine_proto_drawObject (ctx, o) {
 	if (
 		(this.debug && (o.role === "monster"))
 		|| (o.badass && !o.hasState(horde.Object.states.DYING))
-		|| (o.role === 'hero' && o.multiplayerType !== this.multiplayerType)
+		|| (o.role === 'hero' && o.multiplayerType !== this.multiplayerType && this.multiplayerType !== 'single')
 	) {
 		var hpWidth = (o.size.width - 2);
 		var hpHeight = 8;
