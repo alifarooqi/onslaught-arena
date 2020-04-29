@@ -2556,17 +2556,13 @@ proto.initJoystick = function horde_Engine_proto_initJoystick () {
                 this.keyboard.keyStates[keys.D] = true;
             }
 		});
-        manager.on('start', _ =>{
-            console.log('Start', this.state);
-        });
         manager.on('end', _ =>{
-            console.log('End', this.keyboard.isKeyPressed());
             this.keyboard.clearKey(keys.A);
             this.keyboard.clearKey(keys.W);
             this.keyboard.clearKey(keys.S);
             this.keyboard.clearKey(keys.D);
         });
-        this.joystick = j;
+        this.joystick = true;
 	}
 };
 

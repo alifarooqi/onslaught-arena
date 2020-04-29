@@ -464,5 +464,5 @@ div.spinner i:nth-child(8) {
 	top: 350px;
 	height: 200px;
 	width: 640px;
-	background: red;
+	background: rgba(150, 150, 150, 0.5);
 }
