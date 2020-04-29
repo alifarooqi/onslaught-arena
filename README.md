@@ -18,7 +18,6 @@ The server should be running at `localhost:2000`.
 - Add Matching and Friendship Model
 - Add Profile page
 - Make updates more optimized.
-- Practice Mode
 - Intro Animation and player states
 - Registration: username and password restrictions
 
@@ -28,6 +27,7 @@ The server should be running at `localhost:2000`.
 - Ignore "projectile" type object update.
 - Multiplayer weapon sync
 - Chat + Engine handle input
+- The 3 States
 
 ### Optionals
 - Record user behavior

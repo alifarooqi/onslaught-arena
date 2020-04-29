@@ -10,12 +10,12 @@ horde.Mouse = function (canvas) {
 	horde.on("mousedown", this.handleMouseDown, canvas, this);
 	horde.on("mouseup", this.handleMouseUp, window, this);
 
-	/*
-	// iOS
-	horde.on("touchmove", this.handleMouseMove, window, this);
-	horde.on("touchstart", this.handleMouseDown, window, this);
-	horde.on("touchend", this.handleMouseUp, window, this);	
-	*/
+
+	// Mobile Phone
+	// horde.on("touchmove", this.handleMouseMove, window, this);
+	horde.on("touchstart", this.handleTouchDown, window, this);
+	horde.on("touchend", this.handleTouchUp, window, this);
+
 };
 
 var Mouse = horde.Mouse;
@@ -28,7 +28,7 @@ Mouse.Buttons = {
 
 proto.handleMouseMove = function (e) {
 	/*
-	// iOS
+	// Mobile Phone
 	var touch = e.touches[0];
 	e = {
 		clientX: touch.pageX,
@@ -61,6 +61,17 @@ proto.handleMouseUp = function (e) {
 	*/
 	this.buttonStates[e.button] = false;
 };
+
+proto.handleTouchDown = function (e) {
+	this.buttonStates[Mouse.Buttons.LEFT] = true;
+	horde.stopEvent(e);
+	if (window.focus) window.focus();
+};
+
+proto.handleTouchUp = function (e) {
+	this.buttonStates[Mouse.Buttons.LEFT] = true;
+};
+
 
 proto.isButtonDown = function (button) {
 	return this.buttonStates[button];
