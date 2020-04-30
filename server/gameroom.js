@@ -52,6 +52,7 @@ const create = (host, hostSocket, guest, guestSocket, callback)=>{
         if(res.success && res.data.ops && res.data.ops.length){
             let gameroomId = res.data.ops[0]._id;
             ACTIVE_GAMEROOMS[gameroomId] = {...res.data.ops[0], hostSocket, guestSocket };
+            ACTIVE_GAMEROOMS[gameroomId].isPaused = false;
             startCountdown(gameroomId);
             callback({success: true, gameroomId});
         }
@@ -95,6 +96,7 @@ const updateFromGuest = ({gameroomId, playerPosition})=>{
 
 const togglePause = ({gameroomId, multiplayerType})=>{
     if(ACTIVE_GAMEROOMS[gameroomId]){
+        ACTIVE_GAMEROOMS[gameroomId].isPaused = !ACTIVE_GAMEROOMS[gameroomId].isPaused;
         if(multiplayerType === 'host')
             ACTIVE_GAMEROOMS[gameroomId].guestSocket.emit('togglePause');
         else if(multiplayerType === 'guest')
@@ -284,7 +286,9 @@ const setForDeletion = gameroomId =>{
 setInterval(()=>{
     for(let gameroomId in ACTIVE_GAMEROOMS){
         let now = new Date();
-        if(now - ACTIVE_GAMEROOMS[gameroomId].startTime < 12000 || ACTIVE_GAMEROOMS[gameroomId].endGame){
+        if(now - ACTIVE_GAMEROOMS[gameroomId].startTime < 12000
+            || ACTIVE_GAMEROOMS[gameroomId].endGame
+            || ACTIVE_GAMEROOMS[gameroomId].isPaused){
             continue;
         }
         if(now - ACTIVE_GAMEROOMS[gameroomId].lastGuestUpdate > 1500 ||

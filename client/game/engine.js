@@ -347,6 +347,8 @@ horde.Engine = function horde_Engine () {
     this.matchPartnerState = MATCH_PARTNER_STATES.initial;
     this.animationProgress = 0; // Range [0 - 1]
 
+	this.tmp = new Date();
+
 
 };
 
@@ -5517,6 +5519,9 @@ proto.getEngineParameterUpdate = function(){
  *
  */
 proto.updateFromHost = function (update) {
+	const now = new Date();
+	console.log("Update from host in", now - this.tmp);
+    this.tmp = now;
 	if(update.timestamp < this.lastUpdateReceivedTimestamp){
 		console.log('Rejecting late update', update.timestamp, this.lastUpdateReceivedTimestamp);
 		return;
@@ -5545,6 +5550,9 @@ proto.updateFromHost = function (update) {
 };
 
 proto.updateFromGuest = function (update) {
+    const now = new Date();
+    console.log("Update from Guest in", now - this.tmp);
+    this.tmp = now;
     if(update.timestamp < this.lastUpdateReceivedTimestamp)
         return;
     else
