@@ -24,7 +24,7 @@ var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
         user: 'onslaught.arena@gmail.com',
-        pass: ';g5?P-@4R8bsa42V'
+        pass: 'shtnuvhzqaqgdsou'
     }
 });
 
