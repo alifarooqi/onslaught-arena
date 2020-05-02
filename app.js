@@ -70,6 +70,7 @@ io.sockets.on('connection', function(socket){
     socket.on('signIn', (data) => user.login(data, socket));
     socket.on('verify', (data) => user.verify(data, socket));
     socket.on('signUp', (data) => user.signup(data, socket));
+    socket.on('resend-verify', user.resendVerification);
 
 
     /***********

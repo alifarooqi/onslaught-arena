@@ -71,6 +71,8 @@ var socket = io();
             socket.emit('verify',{
                 email
             });
+            $('#resend-btn').html('Resend');
+            $('#resend-btn').prop('disabled', false);
         }
         else{
             if(isValidSignupInput()){
@@ -86,6 +88,19 @@ var socket = io();
             }
         }
     });
+
+    $('#resend-btn').on('click',function(e){
+        e.preventDefault();
+        let email = $('#email-input').val();
+        socket.emit('resend-verify', email);
+        $('#resend-btn').prop('disabled', true);
+        $('#resend-btn').html('Sent');
+        setTimeout(() => {
+            $('#resend-btn').html('Resend');
+            $('#resend-btn').prop('disabled', false);
+        }, 30000);
+    });
+
 
     socket.on('verifyResponse',function(data){
         if(data.success){

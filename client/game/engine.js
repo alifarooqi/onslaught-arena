@@ -11,7 +11,7 @@ var HIGH_SCORE_KEY = "high_score";
 var COLOR_BLACK = "rgb(0, 0, 0)";
 var COLOR_WHITE = "rgb(241, 241, 242)";
 var COLOR_ORANGE = "#cca204";
-var TEXT_HEIGHT = 20; // Ehh, kind of a hack, because stupid ctx.measureText only gives width (why??).
+var TEXT_HEIGHT = 20; // Ehh, kind of a hack, because ctx.measureText only gives width (why??).
 var WAVE_TEXT_HEIGHT = 40;
 
 var OVERLAY_ALPHA = 0.7;
@@ -347,7 +347,7 @@ horde.Engine = function horde_Engine () {
     this.matchPartnerState = MATCH_PARTNER_STATES.initial;
     this.animationProgress = 0; // Range [0 - 1]
 
-	this.tmp = new Date();
+	// this.tmp = new Date();
 
 
 };
@@ -999,8 +999,6 @@ proto.initPlayer2 = function horde_Engine_proto_initPlayer () {
 
 proto.handleImagesLoaded = function horde_Engine_proto_handleImagesLoaded () {
 	this.imagesLoaded = true;
-	// this.state = ENGINE_STATES.match_partner; //Todo
-    // this.initOptions();
 };
 
 proto.logoFadeOut = function () {
@@ -2936,9 +2934,8 @@ proto.handleInput = function horde_Engine_proto_handleInput () {
 				// 	break;
 				case 1: // New game
 					this.continuing = false;
-					this.showTutorial = !this.touchMove;
+					this.showTutorial = !this.touchMove && !this.keyboard.isTouchDevice;
 					this.state = "intro_cinematic";
-					// this.state = ENGINE_STATES.finding_partner;
 					break;
 				case 2: // Credits
 					this.state = ENGINE_STATES.credits;
@@ -3309,7 +3306,7 @@ proto.handleInput = function horde_Engine_proto_handleInput () {
 						document.getElementById('match-loading').style.display = 'block';
 						setTimeout(() => {
 							document.getElementById('hide-btn').style.display = 'inline-block';
-						}, 2000); //Todo change to 5 secs
+						}, 2000);
 					}
 					else {
                         horde.sound.play('stamp');
@@ -3388,10 +3385,8 @@ proto.objectAttack = function (object, v, updateFromHost=false) {
 	}
 
 	if(object.mentalState === 'Anxious'){
-		// const SEVERITY = 0.5;
-        // v.x += horde.randomRange(-SEVERITY, SEVERITY);
-        // v.y += horde.randomRange(-SEVERITY, SEVERITY);
-        v = horde.randomDirection();
+		if(horde.randomRange(0, 3) === 3)
+        	v = horde.randomDirection();
 	}
 
 	// Multiplayer Support
@@ -4068,7 +4063,7 @@ proto.getTotalScore = function () {
 	score += player.gold;
 	score += player.kills * 5;
 	score -= player.totalDamageTaken;
-	const accuracy = player.shotsLanded/player.shotsFired
+	const accuracy = player.shotsLanded/player.shotsFired;
 	if(isNaN(accuracy))
 		score -= 50;
 	else
@@ -5519,9 +5514,9 @@ proto.getEngineParameterUpdate = function(){
  *
  */
 proto.updateFromHost = function (update) {
-	const now = new Date();
-	console.log("Update from host in", now - this.tmp);
-    this.tmp = now;
+	// const now = new Date();
+	// console.log("Update from host in", now - this.tmp);
+    // this.tmp = now;
 	if(update.timestamp < this.lastUpdateReceivedTimestamp){
 		console.log('Rejecting late update', update.timestamp, this.lastUpdateReceivedTimestamp);
 		return;
@@ -5550,9 +5545,9 @@ proto.updateFromHost = function (update) {
 };
 
 proto.updateFromGuest = function (update) {
-    const now = new Date();
-    console.log("Update from Guest in", now - this.tmp);
-    this.tmp = now;
+    // const now = new Date();
+    // console.log("Update from Guest in", now - this.tmp);
+    // this.tmp = now;
     if(update.timestamp < this.lastUpdateReceivedTimestamp)
         return;
     else

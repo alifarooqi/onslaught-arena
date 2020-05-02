@@ -12,3 +12,10 @@
     });
 
 })(jQuery);
+
+const logout = () => {
+    SOCKET.endSession();
+    sessionStorage.removeItem('user');
+    USER = null;
+    window.location.href = "/login";
+};

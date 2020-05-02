@@ -570,3 +570,11 @@ iframe {
 .signup-dropdown{
   display: none;
 }
+
+#resend-btn{
+  color: darkcyan;
+}
+#resend-btn:disabled,
+#resend-btn[disabled]{
+  color: darkgray;
+}

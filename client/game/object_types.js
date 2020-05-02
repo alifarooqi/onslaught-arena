@@ -472,7 +472,7 @@ var movementTypes = {
 			// too far, chase him down!
 			this.chase(p);
 		} else if (!this.cooldown) {
-			// shoot the fucker in the FACE
+			// shoot in the FACE
 			this.chase(p);
 			this.speed = 0;
 			return "shoot";
@@ -3228,7 +3228,7 @@ o.e_worm_spit = {
 	
 };
 
-// OTHER SHIT
+// OTHER STUFF
 
 o.mini_heart = {
 	role: "fluff",
@@ -3501,3 +3501,4 @@ o.item_weapon_fire_knife = {
 */
 
 }());
+

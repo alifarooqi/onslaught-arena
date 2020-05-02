@@ -220,11 +220,19 @@ const verify = async (data, socket) => {
 
 };
 
-
+const resendVerification = async (email) => {
+    console.log('Resending to', email);
+    db.getItem(USER_MODELPACK, {email}, res => {
+       if(res.success){
+           sendVerifyEmail(email, res.data.verificationCode);
+       }
+    });
+};
 
 module.exports = {
     login,
     signup,
     verify,
+    resendVerification,
     USER_MODELPACK
 };

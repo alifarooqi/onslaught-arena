@@ -63,7 +63,7 @@ const create = (host, hostSocket, guest, guestSocket, callback)=>{
 };
 
 const startCountdown = gameroomId =>{
-    let time = 0; // TODO Change to 5
+    let time = 5;
     let interval = setInterval(_=>{
         let gameroom = ACTIVE_GAMEROOMS[gameroomId];
         if(gameroom){
