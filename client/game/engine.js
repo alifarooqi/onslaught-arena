@@ -5,7 +5,7 @@ var SCREEN_WIDTH = 640;
 var SCREEN_HEIGHT = 480;
 var URL_STORE = "https://chrome.google.com/extensions/detail/khodnfbkbanejphecblcofbghjdgfaih";
 
-var DEFAULT_HIGH_SCORE = 1000;
+var DEFAULT_HIGH_SCORE = 0;
 var HIGH_SCORE_KEY = "high_score";
 
 var COLOR_BLACK = "rgb(0, 0, 0)";

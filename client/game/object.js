@@ -260,6 +260,9 @@ proto.init = function horde_Object_proto_init () {
  */
 proto.die = function horde_Object_proto_die () {
 	this.alive = false;
+    if(this.role === "hero"){
+        clearInterval(this.weaponSyncTimer);
+    }
 
 	// Clay.io: Log the death for things like achievements [Removed Leaderboard]
 	// if((this.role == "monster" || this.role == "projectile") && !this.ignoreLogDeath) // Certain projectiles are ignored (ex. fire_sword_trail)
@@ -835,12 +838,6 @@ proto.getStats = function horde_Object_proto_getStats(){
  *			meatEaten:			(Int)
  */
 proto.getObjectInfo = function horde_Object_proto_getObjectInfo () {
-	// const ignoredObjectRoles = ['projectile', 'powerup_weapon'];
-	// if(ignoredObjectRoles.includes(this.role)){
-	// 	console.log('Ignoring', this.id);
-	// 	return null;
-	// }
-
 	if(this.ignoreUpdate)
 		return;
 

@@ -223,8 +223,11 @@ function getCompatibility(player1, player2) {
         if(!isNaN(statDifference))
             compatibility -= statDifference;
     }
+    compatibility += (player1.totalScore + player2.totalScore)/100;
     compatibility = Math.ceil(compatibility);
-    compatibility = Math.max(compatibility, 0);
+    compatibility = Math.max(compatibility, 40);
+    compatibility = Math.min(compatibility, 100);
+
 
     return compatibility;
 }
@@ -252,7 +255,6 @@ const chatMessage = ({gameroomId, multiplayerType, message}) => {
 };
 
 const onMatchPartner = ({gameroomId, selection})=>{ // selection = 'match' || 'ignore'
-    console.log('on match partner', selection, ACTIVE_GAMEROOMS[gameroomId].partnerSelection);
     if(ACTIVE_GAMEROOMS.hasOwnProperty(gameroomId)){
         if(ACTIVE_GAMEROOMS[gameroomId].partnerSelection){
             if(ACTIVE_GAMEROOMS[gameroomId].partnerSelection === 'match' && selection === 'match'){

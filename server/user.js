@@ -82,7 +82,7 @@ function verifySignupCode(data, cb) {
                 };
                 db.updateOne(USER_MODELPACK, {_id: res.data._id}, newUpdate, res2 => {
                     if (res2.success) {
-                        return cb({
+                        cb({
                             success: true,
                             status: 200,
                             data: filterUser(res2.data)
